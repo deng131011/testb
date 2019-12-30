@@ -1,0 +1,90 @@
+ <!--banner-->
+	<div class="banner banner_pc" style="background:url('{:picture($banner[icon])}');">
+	    <div class="widths banner_1">
+		   <?php 
+		        $times = time();
+			    $weekarray=array("日","一","二","三","四","五","六");
+				  //星期
+				 $xq = '星期'.$weekarray[date("w",time())];
+		   ?>
+		   <p class="banner_p1">欢迎您！今天是{$times|date="Y",###}年{$times|date="m",###}月{$times|date="d",###}日 {$xq}</p>
+		   <p class="banner_p2"><img src="{:picture($logo[icon])}"/></p>
+		</div>
+	</div>
+	
+	<div class="banner banner_tel">
+	    <img src="{:picture($bannersj[icon])}"/>
+	    <div class="widths banner_1">
+		   <?php 
+		        $times = time();
+			    $weekarray=array("日","一","二","三","四","五","六");
+				  //星期
+				 $xq = '星期'.$weekarray[date("w",time())];
+		   ?>
+		 <!--  <p class="banner_p1">欢迎您！今天是{$times|date="Y",###}年{$times|date="m",###}月{$times|date="d",###}日 {$xq}</p>-->
+		   <p class="banner_p2"><img src="{:picture($logo[icon])}"/></p>
+		</div>
+	</div>
+	
+	
+	<!--header-->
+	<div class="head">
+	   <div class="widths header">
+	      <div class="head_hd" style="">
+	      <ul>
+		    
+			
+			
+			 <volist name="navList" id="navs" key="i">
+		     <li>
+				 <a href="<if condition='$i eq 1'>/<else/>{:U($navs[url],array('top'=>$navs[id]))}</if>" <if condition="$top eq $navs[id]">class="active"</if>>{$navs[title]}</a>
+                 <if condition="$i lt count($navList)">				 
+				  <span class="header-line">|</span>
+				 </if>
+			 </li>
+			 </volist>
+		     
+		  </ul>
+		  </div>
+	   </div>
+	</div>
+	
+	
+	<!--shouji-->
+    <div class="navbar_nav1">
+		<div class="navbar_body">
+			<div>
+				<ul>
+				   <volist name="navList" id="navLists">
+					
+					<li>
+						<a <if condition="count($navLists[twoNavlist]) eq 0">href="{:U($navLists[url],array('top'=>$navLists[id]))}"<else />href="javascript:;"</if> >{$navLists[title]}<i class="fa fa-angle-right rt"></i></a>
+						<ol>
+						    <volist name="navLists[twoNavlist]" id="twon">
+					        <li><a href="{:U($twon[url],array('top'=>$navLists[id],'erid'=>$twon[id]))}">{$twon[title]}</a></li>
+							</volist>
+					    </ol>
+					</li>
+					</volist>
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

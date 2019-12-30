@@ -1,0 +1,99 @@
+<extend name="Public/base"/>
+<block name="body">
+	<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+    <div class="main-title">
+        <h2><font style="color:#2d7200;">[{$vo[username]}]</font>问卷结果</h2>
+    </div>
+    <ul class="tab-nav nav">
+        <li class="current"><a href="javascript:void(0)">基本信息</a></li>
+    </ul>
+	<style>
+	  .controls p{padding-left:20px; margin-bottom:5px;}
+	  .comxx{ display:inherit; float:left; margin-left:30px; margin-top:10px;}
+	  .tk{margin-left:10px;}
+	  .form-horizontal .item-label{margin-top: 20px;}
+	</style>
+    
+    <form action="{:U()}" method="post" class="form-horizontal">
+    <div class="tab-content">
+       
+		<div class="form-item">
+		 <ul>
+		    <volist name="list" id="voe" key="m">
+		    <li>
+			    <label class="item-label">{$m}、{$voe[title]}。</label>
+				<div class="controls">
+				   <if condition="$voe['timutype'] neq 6 and $voe['timutype'] neq 7">
+                   <volist name="voe[sonlist]" id="vos">
+					   <span class="comxx">
+					      
+						   <input type="radio" readonly <if condition="$vos[resu][answer_id] eq $vos[id]">checked</if> />{$vos[title]}
+						   <if condition="$vos['tktype'] eq 1">
+						   <font class="tk">（原因：{$vos[resu][content]|default='--'}）</font>
+						   <elseif condition="$vos['tktype'] eq 2"/>
+						   <font class="tk">（举例：{$vos[resu][content]|default='--'}）</font>
+						   </if>
+					   </span>
+				   </volist>
+				   
+				    <elseif condition="$voe['timutype'] eq 6"/>
+						<volist name="voe[sonlist]" id="vos">
+						   <span class="comxx">
+							   {$vos[title]}
+							   <font class="tk">（分数：{$vos[resu][star_score]}分）</font>
+						   </span>
+					    </volist>
+					<elseif condition="$voe['timutype'] eq 7"/>	
+					
+						<span class="comxx">
+							答案：  {$voe[idea]}
+						</span>
+						
+					</if>
+				   
+                </div>
+			<li>
+		    </volist>
+		 
+		 </ul>
+		</div>
+		
+       
+		
+        <div class="form-item">
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </div>
+    
+	</form>
+</block>
+
+<block name="script">
+<include file="Public:datetime" />
+    <script type="text/javascript">
+	
+		$('.tab-nav li').click(function(){
+			$(this).attr('class','current')
+						.siblings().attr('class','');
+			var n_index=$('.tab-nav li').index(this);
+				$('.tab-content').eq(n_index).show()
+							 .siblings().hide();
+		});
+	
+        //导航高亮
+        highlight_subnav('{:U('Meeting/index')}');
+		
+		$('#deadline').datetimepicker({
+        format: 'yyyy-mm-dd hh:ii:ss',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });
+		$('#deadline2').datetimepicker({
+        format: 'yyyy-mm-dd hh:ii:ss',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });
+    </script>
+</block>

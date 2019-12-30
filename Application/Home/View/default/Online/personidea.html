@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>{:C('WEB_SITE_TITLE')}</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+<link rel="stylesheet" type="text/css" href="__CSS__/person.css">
+
+<!--js-->
+
+<script type="text/javascript" src="__JS__/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__JS__/layer.js"></script>
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+
+<style type="text/css">
+   .online_time{margin-top:0.6666666667rem; margin-bottom: 0.6666666667rem;}
+  .online_time p{text-align: center;}
+   .online_time p span{font-size:0.32rem; color: #fff; background: #cecece; padding:0.1066666667rem 0.2rem; border-radius: 0.0666666667rem;}
+	.online_mid{width:9.4666666667rem; margin:0 auto;}
+  .onlist{width:100%; float: left; margin-bottom: 0.6666666667rem;}
+  .touxiang{width:1.0666666667rem; height: 1.0666666667rem;}
+  .online_one .touxiang{float: left;}
+  .online_two .touxiang{float: right;}
+  .online_text{ max-width:6.6666666667rem; border-radius: 0.1333333333rem;}
+  .online_text p{padding:0.2666666667rem 0.2666666667rem;}
+  .texta{border:0.0266666667rem solid #d0d0d0;float: left; margin-left:0.3333333333rem; background: #fff;}
+  .texta p{font-size:0.4266666667rem; color: #000;}
+  .textb{border:0.0266666667rem solid #6fb44e; float: right; margin-right:0.3333333333rem; background: #a0e75a;}
+  .textb p{font-size:0.4266666667rem; color: #000;}
+  .left_jian{
+    width: 0.2266666667rem;
+    height: 0.32rem;
+    position: absolute;
+    margin-left: 1.2rem;
+    margin-top:0.2rem;
+
+  }
+  .right_jian{
+    width: 0.1466666667rem;
+    height: 0.28rem;
+    position: absolute;
+    right:0;
+    margin-right:1.5333333333rem;
+    margin-top:0.2rem;
+
+
+  }
+  .online_send{width:100%; height: 1.3333333333rem; background: #f5f5f6; border-top:0.0266666667rem solid #d7d7d9; position: fixed;z-index:999999; bottom:0;}
+  .online_send .caidan{width:0.5333333333rem; height:100%; margin:0 auto;}
+  .caidan_left{width:1.2rem; border-right:0.0266666667rem solid #d7d7d9; float: left;}
+  .cai_send {width:6.1333333333rem; border:0.0266666667rem solid #d7d7d9; border-radius: 0.1333333333rem; height:0.9333333333rem; float: left; margin-left:0.3333333333rem; margin-top:0.1866666667rem;}
+  .cai_send input{height:100%; width:100%; border:none; border-radius: 0.1333333333rem; outline: none;}
+  .send_text{width:1.7333333333rem; float: left; height:0.9333333333rem; margin-top:0.1866666667rem; margin-left:0.2533333333rem;}
+  .send_text input{background: #f2a208; color:#fff; width:100%; height:100%; font-size: 0.4266666667rem; border:none; outline: none;}
+  #online_btns{background: #f2a208; color:#fff; width:100%; height:100%; line-height:0.9333333333rem; text-align: center;  font-size: 0.4266666667rem; border:none; outline: none;}
+  .twocaidan{background: #2c3036; width:0.5333333333rem; height: 0.5066666667rem; margin-top:0.4rem; margin-left:0.1333333333rem;}
+  .nav_title{width:3.0066666667rem; margin-left:;}
+  .nav_img{margin-left: 0.33333333333rem;}
+
+</style>
+</style>
+</head>
+<body style="position: relative;">
+    <div class="main person" id="contenter">
+        <div class="online_mid" id="infocontent">
+
+
+            <volist name="lists" id="vot">
+
+            <if condition="$vot[txtimes] neq 0">  
+            <div class="onlist online_time"><p><span>{$vot[txtimes]|date="Y-m-d H:i",###}</span></p></div>
+            </if>
+            
+            
+
+            <div class="onlist online_two">
+                <div class="right_jian"><img src="__IMG__/right.png"/></div>
+                <div class="touxiang"><img src="{:getMemberImg()}"/></div>
+                <div class="online_text textb"><p>{$vot[content]}</p></div>
+            </div>
+
+            <volist name="vot[soncont]" id="voty"> 
+            <div class="onlist online_one">
+               <div class="left_jian"><img src="__IMG__/left.png"/></div>
+               <div class="touxiang"><img src="__IMG__/logo.jpg"/></div>
+               <div class="online_text texta"><p>{$voty[content]}</p></div>
+            </div>
+            </volist>
+
+            </volist>
+
+            
+
+        </div>
+	 </div>
+
+
+ <!--遮罩-->
+     <div class="zz_tk host_hide" >
+        <div class="hostl" style="height:4.0rem">
+            <div class="title">
+                <p>信息 <span class="fa fa-times quxiaos"></span></p>
+            </div>
+            <div class="prices survey_success">
+                <p class="idesa_rr"></p>
+                
+            </div>
+
+        </div>
+    </div>
+   
+<!--新菜单-->
+<div class="online_send">
+    <div class="caidan_left">
+      <div class="caidan cai_img" data-type="on"><img src="__IMG__/caidan.png"/></div>
+    </div>
+    <div class="cai_send"><input type="text" id="ertetet" name="content" value="" class="input" /></div>
+    <div class="send_text"><p id="online_btns">发送</p></div>
+</div>
+
+	
+    <!--底部导航-->
+<div class="navyc"></div>    
+<div id="bottomnavs" style="display: none;">
+
+
+        <div class="nav">
+       <div class="caidan twocaidan" data-type="false" style="float: left;"><img src="__IMG__/caidan2.png"/></div>
+       <volist name="navList" id="navtop">
+          <div class="nav_title">
+              <div class="nav_img" style="margin-left: 0.43333333333rem;"><img src="__IMG__/nav.jpg"/></div>
+            <p>{$navtop[title]}</p>
+                 <!--二级菜单--> 
+                <div class="two_nav">
+                    <div class="mids">
+            <volist name="navtop['twoNavlist']" id="twonav">
+               
+             <if condition="$twonav['id'] eq 12">
+                 <if condition="isCompanyLabour() eq 100">
+                  <p><a href="{:U($twonav['url'],array('id'=>$twonav['id']))}">{$twonav[title]}</a></p>
+               </if>
+             <else/>
+                 
+                <p><a href="<if condition='$twonav[id] eq 16'>http://donghua.59156.cn<else/>{:U($twonav['url'],array('id'=>$twonav['id']))}</if>">{$twonav[title]}</a></p>
+             </if>
+             
+            </volist>
+                  </div>
+                </div> 
+          </div>
+            </volist>
+          
+          
+        </div> 
+<script>
+   
+   $(".nav_title").click(function(){
+      $(".nav_title").children('.two_nav').hide();
+    $(this).children('.two_nav').show();
+
+   });
+   
+   $(".main,.about_main,.bsg_main").click(function(){
+   
+      $(".nav_title").find(".two_nav").hide();
+   
+   });
+   
+    
+
+</script>
+
+
+
+
+</div>
+
+
+
+<script type="text/javascript">
+window.onload = function() {  
+
+        document.querySelector('body').addEventListener('touchend', function(e) {  
+			
+            if(e.target.className != 'input') {  
+		
+                document.querySelector('.input').blur();  
+            }  
+        });  
+   
+    }  
+	 
+   var u = navigator.userAgent;
+    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+   
+   
+    //切换菜单
+    $(".cai_img").click(function(){
+       
+               $(".online_send").hide(); 
+               $("#bottomnavs").show();
+     
+    });
+
+    $(".twocaidan").click(function(){
+       
+         $(".online_send").show(); 
+         $("#bottomnavs").hide();
+      
+    });
+	$(window).on("keyup", function(e){  
+	
+		if(e.keyCode == 13){
+		
+			var contents = $("input[name='content']").val();
+
+			 if($.trim(contents).length==0){
+				  $(".host_hide").show();
+				  $(".idesa_rr").text('内容不能为空！'); 
+				  return false;
+			 }
+			 
+			// $('#contenter').scrollTop($('#contenter')[0].scrollHeight);
+
+			 $.post("{:U('personidea')}",{content:contents},function(dd){
+			  
+				  $(".online_mid").append(dd);
+				  $("input[name='content']").val('');
+				  $(".online_send").css('bottom','0');
+				  
+				  heighter = $("#contenter").height();
+				  
+				  $(window).scrollTop(heighter);
+
+			 });
+		
+		}
+	
+	})
+	 var bfscrolltop = document.body.scrollTop;//获取软键盘唤起前浏览器滚动部分的高度
+    $("#ertetet").focus(function(){
+        
+		//Element.scrollIntoView();
+		
+		interval = setInterval(function(){
+        document.body.scrollTop = document.body.scrollHeight;
+        },100);
+		
+		
+        if(isiOS==true){
+           // $(".online_send").css('bottom','13%');
+		   //Element.scrollIntoView
+           
+        }else{
+            $(".online_send").css('bottom','0');
+        }
+          
+          
+
+    });
+
+     $("#ertetet").blur(function(){
+	 
+	    clearInterval(interval);//清除计时器
+        document.body.scrollTop = bfscrolltop;
+
+          $(".online_send").css('bottom','0');
+
+
+     });
+
+
+	
+
+     
+    $(".send_text").click(function(){
+
+
+         var contents = $("input[name='content']").val();
+
+         if($.trim(contents).length==0){
+              $(".host_hide").show();
+              $(".idesa_rr").text('内容不能为空！'); 
+              return false;
+         }
+         
+        // $('#contenter').scrollTop($('#contenter')[0].scrollHeight);
+
+         $.post("{:U('personidea')}",{content:contents},function(dd){
+             
+			 //alert(dd.msg);
+		  
+              $(".online_mid").append(dd.msg); 
+			  
+              $("input[name='content']").val('');
+			  $(".online_send").css('bottom','0');
+			  
+			  heighter = $("#contenter").height();
+			  
+			  $(window).scrollTop(heighter);
+			  
+			  var idss = dd.id;
+			  
+			 // $.post("{:U('ifReturnNews')}",{status:'qingqiu',id:idss},function(dh){
+		  
+		  
+			//  });
+			  
+			  
+
+         });
+		 
+
+    }); 
+
+
+
+
+
+
+    //关闭弹框
+     $(".quxiaos").click(function(){
+                
+        $(".host_hide").hide();
+        $(".online_send").css('bottom','0');
+
+     }); 
+
+
+</script>  
+
+
+<script>
+	//定时请求
+	$(function(){
+	   setInterval("Reload()",3000);
+	});
+	
+	function Reload(){
+	    // alert(123);
+	     var contyu= $("input[name='content']").val();
+	    $.post("{:U('ajaxinfo')}",{content:contyu},function(d){
+		
+		    $("#infocontent").html(d);
+		
+		});
+		
+	
+	}
+	
+	
+	</script>    
+
+
+</body>
+</html>

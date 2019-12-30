@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>项目展示</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+<link rel="stylesheet" type="text/css" href="__CSS__/person.css"> 
+<!--js-->
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+<script type="text/javascript" src="__JS__/jquery-1.9.1.min.js"></script>
+<!--筛选弹框js-->
+<script type="text/javascript" src="__JS__/style.js"></script>
+
+<style type="text/css">
+
+.sp_imggg{display: none;}
+
+	
+</style>
+
+
+</head>
+<body>
+    <div class="main product">
+       <!--顶部图-->
+	   <div class="top">
+	   	    
+	   	    <p>PROJECT SHOW</p>
+
+	   </div>
+
+	   <!--内容-->
+	   <div class="list_mid">
+	      <div class="addr">
+	      	 <div style="width:0.2666666667rem; height:0.3733333333rem; float: left; margin-top:0.08rem">
+	      	    <img src="__IMG__/product/cp2.png" style="width:100%;" />
+	      	 </div>
+	      	 <div style="float: left; margin-left:0.0666666667rem; font-size: 0.3733333333rem; color: #63665d;">距您{:C('EWB_DISTANCE')}KM范围内的项目！</div>
+	      	 <div style="float: right; width:1.4rem; height:0.6666666667rem; background: #f39801; border-radius: 0.0666666667rem; text-align: center; line-height: 0.6666666667rem;">
+	      	 <a class="mo_cd" href="{:U('mores')}" style="color: #fff; font-size: 0.3466666667rem;">更多</a></div>
+	      </div>
+
+
+
+           <div id="newslist">
+	       <!--列表开始-->
+	       <volist name="list" id="vo">
+	   	   <div class="lists pro_list ">
+	   	        <div class="width670">
+	   	           <a href="{:U('details',array('id'=>$vo[id]))}">
+		   	   	    <div class="titles">
+		   	   	    	<span class="span1">{$vo[title]}</span>
+		   	   	    	<span class="span2"></span>
+		   	   	    </div>
+		   	   	    <div class="twos">
+		   	   	        <div class="sp_img1 sp_imgg"><img src="__IMG__/tb1.jpg"/></div>
+                        <div class="sp_img1 sp_imggg"><img src="__IMG__/cppp1.png"/></div>
+		   	   	        <div class="font">{$vo[hy_id]|modelField='industry','title'}</div>
+
+		   	   	        <div class="sp_img2 sp_imgg"><img src="__IMG__/tb2.jpg"></div>
+		   	   	        <div class="sp_img2 sp_imggg"><img src="__IMG__/cppp2.png"></div>
+		   	   	        <div class="font" style="margin-top:0.0533333333rem;">{$vo[years]}</div>
+
+		   	   	        <div class="sp_img3 sp_imgg"><img src="__IMG__/tb3.jpg"></div>
+		   	   	        <div class="sp_img3 sp_imggg"><img src="__IMG__/cppp3.png"></div>
+		   	   	         <div class="font" style="margin-top:0.0533333333rem;">{$vo[size]}</div>
+
+		   	   	        <div class="sp_img4 sp_imgg"><img src="__IMG__/tb4.jpg"></div>
+		   	   	        <div class="sp_img4 sp_imggg"><img src="__IMG__/cppp4.png"></div>
+		   	   	         <div class="font">{$vo[color_id]|modelField="industry","title"}</div>	
+		   	   	    </div>
+		   	   	    
+		   	   	    </a>
+	   	   	    </div>
+	   	    </div>
+            </volist> 
+            </div>
+	   	   
+
+	   	    
+	   	       <if condition="count($list) gt 10">
+                  <div class="xiala pull_up">向下拉动展示更多内容...</div>
+               </if>
+            
+
+	   </div>
+	</div>
+
+
+
+
+
+    <!--底部导航-->
+        <include file="Public:bottomnav"/>
+
+
+
+
+
+<script type="text/javascript">
+	
+
+
+    //下拉加载
+
+	var range = 0; //距下边界长度/单位px  
+    var elemt = 280; //插入元素高度/单位px  
+    var maxnum = 20; //设置加载最多次数  
+    var num = 1;  
+    var totalheight = 0;  
+    
+    var main = $("#newslist"); //主体元素  
+    $(window).scroll(function(){  
+    var srollPos = $(window).scrollTop(); //滚动条距顶部距离(页面超出窗口的高度)  
+    //console.log("滚动条到顶部的垂直高度: "+$(document).scrollTop());  
+    //console.log("页面的文档高度 ："+$(document).height());  
+    //console.log('浏览器的高度：'+$(window).height());  
+    totalheight = parseFloat($(window).height()) + parseFloat(srollPos);  
+    if(($(document).height()-range) <= totalheight && num != maxnum) {
+           
+            $.post('{:U("product/index")}',{num:num},function(data){
+			var res = jQuery.parseJSON(data);
+             
+			if(res['code'] == 500){
+                $(".pull_up").html('没有更多内容了');
+			//	layer.alert(res['content']);
+				return false;
+			}
+			if(res['code'] == 200){
+
+				setTimeout(function(){
+					console.log(num);
+					$(".pull_up").hide();
+
+					main.append(res['content']);
+					num++;
+
+					$(".com_olis .tra_iimgs img").each(function(){
+						var  imds=$(this).attr("src");
+						if(imds==''||imds=='undefind'){
+							$(this).parent(".tra_iimgs").hide();
+						}
+
+					})
+
+				},2000)
+
+			}
+
+		});
+
+	
+  	$(".pull_up").show();
+    }  
+    });
+
+
+ //点击切换颜色
+ $(".pro_list").click(function(){
+
+
+     $(".pro_list").removeClass('pro_active');
+     $(".pro_list").find(".sp_imggg").hide();
+     $(".pro_list").find(".sp_imgg").show();
+     $(this).addClass('pro_active');
+     $(this).find(".sp_imggg").show();
+     $(this).find(".sp_imgg").hide();
+
+ });
+
+
+
+
+
+</script>   
+
+
+
+
+</body>
+</html>

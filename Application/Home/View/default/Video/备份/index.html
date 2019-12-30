@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>{:C('WEB_SITE_TITLE')}</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/person.css"> 
+<!--js-->
+<script type="text/javascript" src="__JS__/jquery-1.9.1.min.js"></script>
+
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+
+<style>
+.bsg_main{min-height:14.76rem;}
+.video_img video{width:100%;}
+.top p{margin-top:0;}
+</style>
+
+</head>
+<body>
+    <div class="bsg_main main">
+	
+	
+	    <div class="top" style="background: url('__IMG__/contact.png') no-repeat; background-size:100% 100%; ">
+	   	    <p style="margin-top: 0.6666666667rem;">视频中心</p>
+	   	    <p>Video</p>
+
+	    </div>
+         <div class="video">
+            <!--列表开始-->
+			
+			<volist name="list" id="vo" key="k">
+			
+             <div class="video_list" <if condition="count($list) eq 1">style="margin-top:10%;"</if> >
+                 <div class="video_img">
+                   <!-- <img class="video_img" src="{:picture($vo[icon])}"/> -->
+				    <if condition="$k eq 1">
+                    <video poster="{:picture($vo[icon])}" controls="controls" autoplay="autoplay" class="myVideo" id="cideoPlay1" preload  style="height:5.6666666667rem; width:100%;">
+                        <source src="{:file_url($vo['file'])}" type="video/mp4">
+                    </video>
+					<else/>
+					<video poster="{:picture($vo[icon])}" controls="controls" class="myVideo" id="cideoPlay1" preload  style="height:5.6666666667rem; width:100%;">
+                        <source src="{:file_url($vo['file'])}" type="video/mp4">
+                    </video>
+					
+					</if>
+					
+                    <div class="times" style="margin-top:-1.8rem;">{$vo[video_time]}</div>  
+                 </div>
+                 <p>
+                     <span class="span1">{$vo[title]}</span>
+                     <span class="span2"><img src="__IMG__/fx1.png" class="fenxiangs" /></span>
+                 </p>
+                
+                
+             </div>
+
+
+            
+            </volist> 
+
+            
+
+
+
+
+         </div>
+	</div>
+
+    <div class="zz_tk" style="display: none;"></div>
+    <div class="fx_img" style="z-index: 999999999; display: none; width:100%; height:100%; top:10%; left:20%; position: absolute;"><img src="/Public/Home/images/guide.png" style="width:60%;" /></div>
+
+    <!--底部导航-->
+       <include file="Public:bottomnav"/>
+ <script type="text/javascript">
+     
+    var video1=document.getElementById("cideoPlay1");
+
+    video1.onclick=function(){
+
+        if(video1.paused){
+
+            video1.play();
+
+        }else{
+
+            video1.pause();
+
+        }
+
+       // video1.setAttribute("controls","controls")
+
+    }
+
+    $(".fenxiangs").click(function(){
+
+       $(".zz_tk").show();
+       $(".fx_img").show();
+
+    });
+
+   $(".fx_img,.zz_tk").click(function(){
+
+        $(".zz_tk").hide();
+       $(".fx_img").hide();
+
+   });
+
+ </script>      
+
+</body>
+</html>

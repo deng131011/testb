@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>{:C('WEB_SITE_TITLE')}</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+<link rel="stylesheet" type="text/css" href="__CSS__/person.css"> 
+<!--js-->
+<script type="text/javascript" src="__STATIC__/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+
+<!--动画-->
+<link rel="stylesheet" type="text/css" href="__CSS__/animate.min.css">
+<script type="text/javascript" src="__JS__/wow.min.js"></script>
+<style type="text/css">
+  .pro_top{width: 100%; margin-top: 0.5333333333rem; }
+  .pro_top1{width:0.7466666667rem; height: 1.0666666667rem; float: left;}
+  .pro_topimg{width:0.48rem; height: 0.6133333333rem; float: right; margin-top:0.0933333333rem;}
+  .pro_top2{float: left; margin-left:0.2133333333rem;}
+  .pro_banner{width:100%; height: 6.16rem; float: left; margin-top: 0.4rem;}
+  .titleleft{width:2.0rem; float: left;}
+  .titleleft span{float: right;}
+  .remakright{float:left; margin-top:0.0266666667rem; max-width:6.6666666667rem;}
+  .remakright span{font-size:0.3733333333rem; color: #7a7a7a; float: left;}
+  .remakright p{font-size:0.3733333333rem; color: #7a7a7a;}
+  .xq_con .map{height: 6.08rem;}
+</style>
+</style>
+</head>
+<body onload="init()">
+    <div class="main product">
+          <div class="pro_top pro_list">
+              <div class="pro_top1">
+                 <div class="pro_topimg"><img src="__IMG__/cp2.png"/></div>
+              </div>
+              <div class="pro_top2">
+                  <p style="font-size:0.5333333333rem; color: #222222;">{$vo[title]}</p>
+                   <div class="twos" style="margin-top:0.1066666667rem;">
+                       <div class="sp_img1 sp_imgg"><img src="__IMG__/tb1.jpg"/></div>
+                       <div class="font" style="margin-top: -0.0666666667rem">{:getHycategory($vo[hy_id])}</div>
+
+                       <div class="sp_img2 sp_imgg"><img src="__IMG__/tb2.jpg"></div>
+                       <div class="font" style="margin-top:;">{$vo[years]}</div>
+
+                      <div class="sp_img3 sp_imgg"><img src="__IMG__/tb3.jpg"></div>
+                      <div class="font" style="margin-top:;">{:getNumberDou($vo[size])}</div>
+
+                   </div>
+              </div>
+          </div>
+
+
+          <if condition="$vo[icon] gt 0">
+          <div class="pro_banner" style="margin-bottom: 0.4rem"><img src="{:picture($vo[icon])}" style="height:6.16rem;" /></div>
+          </if>
+
+          <div class="xq_mid">
+          	  <div class="xq_con">
+          	  	   <div class="xq_width">
+                       <div class="titleleft"><span class="span1">年份：</span></div>
+          	  	   	   <div class="remakright"><span class="span1">{$vo[years]}</span></div>
+          	  	   </div>
+
+          	  	   <div class="xq_width">
+          	  	   	    <div class="titleleft"><span class="span1">项目分类：</span></div>
+                        <div class="remakright"><span class="span1">{:getHycategory($vo[hy_id])}</span></div>
+          	  	   </div>
+
+                   <div class="xq_width">
+                        <div class="titleleft"><span class="span1">项目地点：</span></div>
+                        <div class="remakright"><span class="span1">
+                        {$vo[province_id]|modelField="province","addr"}- {$vo[city_id]|modelField="city","addr"}
+                        <if condition="$vo[hsr] eq 'Y' or $vo[hsr] eq 'y'">-高铁沿线</if>
+                        </span></div>
+                   </div>
+
+          	  	   <div class="xq_width">
+          	  	   	    <div class="titleleft"><span class="span1">规模(㎡)：</span></div>
+                        <div class="remakright"><span class="span1">{:getNumberDou($vo[size])}</span></div>
+          	  	   </div>
+
+                   <div class="xq_width">
+                        <div class="titleleft"><span class="span1">产品：</span></div>
+                        <div class="remakright">
+                            {:getProducterType($vo[cp_id])}
+                        </div>
+                   </div>
+
+                  
+                   <div class="xq_width">
+                        <div class="titleleft"><span class="span1">详细地址：</span></div>
+                        <div class="remakright"><span class="span1">{$vo[addr_map]}</span></div>
+                   </div>
+				   
+				   <div class="map" id="container">
+          	  	   	  <!-- <img src="__IMG__/product/map.jpg"/> -->
+          	       </div>
+				   
+          	  </div>
+			  
+			   
+			  
+          </div>
+
+
+
+      
+	</div>
+
+
+
+
+    <!--底部导航-->
+        <include file="Public:bottomnav"/>
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
+<script>
+
+var init = function() {
+    var center = new qq.maps.LatLng({$vo[longitude]},{$vo[latitude]});
+    var map = new qq.maps.Map(document.getElementById('container'),{
+        center: center,
+        zoom: 13,
+        mapTypeControlOptions: {
+                    //设置控件的地图类型ID，ROADMAP显示普通街道地图，SATELLITE显示卫星图像，HYBRID显示卫星图像上的主要街道透明层
+                    mapTypeIds: [
+                        qq.maps.MapTypeId.ROADMAP,
+                    ],
+                    
+                }
+    });
+
+    var label = new qq.maps.Label({
+        position: center,
+        map: map,
+        content: '{$vo[title]}'
+    });
+    //创建标记
+    var marker = new qq.maps.Marker({
+        position: center,
+        map: map
+    });
+    //添加到提示窗
+    var info = new qq.maps.InfoWindow({
+        map: map
+    });
+
+   
+  
+     //   info.open(); 
+     //   info.setContent('<div style="text-align:center;white-space:nowrap;'+
+      //  'margin:0.1333333333rem;">{$vo[title]}</div>');
+      //  info.setPosition(center); 
+
+    
+}
+
+
+</script>
+
+<script>
+    if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))){
+        new WOW().init();
+    };
+</script>
+
+</body>
+</html>

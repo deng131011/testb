@@ -1,0 +1,114 @@
+<extend name="Public/base"/>
+
+<block name="body">
+	<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+    <div class="main-title">
+        <h2>调研详情查看</h2>
+    </div>
+    <ul class="tab-nav nav">
+
+
+        <li class="current"><a href="javascript:void(0)">调研统计</a></li>
+       <!-- <li><a href="{:U('Survey/export')}">Excel导出</a></li>-->
+       
+    </ul>
+    
+    <form action="{:U()}" method="post" id="form1" class="form-horizontal">
+    <input type="hidden" name="id" value="{$vo[id]}">
+
+	<style>
+	   .diaocha{border:1px solid #e0e0e0; width:902px;}
+	   .dc_title{width:100%; height:100px; border-bottom:1px solid #e0e0e0;}
+	   .dc_title_left{width:300px;height:100px; font-size:12px; font-weight:bold; float:left; text-align:center; line-height:120px; border-right:1px solid #e0e0e0;}
+	   .dc_title_mid{width:400px; height:100px; float:left;border-right:1px solid #e0e0e0;}
+	    .title1{width:100%; text-align:center; height:35px; line-height:35px; border-bottom:1px solid #e0e0e0;font-size:12px; font-weight:bold;}
+	   .divs{height:64px; line-height:64px; text-align:center;float:left;border-right:1px solid #e0e0e0;font-size:12px; font-weight:bold;}
+	   .dc_title_right{width:200px; height:100px; float:left; }
+	   .like_d{border-right:1px solid #e0e0e0;}
+	   .con_list{width:100%; font-size:12px;overflow: hidden;}
+	   .con_type{text-align:left; font-weight:bold; float:left; width:100%;}
+	   .borders{border-bottom:1px solid #e0e0e0; height:30px; line-height:30px;font-size: 14px;}
+	   .conlister{width:100%; float:left;border-bottom:1px solid #e0e0e0;height:35px; line-height:35px;}
+	   .table1{width:300px;}
+	   .table2{width:80px;text-align:center;}
+	   .table3{width:78px;text-align:center;}
+	   .table4{width:78px;text-align:center;}
+	   .table5{width:80px;text-align:center;}
+	   .table6{width:80px;text-align:center;}
+	   .table7{width:63px;text-align:center;}
+	   .table8{width:63px;text-align:center;}
+	   .table9{width:72px;text-align:center;}
+	   .tables{border-right:1px solid #e0e0e0;  float:left; height:35px; line-height:35px;}
+	</style>
+	<div class="tab-content ">
+		<div class="diaocha">
+		    <div class="dc_title">
+			   <div class="dc_title_left">调查内容</div>
+			   <div class="dc_title_mid">
+			      <div class="title1">满意度</div>
+				  <div>
+				    <div class="divs" style="width:80px">5分</div>
+				    <div class="divs" style="width:78px">4分</div>
+				    <div class="divs" style="width:78px">3分</div>
+				    <div class="divs" style="width:80px">2分</div>
+				    <div class="divs" style="width:80px;border-right:none;">1分</div>
+				  </div>
+			   </div>
+			   <div class="dc_title_right">
+			       <div class="title1">重要度</div>
+				   <div>
+				      <div class="divs" style="width:63px;">3分</div>
+				      <div class="divs" style="width:63px;">2分</div>
+				      <div class="divs" style="width:72px;border-right:none;">1分</div>
+				   </div>
+			   </div>
+			</div>
+			<!--内容-->
+			
+			<div class="con_list">
+			<volist name="wtList" id="wtvo" key="k">
+			   <div class="con_type borders" >{$wtvo[title]}</div>
+			   <volist name="wtvo[problem]" id="wtlist" key="m">
+			   <div class="conlister" style="<if condition='count($wtList) eq $k and count($wtvo[problem]) eq $m'>border-bottom:none;</if>">
+			      <div class="tables table1">{$m}、{$wtlist[title]}</div>
+			      <div class="tables table2">{$wtlist[counta]}票</div>
+			      <div class="tables table3">{$wtlist[countb]}票</div>
+			      <div class="tables table4">{$wtlist[countc]}票</div>
+			      <div class="tables table5">{$wtlist[countd]}票</div>
+			      <div class="tables table6">{$wtlist[counte]}票</div>
+			      <div class="tables table7">{$wtlist[zscounta]}票</div>
+			      <div class="tables table8">{$wtlist[zscountb]}票</div>
+			      <div class="tables table9" style="border-right:none;">{$wtlist[zscountc]}票</div>
+			   </div>
+			   </volist>   
+			 </volist>  
+			</div>
+			
+		
+		
+		</div>
+	    <div class="form-item" style="margin-top:20px;">
+           
+            <a href="{:U('result')}" class="btn btn-return">返 回</a>
+        </div>
+	
+	</div>
+	
+	
+    </form>
+</block>
+<block name="script">	
+	<script>
+	
+	    
+		
+		
+		
+	
+	 //导航高亮
+        highlight_subnav('{:U('Survey/result')}');
+	
+	</script>
+</block>
+
+

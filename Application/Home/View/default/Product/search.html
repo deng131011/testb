@@ -1,0 +1,299 @@
+<style>
+ .widthaller{width: 100%;float: left;}
+</style>
+<!--时间-->
+<div class="zz1"></div>  
+    <div class="zz_tk navbar_nav1">
+    	<div class="sai_xuan">
+
+    		<div class="tk_logo widthall">
+    		    <div class="width420">
+    			    <div class="tk_logo_img"><img src="__IMG__/logo.jpg"/></div>
+    			</div>
+    		</div>
+
+    		<div class="widthall mianmao">
+    		    <div class="width420">
+    			    <p class="p_mb">
+    			    	<a href="javascript:;">按时间选择</a> >
+    			    	<span><img src="__IMG__/tb5.jpg"/></span>
+    			    </p>
+    			</div>
+    		</div>
+
+    		<!--分类-->
+
+            <div class="xh_liebiao">
+            <volist name="timelist" id="voa"> 
+	    		<div class="widthall height100 search_list time_list" data-year='{$voa}'>
+                   <a href="{:U('index',array('years'=>$voa[years]))}">
+	    		    <div class="width420">
+	    			    <p class="p_mb" >
+	    			    	
+	                            <span class="span1">{$voa[years]}</span>
+	                            <span class="num_pro">{:getYearsNum($voa[years])}</span>
+	                            <span class="span2">></span>
+	    			    	
+	    			    </p>
+	    			</div>
+                    </a>
+	    		</div>
+    		</volist>
+    		</div>
+            
+            <div class="widthaller  height100 search_list"></div>
+   
+    	</div>
+
+</div>
+
+
+<!--行业-->
+<div class="zz1"></div>  
+    <div class="zz_tk navbar_nav1">
+        <div class="sai_xuan">
+
+            <div class="tk_logo widthall">
+                <div class="width420">
+                    <div class="tk_logo_img"><img src="__IMG__/logo.jpg"/></div>
+                </div>
+            </div>
+
+            <div id="hangyeer">
+            <div class="widthall mianmao">
+                <div class="width420">
+                    <p class="p_mb">
+                        <a href="javascript:;">按行业选择</a>
+                        <span><img src="__IMG__/tb5.jpg"/></span>
+                    </p>
+                </div>
+            </div>
+
+            <!--分类-->
+
+            <div class="xh_liebiao">
+            <volist name="hyList" id="vob"> 
+                <div class="widthall height100 search_list hy_lists" data-status="{:haveSonnav($vob[id])}" data-id='{$vob[id]}'>
+				     <if condition="haveSonnav($vob[id]) eq 2">
+                                 <a href="{:U('index',array('hy_id'=>$vob[id]))}">
+                            <else/>
+                                 <a href="javascript:;">
+                            </if>
+                    <div class="width420">
+                        <p class="p_mb">
+                           
+                            
+
+                                <span class="span1">{$vob[title]}</span>
+                                <span class="num_pro">{:getHycounter($vob[id])}</span>
+                                <span class="span2">></span>
+                            
+                        </p>
+                    </div>
+					</a>
+                </div>
+            </volist>
+            </div>
+            <div class="widthaller  height100 search_list"></div>
+            
+                 
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+ <!--地址-->
+
+<div class="zz1"></div>  
+    <div class="zz_tk navbar_nav1">
+        <div class="sai_xuan">
+
+            <div class="tk_logo widthall">
+                <div class="width420">
+                    <div class="tk_logo_img"><img src="__IMG__/logo.jpg"/></div>
+                </div>
+            </div>
+
+            <div id="address">
+            <div class="widthall mianmao">
+                <div class="width420">
+                    <p class="p_mb">
+                        <a href="javascript:;">按地址选择</a>
+                        <span><img src="__IMG__/tb5.jpg"/></span>
+                    </p>
+                </div>
+            </div>
+
+            <!--分类-->
+
+            <div class="xh_liebiao">
+            <volist name="province" id="voc"> 
+                <div class="widthall height100 search_list addrs_list" data-id='{$voc[id]}'>
+                    <div class="width420">
+                        <p class="p_mb" >
+                            <a href="javascript:;">
+                                <span class="span1">{$voc[addr]}</span>
+                                <span class="num_pro">{$voc[counts]}</span>
+                                <span class="span2">></span>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </volist>
+
+            </div>
+
+            <div class="widthaller height100 search_list"></div>
+            
+            </div>
+        </div>
+
+    </div>
+
+
+
+ <!--规模-->
+<div class="zz1"></div>  
+    <div class="zz_tk navbar_nav1">
+        <div class="sai_xuan">
+
+            <div class="tk_logo widthall">
+                <div class="width420">
+                    <div class="tk_logo_img"><img src="__IMG__/logo.jpg"/></div>
+                </div>
+            </div>
+
+            <div class="widthall mianmao">
+                <div class="width420">
+                    <p class="p_mb">
+                        <a href="javascript:;">按规模选择</a>
+                        <span><img src="__IMG__/tb5.jpg"/></span>
+                    </p>
+                </div>
+            </div>
+
+            <!--分类-->
+
+            <div class="xh_liebiao">
+            <volist name="gmList" id="vod"> 
+                <div class="widthall height100 search_list ">
+                    <if condition="$vod[counts] neq 0">
+                    <a href="{:U('index',array('size'=>$vod[id]))}">
+                    <else />
+                      <a href="javascript:;">
+                    </if>
+
+                    <div class="width420">
+                        <p class="p_mb" data-id='{$vod[id]}'>
+                           
+                                <span class="span1">{$vod[title]|guimo_fu=3}</span>
+                                <span class="num_pro">{$vod[counts]}</span>
+                                <span class="span2">></span>
+                            
+                        </p>
+                    </div>
+                    </a>
+                </div>
+            </volist>
+            </div>
+           <div class="widthaller  height100 search_list"></div>
+        </div>
+
+    </div>
+
+
+<!--产品-->
+<div class="zz1"></div>  
+    <div class="zz_tk navbar_nav1">
+        <div class="sai_xuan">
+
+            <div class="tk_logo widthall">
+                <div class="width420">
+                    <div class="tk_logo_img"><img src="__IMG__/logo.jpg"/></div>
+                </div>
+            </div>
+
+            <div class="widthall mianmao">
+                <div class="width420">
+                    <p class="p_mb">
+                        <a href="javascript:;">按产品选择</a>
+                        <span><img src="__IMG__/tb5.jpg"/></span>
+                    </p>
+                </div>
+            </div>
+
+            <!--分类-->
+
+            <div class="xh_liebiao">
+            <volist name="cpList" id="voe"> 
+			
+			    <if condition="$voe['counts'] neq 0 and $voe['counts'] neq null">
+			    
+                <div class="widthall height100 search_list">
+                    <a href="{:U('index',array('cp_id'=>$voe[id]))}">
+                    <div class="width420">
+                        <p class="p_mb" data-id='{$voe[id]}'>
+                           
+                                <span class="span1">{$voe[title]}</span>
+                                <span class="num_pro">{$voe['counts']}</span>
+                                <span class="span2">></span>
+                            
+                        </p>
+                    </div>
+                    </a>
+                </div>
+				</if>
+            </volist>
+            </div>
+            <div class="widthaller  height100 search_list"></div>  
+        </div>
+
+    </div>
+
+
+<!--颜色-->
+<div class="zz1"></div>  
+    <div class="zz_tk navbar_nav1">
+        <div class="sai_xuan">
+
+            <div class="tk_logo widthall">
+                <div class="width420">
+                    <div class="tk_logo_img"><img src="__IMG__/logo.jpg"/></div>
+                </div>
+            </div>
+
+            <div class="widthall mianmao">
+                <div class="width420">
+                    <p class="p_mb">
+                        <a href="javascript:;">按颜色选择</a>
+                        <span><img src="__IMG__/tb5.jpg"/></span>
+                    </p>
+                </div>
+            </div>
+
+            <!--分类-->
+
+            <div class="xh_liebiao">
+            <volist name="ysList" id="vof"> 
+                <div class="widthall height100 search_list ">
+                    <a href="{:U('index',array('color_id'=>$vof[id]))}">
+                    <div class="width420">
+                        <p class="p_mb" data-id='{$vof[id]}'>
+                           
+                                <span class="span1">{$vof[title]}</span>
+                                <span class="num_pro">{$vof['counts']}</span>
+                                <span class="span2">></span>
+                            
+                        </p>
+                    </div>
+                    </a>
+                </div>
+            </volist>
+            </div>
+
+        </div>
+
+    </div>

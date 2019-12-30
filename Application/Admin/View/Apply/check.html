@@ -1,0 +1,313 @@
+<extend name="Public/base"/>
+
+<block name="body">
+	<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+    <div class="main-title">
+        <h2>查看</h2>
+    </div>
+    <ul class="tab-nav nav">
+
+
+        <li class="current"><a href="javascript:void(0)">基本信息</a></li>
+		<li><a href="javascript:void(0)">访客安排要求</a></li>
+		<if condition="$vo[status] eq 0">
+		<li><a href="javascript:void(0)">进入审核</a></li>
+        <elseif condition="$vo[status] neq 0" />
+		<div style="width: 99px;float: left; height: 37px; line-height: 37px;text-align: center;color: #fff; background: #ada7a7;">已经审核</div>
+		</if>
+
+    </ul>
+    
+    <form action="{:U()}" method="post" id="form1" class="form-horizontal">
+    <input type="hidden" name="id" value="{$vo[ids]}">
+    <div class="tab-content">
+	    <style>
+		  .apply_title{font-weight:bold;}
+		</style>
+		
+		<div style="min-height:650px;">
+			<table class="" style="width:800px; border:1px solid black">
+			
+			<tbody>
+				
+				<tr>
+					<td class="apply_title">申请员工</td>
+					<td>{$vo['name']}</td>
+				</tr>
+				
+				<tr>
+					<td class="apply_title">申请时间</td>
+					<td>{$vo['create_time']|date='Y-m-d H:i',###}</td>
+				</tr>
+				
+				<tr>
+					<td class="apply_title">拜访时间</td>
+					<td>{$vo['visit_time']|date='Y-m-d H:i',###}</td>
+				</tr>
+				
+				<tr>
+					<td class="apply_title">客户到达-离开时间</td>
+					<td>{$vo['arrive_time']|date='Y-m-d H:i',###}-{$vo['leave_time']|date='Y-m-d H:i',###}</td>
+				</tr>
+				
+				<tr>
+					<td class="apply_title">客户单位名称</td>
+					<td>{$vo['company']}</td>
+				</tr>
+				
+				<tr>
+					<td class="apply_title">访客姓名</td>
+					<td>{$vo['customer']}</td>
+				</tr>
+				
+				<tr>
+					<td class="apply_title">客户信息</td>
+					<td>{$vo['customer_info']}</td>
+				</tr>
+				
+				
+				
+				<tr>
+					<td class="apply_title">来访目的</td>
+					<td>{$vo['rasion']}</td>
+				</tr>
+				
+				<tr>
+					<td class="apply_title">访客人数</td>
+					<td>{$vo['person_num']}人</td>
+				</tr>
+				
+				
+			</tbody>
+			</table>
+			</div>
+		
+       
+		<div class="form-item">
+           
+            <a href="{:U('index')}" class="btn btn-return">返 回</a>
+        </div>
+
+    </div>
+	<style>
+	 
+	  .ap_yaoqiu th,td{border:1px solid #e0e0e0; text-align:center; height:50px;}
+	  .table_num{width:10%;}
+	</style>
+	<div class="tab-content ap_yaoqiu" style="display:none;">
+	<div style="min-height:650px;">
+	<table class="" style="width:800px; border:1px solid black">
+    <thead>
+        <tr>
+		<th class="table_num" style="width:10%">序号</th>
+		<th class="" style="width:35%">安排要求</th>
+		<th class="" style="width:10%">状态</th>
+		<th class="" style="width:45%">内容</th>
+		</tr>
+    </thead>
+    <tbody>
+		
+		<tr>
+			<td class="table_num">1</td>
+			<td>是否需要安排宣传资料？</td>
+			<td>{$vo[if_data]|get_shifou}</td>
+			<td>{$vo[data_remark]}</td>
+		</tr>
+		<tr>
+			<td class="table_num">2</td>
+			<td>是否需要安排礼品？</td>
+			<td>{$vo[if_gift]|get_shifou}</td>
+			<td>{$vo[gift_remark]}</td>
+		</tr>
+		<tr>
+			<td class="table_num">3</td>
+			<td>客户是否需要安排接送？</td>
+			<td>{$vo[if_send]|get_shifou}</td>
+			<td>{$vo[send_remark]}</td>
+		</tr>
+		<tr>
+			<td class="table_num">4</td>
+			<td>是否安排访客午餐？</td>
+			<td>{$vo[if_lunch]|get_shifou}</td>
+			<td>{$vo[lunch_remark]}</td>
+		</tr>
+		<tr>
+			<td class="table_num">5</td>
+			<td>是否需要预定酒店？</td>
+			<td>{$vo[if_hotel]|get_shifou}</td>
+			<td>
+			     <if condition="$vo[hotel_remark] neq null">
+				    酒店价格：{$vo[hotel_remark]}元
+				 </if>
+			</td>
+		</tr>
+		<tr>
+			<td class="table_num">6</td>
+			<td>是否有其它特殊要求？</td>
+			<td></td>
+			<td>{$vo[others_remark]}</td>
+		</tr>
+		
+	</tbody>
+    </table>
+	</div>
+	    <div class="form-item" style="margin-top:20px;">
+           
+            <a href="{:U('index')}" class="btn btn-return">返 回</a>
+        </div>
+	
+	</div>
+	
+
+	<div class="tab-content" style="display:none;">
+	    
+		
+        <div class="form-item">
+            <label class="item-label">
+                审核状态<span class="check-tips"></span>
+            </label>
+            <div class="controls">
+                <label class="inline radio"><input type="radio" name="status" value="1" checked>审核成功</label>
+                <label class="inline radio"><input type="radio" name="status" value="2" >审核失败</label>
+            </div>
+        </div>
+
+
+        
+        <div class="success_info" style="display: block;">
+	        <div class="form-item">
+	            <label class="item-label">迎接客户高层领导姓名：</label>
+	            <div class="controls">
+	                <input type="text" class="text input-large" name="wel_leader" value="">
+	            </div>
+	        </div>
+
+	        <div class="form-item">
+	            <label class="item-label">欢送客户高层领导姓名：</label>
+	            <div class="controls">
+	                <input type="text" class="text input-large" name="send_leader" value="">
+	            </div>
+	        </div>
+
+	        <div class="form-item">
+	            <label class="item-label">陪同参观公司员工姓名：</label>
+	            <div class="controls">
+	                <input type="text" class="text input-large" name="pt_person" value="">
+	            </div>
+	        </div>
+
+	        <div class="form-item">
+	            <label class="item-label">陪同参观的市场：</label>
+	            <div class="controls">
+	                <input type="text" class="text input-large" name="market" value="">
+	            </div>
+	        </div>
+	      
+	        <div class="form-item">
+	            <label class="item-label">销售部员工姓名：</label>
+	            <div class="controls">
+	                <input type="text" class="text input-large" name="sale_name" value="">
+	            </div>
+	        </div>
+        </div>
+
+
+
+
+		
+		<div class="form-item check_remark" style="display:none;">
+            <label class="item-label">
+                失败原因<span class="check-tips"></span>
+            </label>
+            <div class="controls">
+               <textarea name="remark" style="width: 400px; height: 120px;"></textarea>
+            </div>
+        </div>
+		
+		<div class="form-item">
+            <input type="button" class="btn submit-btn ajax-post" id="submiter" value="提交"  target-form="form-horizontal">
+            <a href="{:U('index')}" class="btn btn-return">返 回</a>
+        </div>
+		
+	</div>
+	
+	
+	
+    </form>
+</block>  
+<block name="script">	
+	<script>
+	
+	    //提交
+		$("#submiter").click(function(){
+		   
+		   var status = $("input[name='status']:checked").val();
+		   var remark = $("textarea[name='remark']").val();
+		   
+		    if(status==2){
+		   
+		      if($.trim(remark)==''){
+			     
+				 updateAlert('请填写失败原因！');
+				 return false;
+			  }
+		   
+		    }else if(status==1){
+               var wel_leader = $("input[name='wel_leader']").val(); 
+               var send_leader = $("input[name='send_leader']").val(); 
+               var pt_person = $("input[name='pt_person']").val(); 
+               var market = $("input[name='market']").val(); 
+               var sale_name = $("input[name='sale_name']").val(); 
+
+               if(wel_leader=='' || send_leader=='' || pt_person=='' || market=='' || sale_name==''){
+                  updateAlert('审核成功状态的信息必须填写完成');
+				  return false;
+               }
+              
+
+		    }
+		       
+		    $("#form1").submit();
+		   
+		   
+		   
+		});
+		
+		//切换审核原因
+		$("input[name='status']").click(function(){
+		
+		    var sta = $(this).val();
+			
+			if(sta==1){
+			    $(".success_info").show();
+				$(".check_remark").hide();
+				
+			}else if(sta==2){
+			    $(".success_info").hide();
+				$(".check_remark").show();
+				
+			}
+		
+		});
+		
+		
+		
+		
+	    
+	    //选项卡切换
+	   $('.tab-nav li').click(function(){
+			
+			$(this).attr('class','current')
+						.siblings().attr('class','');
+			var n_index=$('.tab-nav li').index(this);
+				$('.tab-content').eq(n_index).show()
+							 .siblings().hide();
+		});
+	
+	 //导航高亮
+        highlight_subnav('{:U('Apply/index')}');
+	
+	</script>
+</block>
+
+

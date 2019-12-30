@@ -1,0 +1,71 @@
+<extend name="Public/base" />
+
+<block name="body">
+	<!-- 标题栏 -->
+	<div class="main-title">
+		<h2><font style="color:#4bbd00;" title="{$vv[title]}">[{$vv[title]|msubstr=0,30}]</font>选项列表</h2>
+	</div>
+	<div class="cf">
+		<div class="fl">
+			<a class="btn" href="{:U('Timulist/addson',array('pid'=>$vv[id]))}">新 增</a>
+            <button class="btn ajax-post confirm" url="{:U('Timulist/delson',array('pid'=>$vv[pid]))}" target-form="ids">删 除</button>
+			
+        </div>
+
+    </div>
+    <!-- 数据列表 -->
+    <div class="data-table table-striped">
+	<table class="">
+    <thead>
+        <tr>
+		<th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+		<th class="">编号</th>
+		<th class="">选项标题</th>
+		<th class="">排序</th>
+		<th class="">添加时间</th>
+		<th class="">状态</th>
+		<th class="">操作</th>
+		</tr>
+    </thead>
+    <tbody>
+		<notempty name="list">
+		<volist name="list" id="vo">
+		<tr>
+            <td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}" /></td>
+			<td>{$vo.id} </td>
+			<td title="{$vo[title]}">{$vo[title]}</td>
+			<td>{$vo.sort}</td>
+			<td>{$vo.create_time|date='Y-m-d H:i',###}</td>
+			<td>{$vo.status|get_status_title}</td>
+			<td><eq name="vo.status" value="1">
+				<a href="{:U('Timulist/changeson?type=jinyon&id='.$vo['id'])}" class="ajax-get">禁用</a>
+				<else/>
+				<a href="{:U('Timulist/changeson?type=qiyon&id='.$vo['id'])}" class="ajax-get">启用</a>
+				</eq>
+                <a href="{:U('Timulist/editson',array('pid'=>$vo[pid],'id'=>$vo['id']))}">编辑</a>
+				<a href="{:U('Timulist/delson?pid='.$vo[pid].'&id='.$vo['id'])}" class="confirm ajax-get">删除</a>
+                </td>
+		</tr>
+		</volist>
+		<else/>
+		<td colspan="10" class="text-center"> aOh! 暂时还没有内容! </td>
+		</notempty>
+	</tbody>
+    </table>
+	</div>
+    <div class="page">
+        {$_page}
+    </div>
+</block>
+
+<block name="script">
+	<script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
+
+	<script type="text/javascript">
+	
+	
+	
+    //导航高亮
+    highlight_subnav('{:U('Timulist/index')}');
+	</script>
+</block>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>{:C('WEB_SITE_TITLE')}</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css">
+<!--日历1--> 
+<link href="/Public/Home/times/css/mobiscroll.css" rel="stylesheet" />
+<link href="/Public/Home/times/css/mobiscroll_date.css" rel="stylesheet" />
+<!--js-->
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+<script type="text/javascript" src="__JS__/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__JS__/layer.js"></script>
+
+
+
+
+<style>
+
+.input_list p{height: 1.1066666667rem; line-height:1.1066666667rem; padding-left: 0.0666666667rem;}
+.input_list p .left12{float: left;}
+.input_list p .right12{margin-left:0.1333333333rem; color: #6a6a6a;}
+
+
+</style>
+
+</head>
+<body>
+    <div class="main">
+
+	   <div class="top">
+	   	    
+	   	    <p>BASIC INFORMATION</p>
+
+	   </div>
+
+	   <!--内容-->
+	   <div class="mid">
+	    <form id="form1" action="{:U('addform')}" method="post"> 
+	         <div class="input_list">
+	         	<p><span class="left12">申请员工姓名：</span> <span class="right12">{$vo['name']}</span></p>
+	         </div>
+
+	         <div class="input_list">
+	         	<p><span class="left12">申请日期：</span> <span class="right12">{$vo['create_time']|date='Y-m-d H:i',###}</span></p>
+	         </div>
+
+	         <div class="input_list">
+	         	<p><span class="left12">客户拜访日期/时间：</span> <span class="right12">{$vo['visit_time']|date='Y-m-d H:i',###}</span></p>
+	         </div>
+
+	         <div class="input_list">
+	         	<p><span class="left12">客户到达/离开时间：</span> <span class="right12">{$vo['wel_leader']}</span></p>
+	         </div>
+
+	         <div class="input_list">
+	         	<p><span class="left12">客户单位名称：</span> <span class="right12">{$vo['company']}</span></p>
+	         </div>
+
+             <div class="input_list">
+                <p><span class="left12">访客姓名：</span> <span class="right12">{$vo['customer']}</span></p>
+             </div>
+
+             <div class="input_list">
+               <p><span class="left12">客户信息：</span> <span class="right12">{$vo['customer_info']}</span></p>
+             </div>
+
+             <div class="input_list">
+               <p><span class="left12"> 来访目的：</span> <span class="right12">{$vo['rasion']}</span></p>
+             </div>
+
+             <div class="input_list">
+               <p><span class="left12"> 访客人数：</span> <span class="right12">{$vo['person_num']}</span></p>
+             </div>
+
+	         <div class="tj_btns" id="tijiaos">
+			 
+	         	<a href="{:U('index')}">返回首页</a>
+	         </div>
+
+	      
+	   	
+        </form>
+	   </div>
+
+	</div>
+
+
+	
+    <!--底部导航-->
+       <include file="Public:bottomnav"/>
+<script src="/Public/Home/times/js/mobiscroll_date.js" charset="gb2312"></script> 
+<script src="/Public/Home/times/js/mobiscroll.js"></script> 	   
+	   
+<script type="text/javascript">
+
+
+$('input').focus(function(){
+    
+	$(this).parent('.input_list').css('border-color','#f00');
+
+});
+$('input').blur(function(){
+     
+	$(this).parent('.input_list').css('border-color','#bfbfbf');
+
+});
+
+
+
+$(function () {
+	var currYear = (new Date()).getFullYear();	
+	var opt={};
+	opt.date = {preset : 'date'};
+	opt.datetime = {preset : 'datetime'};
+	opt.time = {preset : 'time'};
+	opt.default = {
+		theme: 'android-ics light', //皮肤样式
+		display: 'modal', //显示方式 
+		mode: 'scroller', //日期选择模式
+		dateFormat: 'yyyy-mm-dd',
+		lang: 'zh',
+		showNow: true,
+		nowText: "今天",
+		startYear: currYear - 50, //开始年份
+		endYear: currYear + 10 //结束年份
+	};
+
+	$("#apply_times").mobiscroll($.extend(opt['date'], opt['default']));
+	
+	$("#visit_time").mobiscroll($.extend(opt['date'], opt['default']));
+
+});
+
+
+//配置错误提示的节点，默认为label，这里配置成 span （errorElement:'span'）
+$.validator.setDefaults({
+	errorElement:'span'
+});
+
+
+
+$("#form1").validate({
+        submitHandler: function() {
+
+		    $.post('{:U('forms')}',$('#form1').serialize(),function(d){
+			     if(d.status==100){
+				    
+					   window.location.href='/home/apply/applylist';
+					
+				 }else if(d.status==200){
+				    layer.alert(d.msg);
+				 }
+			});
+           
+        }
+    })
+
+$("#tijiaos").click(function(){
+
+    $("#form1").submit();
+
+});
+
+
+
+
+
+</script>
+
+</body>
+</html>

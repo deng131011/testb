@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>优耐板</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+<link rel="stylesheet" type="text/css" href="__CSS__/about.css"> 
+<!--js-->
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+<script type="text/javascript" src="__JS__/jquery-1.9.1.min.js"></script>
+
+<!--动画-->
+<link rel="stylesheet" type="text/css" href="__CSS__/animate.min.css"> 
+<script type="text/javascript" src="__JS__/wow.min.js"></script>
+
+
+</head>
+<body>
+    <div class="about_main">
+         <div class="aboute_top">
+             <div class="images8 wow lightSpeedIn" data-wow-delay="0.5s"><img src="__IMG__/about/e1.jpg"/></div>
+             <div class="rights about_title" style="margin-top: 0.4366666667rem;">
+                 <p class="p1 wow bounceInRight" data-wow-delay="1s">{$vo[name]}</p>
+                 <p class="p2 wow bounceInRight" data-wow-delay="1.2s">{$vo[title]}</p>
+                 <div class="aboute_con wow fadeInUpBig" data-wow-delay="1.8s" style="margin-top: 0.0333333rem;">
+                     <p>
+                        {$vo[content]} 
+                     </p>
+                 </div>
+             </div>
+         </div>
+
+         <div class="images9 wow rollIn" data-wow-delay="2.5s" style="margin-bottom:0.9333333333rem;">
+             <img src="__IMG__/about/e2.png"/>
+         </div>
+
+	</div>
+ 
+
+
+
+
+    <!--底部导航-->
+        <include file="Public:bottomnav"/>
+
+
+<script>
+    if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))){
+        new WOW().init();
+    };
+</script>
+
+
+</body>
+</html>

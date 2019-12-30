@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>优耐板</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+<link rel="stylesheet" type="text/css" href="__CSS__/about.css"> 
+<!--js-->
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+<script type="text/javascript" src="__JS__/jquery-1.9.1.min.js"></script>
+
+<!--动画-->
+<link rel="stylesheet" type="text/css" href="__CSS__/animate.min.css"> 
+<script type="text/javascript" src="__JS__/wow.min.js"></script>
+
+</head>
+<body>
+    <div class="main">
+          <div class="ab_top width_all wow rollIn" data-wow-delay="0.5s" style="background:url({:picture($icon['icon'])}) no-repeat; background-size: 100% 100%;">
+             <div class="ab_logo"><img src="{:picture($logo['icon'])}"/></div>
+          </div>
+
+          <div class="width662">
+                <div class="width_all ab_indexa ">
+                    <div class="imgsizea wow bounceInLeft" data-wow-delay="1.2s"><img src="__IMG__/about/ab2.png"/></div>
+                </div>
+                <div class="width_all ab_indexb">
+                    <div class="imgsizeb wow bounceInRight" data-wow-delay="2s"><img src="__IMG__/about/ab3.png"/></div>
+                </div>
+
+                <div class="width_all about_type_list" >
+                    <ul>
+					
+						<volist name="typeList" id="vo" key="i" >
+						 
+						 <if condition="$i%2 eq 0">
+							<li class='ty_list wow lightSpeedIn' data-wow-delay="{$i/2}s">
+							   <a href="{:U($vo['url'],array('id'=>$vo[id]))}">{$vo[title]}</a>
+							</li>
+						 <else/>
+                            <li class='ty_list wow rollIn' data-wow-delay="{$i/2}s">
+							   <a href="{:U($vo['url'],array('id'=>$vo[id]))}">{$vo[title]}</a>
+							</li>
+                         </if>						 
+						</volist>
+                    </ul>
+
+
+
+                </div>
+
+
+
+          </div>
+
+	  
+	</div>
+
+
+    <!--底部导航-->
+       <include file="Public:bottomnav"/>
+	   
+<script>
+   
+   $(".ty_list").click(function(){
+   
+       $(".ty_list").removeClass('on');
+       $(this).addClass('on'); 
+   });
+    
+
+</script>
+<script>
+    if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))){
+        new WOW().init();
+    };
+</script>
+
+</body>
+</html>

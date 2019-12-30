@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>{:C('WEB_SITE_TITLE')}</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+<link rel="stylesheet" type="text/css" href="__CSS__/person.css">
+
+<!--js-->
+
+<script type="text/javascript" src="__JS__/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__JS__/layer.js"></script>
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+
+<style type="text/css">
+	
+.top p{margin-top:0;}
+</style>
+</head>
+<body>
+    <div class="main person">
+
+	   <div class="top">
+	   	    <p style="margin-top: 0.6666666667rem;">人工服务</p>
+	   	    <p>HUMAN SERVICES</p>
+
+	   </div>
+
+	   <!--内容-->
+	   <div class="survey_jy">
+            <form id="form1" action="{:U('')}" method="post">
+	        <div class="middle">
+                <div class="one">
+                    <p class="p1">填写您想了解的信息，我们会由工作人员回复您的问题！</p>
+                    
+                </div>
+                <div class="textareas">
+                    <textarea name="content" placeholder="输入您的宝贵意见！"></textarea>
+                </div>
+
+                <div class="tj_btns" id="ti_btn" style="margin-top:0.4666666667rem;">
+                   <a href="javascript:;">提交信息</a>
+                </div>
+            
+	   	    </div>
+            </form>
+	   </div>
+
+	</div>
+
+
+ <!--遮罩-->
+     <div class="zz_tk host_hide">
+        <div class="hostl" style="height:4.0rem">
+            <div class="title">
+                <p>信息 <span class="fa fa-times quxiaos"></span></p>
+            </div>
+            <div class="prices survey_success">
+                <p class="idesa_rr"></p>
+                
+            </div>
+
+        </div>
+    </div>
+   
+	
+    <!--底部导航-->
+       <include file="Public:bottomnav"/>
+ <script type="text/javascript">
+    
+     $("#ti_btn").click(function(){
+
+         var cont = $("textarea[name='content']").val();
+
+         if($.trim(cont).length==0){
+
+              $(".host_hide").show();
+
+              $(".idesa_rr").text('意见不能为空！'); 
+              
+              // layer.alert('意见不能为空！');
+
+               return false;
+
+         }
+         
+         $.post("{:U('personidea')}",$("#form1").serialize(),function(d){
+               
+              if(d.status==1){
+			    $(".host_hide").show();
+                $(".idesa_rr").text('提交成功！');  
+				$(".quxiaos").click(function(){
+                
+                    window.location.href='/Home/Online/index';
+
+                  }); 
+				
+               
+
+              }else if(d.status==2){
+
+                $(".host_hide").show();
+                
+                $(".idesa_rr").text('提交失败！');  
+
+              }
+
+         });
+
+     });
+
+    //关闭弹框
+     $(".quxiaos").click(function(){
+                
+                $(".host_hide").hide();
+
+     }); 
+
+
+</script>          
+
+
+</body>
+</html>

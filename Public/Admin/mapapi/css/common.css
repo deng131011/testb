@@ -1,0 +1,73 @@
+
+
+code,kbd,pre,samp{
+    font-family:Consolas,Courier new,Courier,monospace;
+}
+
+
+
+
+/*end common*/
+
+/*start page*/
+
+.page{
+    width:910px;
+    margin:0px auto;
+    overflow:hidden;
+    zoom:1;
+}
+
+
+/* start top-menu*/
+.top-menu{
+    float:right;
+}
+
+.top-menu li{
+    float:left;
+    padding-left:17px;
+    height:24px;
+    line-height:24px;
+    background:url(../img/dot.png) 7px center no-repeat;
+}
+
+.top-menu li.first{
+    background:none;
+}
+
+.top-menu li a{
+    color:#727f97;
+}
+/*end top-menu*/
+
+
+
+
+.page_left{
+    width:260px;
+    margin-right:10px;
+    float:left;
+    overflow:hidden;
+    zoom:1;
+}
+
+.page_right{
+    width:640px;
+    overflow:hidden;
+    zoom:1;
+    float:left;
+}
+/*end main*/
+
+/*start footer*/
+.footer{
+    padding: 20px 0;
+    text-align: center;
+    font-size: 12px;
+    line-height: 30px;
+    overflow:hidden;
+    color: #A3A3A3;
+}
+/*end footer*/
+/*end page*/

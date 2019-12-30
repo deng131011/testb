@@ -1,0 +1,123 @@
+<extend name="Public/base" />
+
+<block name="body">
+	<!-- 标题栏 -->
+	<div class="main-title">
+		<h2>申请列表</h2> <h2 style="margin-left:20px;">未审核：<span style="color: red;">{$ApplyCounts}</span></h2>
+	</div>
+	<div class="cf">
+		<div class="fl">
+            
+            <button class="btn ajax-post confirm" url="{:U('Apply/del',array('method'=>'deleteUser'))}" target-form="ids">删 除</button>
+			
+        </div>
+
+        <!-- 高级搜索 -->
+		<div class="search-form fr cf">
+           <form action="/Admin/Apply/index" id="form1" method="get">
+				<div class="sleft">
+					<select class="search-input" name="status">
+						<option value="">请选择状态</option>
+						
+						<option value="no" <?php if($get[status]=='no'){echo 'selected';} ?>>未审核</option>
+						<option value="sucs" <?php if($get[status]=='sucs'){echo 'selected';} ?>>审核成功</option>
+						<option value="fail" <?php if($get[status]=='fail'){echo 'selected';} ?>>审核失败</option>
+						
+					</select>
+					<input type="text" name="name" class="search-input" value="{$get[name]}" placeholder="申请人">
+					<a class="sch-btn" href="javascript:;" id="search" url="{:U('index')}"><i class="btn-search"></i></a>
+				</div>
+			</form>
+		</div>
+    </div>
+    <!-- 数据列表 -->
+    <div class="data-table table-striped">
+	<table class="">
+    <thead>
+        <tr>
+		<th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+		<th class="">序号</th>
+		<th class="">申请人</th>
+		<th class="">申请时间</th>
+		<th class="">访客姓名</th>
+		<th class="">客户单位</th>
+		<th class="">参观人数</th>
+		<th class="">拜访时间</th>
+		<th class="">状态</th>
+		<th class="">操作</th>
+		</tr>
+    </thead>
+    <tbody>
+		<notempty name="list">
+		<volist name="list" id="vo" key="n">
+		<tr>
+            <td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}" /></td>
+			<td>{$n} </td>
+			<td>{$vo.name}</td>
+			<td>{$vo.create_time|date='Y-m-d H:i',###}</td>
+			<td>{$vo.customer}</td>
+			<td>{$vo.company}</td>
+			<td>{$vo.person_num}</td>
+			<td>{$vo.visit_time|date='Y-m-d H:i',###}</td>
+			<td>{$vo[status]|check_status}</td>
+			<td>
+                <a href="{:U('Apply/check?id='.$vo['id'].'&ksid='.$vo['ksid'])}">查看</a>
+				<a href="{:U('Apply/del?id='.$vo['id'])}" class="confirm ajax-get">删除</a>
+            </td>
+		</tr>
+		</volist>
+		<else/>
+		<td colspan="10" class="text-center"> aOh! 暂时还没有内容! </td>
+		</notempty>
+	</tbody>
+    </table>
+	</div>
+    <div class="page">
+        {$_page}
+    </div>
+</block>
+
+<block name="script">
+	<script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
+	
+	<!-- ajax提交排序 --->
+    <script>
+	    $(function(){
+		      $("input[name='sort']").change(function(){
+			      sort = $(this).val();
+			      id = $(this).attr("data-id");
+				  $.post("{:U('Apply/ajaxsort')}",{sort:sort,id:id},function(d){
+				  
+				       alert(d.msg);
+				  });
+			  
+			  });
+		});
+	
+	</script>
+
+	<script type="text/javascript">
+	//搜索功能
+	$("#search").click(function(){
+		
+
+		var typeid = $("select[name=typeid]").val();
+        var title  = $('input[name=title]').val();
+        $("#form1").submit();
+
+		
+	});
+	//回车搜索
+	$(".search-input").keyup(function(e){
+		if(e.keyCode === 13){
+			
+			$("#search").click();
+			return false;
+			
+		}
+	});
+	
+    //导航高亮
+    highlight_subnav('{:U('Apply/index')}');
+	</script>
+</block>

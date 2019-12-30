@@ -1,0 +1,104 @@
+@charset "utf-8";
+
+/*注册*/
+.regtxt{
+    clear: both;
+    margin-top: 8%;
+}
+.regtxt input{
+    clear: both;
+    margin-top: 0.4rem;
+    display: block;
+    width: 100%;
+    border: 1px solid #1e9459;
+    background: rgba(229,227,213,0.01);
+    padding: 0 8px;
+    height: 36px;
+    line-height: 36px;
+    border-radius: 3px;
+}
+.reg-btn{
+    
+    left: 0;
+    right: 0;
+    padding: 0 3%;
+    padding-bottom: 0;
+}
+.reg-box{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 9;
+    padding: 0 3%;
+    display: none;
+}
+.reg-txt{
+    background: #fff;
+    width: 100%;
+    position: relative;
+    top:25%;
+    text-align: center;
+    padding: 18px 0;
+    line-height: 20px;
+}
+.reg-txt h1{
+    font-size: 1.1em;
+    color: #15772a;
+    font-weight: normal;
+}
+.reg-txt p{font-size: 0.9em;}
+
+/*列表*/
+.list-tit {
+    text-align: center;
+    font-size: 1.1em;
+    color: #11852a;
+    margin-top: 5%;
+}
+.list-tab {
+    margin-top: 3%;
+    text-align: left;
+}
+.list-tab table{
+    width: 100%;
+}
+.list-tab thead {
+    display: block;
+    width: 100%;
+    background: #30ae4b;
+    border-radius: 2px;
+}
+.list-tab thead tr th {
+    font-weight: normal;
+    color: #fff;
+    padding: 2px 4px;
+}
+.list-tab thead tr th p{font-size: 0.9em;}
+.list-tab thead tr th:first-child{padding: 2px 8px;}
+.list-tab tbody{
+    background: rgba(229,227,213,0.58);
+    border: 1px solid #dddbce;
+    border-radius: 2px;
+    display: block;
+    margin-top: 10px;
+}
+.list-tab tbody tr td{
+    color: #232323;
+    padding: 5px 8px;
+    border-top: 1px solid #dddbce;
+    vertical-align: top;
+    line-height: 18px;
+}
+.list-tab tbody tr:first-child td{border-top:0;}
+.list-tab tbody tr td p {
+    font-size: 0.9em;
+    color: #9a9892;
+}
+.list-btn{
+    margin-top: 10%;
+    width: 100%;
+    padding: 3%;
+}

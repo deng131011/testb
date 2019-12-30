@@ -1,0 +1,216 @@
+<extend name="Public/base"/>
+
+<block name="body">
+	<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+
+    <style type="text/css">
+        #addBtn{background: #2d7200; padding:2px 10px; color: #fff; margin-left: 20px; border-radius: 2px;}
+        #addXuan p{margin-bottom: 10px;}
+        .deler{background: gray; color: #fff; padding:5px 10px;cursor:pointer;}
+        .select_danxuan,.add_xuan{display: none;}
+    </style>
+
+
+    <div class="main-title">
+        <h2>添加</h2>
+    </div>
+    <ul class="tab-nav nav">
+
+
+        <li class="current"><a href="javascript:void(0)">基本信息</a></li>
+		<li><a href="javascript:void(0)">高级信息</a></li>
+
+    </ul>
+    
+    <form action="{:U()}" method="post" class="form-horizontal">
+    <div class="tab-content">
+	    <!--上级id-->
+	   
+        <div class="form-item">
+            <label class="item-label">标题<span class="check-tips">（标题必须填写）</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="title" value="">
+                
+            </div>
+        </div>
+		
+		<div class="form-item">
+            <label class="item-label">排序</label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="sort" value="">
+            </div>
+        </div>
+
+		
+		<div class="form-item">
+            <label class="item-label">所属活动</label>
+            <div class="controls">
+                <select name="hd_id" style="width:200px;">
+                    <volist name="meetList" id="clist">
+                        <option value="{$clist.id}">{$clist.title}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+		
+		<div class="form-item">
+            <label class="item-label">问题类型</label>
+            <div class="controls">
+                <select name="type" style="width:200px;">
+                        <option value="">请选择</option>
+                        <option value="1">单选</option>
+                       <!-- <option value="2">多选</option>
+                        <option value="3">单选+多选</option> -->
+                        <option value="4">文本</option>
+                    
+                </select>
+            </div>
+        </div>
+
+
+       <div class="form-item select_danxuan">
+            <label class="item-label">选择单选选项</label>
+            <div class="controls">
+                <volist name="Think.config.WEB_MEETPROBLEM_TYPE" id="danxuan">
+                    <label class="checkbox">
+                        <input type="checkbox" name="danxuan[]" value="{$key}"/>{$danxuan}
+                    </label>
+                </volist>
+            </div>
+        </div>
+
+        <div class="form-item add_xuan">
+            <label class="item-label">添加选项  <span id="addBtn">添加</span></label>
+            <div class="controls" id="addXuan">
+                
+            </div>
+        </div>
+
+		
+		
+        <div class="form-item">
+            <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </div>
+    <div class="tab-content" style="display:none;">
+       
+	    
+        
+        
+        <!--
+        <div class="form-item">
+            <label class="item-label">截止时间<span class="check-tips">（显示截止时间）</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" id="deadline" name="deadline" value="">
+            </div>
+        </div>
+		-->
+       
+		
+		<div class="form-item">
+            <label class="item-label">发布人<span class="check-tips"></span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" id="mid" name="author" value="" readonly="readonly">
+            </div>
+        </div>
+		
+		<div class="form-item">
+            <label class="item-label">内容</label>
+            <div class="controls">
+                <label class="textarea">
+                    <textarea name="content">{$vo.content}</textarea>
+                    {:hook('adminArticleEdit', array('name'=>content,'value'=>$vo['content']))}
+                </label>
+            </div>
+        </div>
+		
+        <div class="form-item">
+            <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    
+    </div>
+    </form>
+</block>
+
+<block name="script">
+<include file="Public:datetime" />
+    <script type="text/javascript">
+	
+		$('.tab-nav li').click(function(){
+			$(this).attr('class','current')
+						.siblings().attr('class','');
+			var n_index=$('.tab-nav li').index(this);
+				$('.tab-content').eq(n_index).show()
+							 .siblings().hide();
+		});
+	
+        //导航高亮
+        highlight_subnav('{:U('MeetingProblem/index')}');
+		
+		$('#deadline').datetimepicker({
+        format: 'yyyy-mm-dd hh:ii',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });
+		$('#deadline2').datetimepicker({
+        format: 'yyyy-mm-dd hh:ii',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });
+
+
+     
+    
+
+    </script>
+<script type="text/javascript" src="__JS__/jquery-1.8.0.js"></script>
+<script>
+    //点击添加选项
+     $("#addBtn").click(function(){
+
+             
+            $("#addXuan").append('<p><input type="text" class="text input-large" name="sontitle[]" value=""> <span class="deler">移除</span></p>'); 
+
+     });
+
+     //移除
+     $(".deler").live('click',function(){
+         
+          $(this).parent('p').remove();
+
+
+     }); 
+     
+     //改变问题类型的效果
+     $("select[name='type'").change(function(){
+
+         var seval = $(this).val();
+
+         $(".select_danxuan").find('input[type="checkbox"]:checked').attr('checked',false);
+         $("#addXuan").html('');
+
+         if(seval==1){
+              $(".select_danxuan").show();
+              $(".add_xuan").hide();
+         }else if(seval==2){
+              $(".select_danxuan").hide();
+              $(".add_xuan").show();
+         }else if(seval==3){
+              $(".select_danxuan").show();
+              $(".add_xuan").show();
+         }else{
+              $(".select_danxuan").hide();
+              $(".add_xuan").hide();
+         }
+
+     });
+
+
+</script>
+
+
+</block>

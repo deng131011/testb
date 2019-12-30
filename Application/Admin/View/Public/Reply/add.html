@@ -1,0 +1,130 @@
+<extend name="Public/base"/>
+
+<block name="body">
+	<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+    <div class="main-title">
+        <h2>添加回复</h2>
+    </div>
+    <ul class="tab-nav nav">
+
+
+        <li class="current"><a href="javascript:void(0)">基本信息</a></li>
+
+    </ul>
+    
+    <form action="{:U()}" method="post" class="form-horizontal">
+    <div class="tab-content">
+        <div class="form-item">
+            <label class="item-label">回复标题<span class="check-tips">（标题必须填写）</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="title" value="">
+                <input type="hidden" name="mid" value="{$mid}" />
+            </div>
+        </div>
+		
+		<div class="form-item">
+            <label class="item-label">发布时间</label>
+            <div class="controls">
+                 <input type="text" class="text input-large" name="create_time" id="deadline2" value="{$vo.create_time|time_format='Y-m-d H:i'}">
+				 
+            </div>
+        </div>
+		<div class="form-item">
+			<label class="item-label">
+				回复类型<span class="check-tips">（回复类型）</span>
+			</label>
+			<div class="controls">
+				<label class="inline radio"><input type="radio" name="type" value="1" checked>关注回复</label>
+				<label class="inline radio"><input type="radio" name="type" value="2">关键词回复</label>
+			</div>
+		</div>
+		<div class="form-item">
+			<label class="item-label">
+				信息类型<span class="check-tips">（信息类型）</span>
+			</label>
+			<div class="controls">
+				<label class="inline radio"><input type="radio" name="typeinfo" value="1" checked>文本回复</label>
+				<label class="inline radio"><input type="radio" name="typeinfo" value="2">图文回复</label>
+			</div>
+		</div>
+		<div class="form-item sclist" style="display:none;">
+			<label class="item-label">素材列表<span class="check-tips">（图文素材列表）</span></label>
+			<div class="controls">
+				<volist name="sourcelist" id="sourcelists">
+					<label class="checkbox">
+						<input type="checkbox" name="iconlist[]" value="{$sourcelists.id}">{$sourcelists.title}
+					</label>
+				</volist>
+			</div>
+		</div>
+		<div class="form-item infolist">
+            <label class="item-label">信息内容</label>
+            <div class="controls">
+                
+                <textarea name="content" style="width:800px;height:150px; border:1px solid #ccc;">{$vo.content}</textarea>
+                
+            </div>
+        </div>
+         <div class="form-item">
+            <label class="item-label">回复排序</label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="sort" value="">
+            </div>
+        </div>
+		
+        <div class="form-item">
+            <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </div>
+    
+    </form>
+</block>
+
+<block name="script">
+<include file="Public:datetime" />
+
+</script>
+    <script type="text/javascript">
+		$('input[name=typeinfo]').click(function(){
+		
+			 var val=$('input:radio[name="typeinfo"]:checked').val();
+			 
+			 if(val == 1){
+			 
+				$('.infolist').show();
+				$('.sclist').hide();
+			 
+			 }else{
+			 
+				$('.infolist').hide();
+				$('.sclist').show();
+				
+			 }
+		
+		});
+		$('.tab-nav li').click(function(){
+			$(this).attr('class','current')
+						.siblings().attr('class','');
+			var n_index=$('.tab-nav li').index(this);
+				$('.tab-content').eq(n_index).show()
+							 .siblings().hide();
+		});
+	
+        //导航高亮
+        highlight_subnav('{:U('Reply/index')}');
+		
+		$('#deadline').datetimepicker({
+        format: 'yyyy-mm-dd hh:ii',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });
+		$('#deadline2').datetimepicker({
+        format: 'yyyy-mm-dd hh:ii',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });
+    </script>
+</block>

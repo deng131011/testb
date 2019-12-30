@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>理由与建议</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+
+<!--js-->
+<script type="text/javascript" src="__JS__/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__JS__/layer.js"></script>
+
+
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script> 
+<script>
+
+	wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: '{$wxconfig[appId]}', // 必填，公众号的唯一标识
+        timestamp:{$wxconfig['timestamp']}, // 必填，生成签名的时间戳
+        nonceStr: '{$wxconfig["nonceStr"]}', // 必填，生成签名的随机串
+        signature: '{$wxconfig["signature"]}',// 必填，签名，见附录1
+        jsApiList: [
+            'onMenuShareTimeline',
+			'checkJsApi',
+			'onMenuShareAppMessage',
+			'onMenuShareQQ',
+			'onMenuShareWeibo'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+    wx.ready(function () {
+      
+       wx.onMenuShareTimeline({
+	        title:'{$news[title]}',
+	        link:'{$news[link]}',
+	        imgUrl:'{$news[picture]}',
+	        desc:'{$news[brief]}',
+	   });
+	   wx.checkJsApi({
+	        title:'{$news[title]}',
+	        link:'{$news[link]}',
+	        imgUrl:'{$news[picture]}',
+	        desc:'{$news[brief]}',
+	   });
+	   wx.onMenuShareAppMessage({
+	        title:'{$news[title]}',
+	        link:'{$news[link]}',
+	        imgUrl:'{$news[picture]}',
+	        desc:'{$news[brief]}',
+	   });
+	   wx.onMenuShareWeibo({
+	        title:'{$news[title]}',
+	        link:'{$news[link]}',
+	        imgUrl:'{$news[picture]}',
+	        desc:'{$news[brief]}',
+	   });
+	   
+	   
+	});
+
+</script>
+
+
+
+</head>
+<body>
+    <div class="main survey">
+
+	   <div class="top">
+	   	    
+	   	    <p>SUGGEST</p>
+
+	   </div>
+
+	   <!--内容-->
+	   <div class="survey_jy">
+	        <div class="middle">
+                <div class="one">
+                    <p class="p1">* 对于您不够满意之处(1-3分)，恳请您写下您的理由与建议！</p>
+                    <p class="p2">* 由于篇幅的局限性，我们的问题可能没有涉及所有方面，对于我们没有考虑周全的，也欢迎您写下宝贵的意见及建议。</p>
+                </div>
+                <div class="textareas">
+                    <textarea name="content"></textarea>
+                </div>
+
+                <div class="tj_btns" id="btns" style="margin-top:0.4666666667rem;">
+                   <a href="javascript:;">提交满意度调查表</a>
+                </div>
+            
+
+	      
+	   	    </div>
+	   </div>
+
+	</div>
+    <!--酒店价格范围弹框-->
+
+    <div class="zz_tk host_hide">
+        <div class="hostl">
+            <div class="title">
+                <p>提交成功 <span class="fa fa-times quxiao"></span></p>
+            </div>
+            <div class="prices survey_success">
+                <p>感谢您百忙之中完成此调查表</p>
+                <p>您所提出的每一项意见</p>
+                <p>都将成为我们改进和努力的方向</p>
+            </div>
+
+        </div>
+    </div>
+
+
+
+	
+    <!--底部导航-->
+        <include file="Public:bottomnav"/>
+
+<script type="text/javascript">
+    
+      $("#btns").click(function(){
+
+           
+           var cons = $("textarea[name='content']").val();
+
+           if($.trim(cons).length==0){
+                
+                layer.alert('请填写意见与建议！');
+                return false;
+           }
+
+           $.post('/Home/Survey/ideas',{content:cons},function(dd){
+              
+               if(dd.status==1){
+                
+                   $(".host_hide").show();
+                    
+                   $(".quxiao").click(function(){
+
+                       // $(".host_hide").hide();
+					   window.location.href="/Home/Survey/index";
+
+                   }); 
+
+
+               }else if(dd.status==2){
+                  
+                   layer.alert('提交失败');
+
+               }
+
+           });
+
+      });
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+<extend name="Public/base" />
+
+<block name="body">
+	<!-- 标题栏 -->
+	<div class="main-title">
+		<h2>[{$pt[topid]|modelField="match_person","username"}] 分次记录列表</h2>
+	</div>
+	<div class="cf">
+		<div class="fl">
+			
+            
+            <button class="btn ajax-post confirm" url="{:U('MatchResult/del')}" target-form="ids">删 除</button>
+
+            
+
+        </div>
+
+        <!-- 高级搜索 -->
+		<div class="search-form fr cf">
+			<form action="/Admin/MatchResult/index" id="form1" method="get">
+			<div class="sleft">
+				<!--<input type="text" name="typeid" class="search-input" value="" placeholder="文件分类">-->
+				
+				<input type="text" name="title" class="search-input" value="{$get[title]}" placeholder="标题">
+				<a class="sch-btn" href="javascript:;" id="search" url="{:U('index')}"><i class="btn-search"></i></a>
+			</div>
+			</form>
+		</div>
+    </div>
+    <!-- 数据列表 -->
+    <div class="data-table table-striped">
+	<table class="">
+    <thead>
+        <tr>
+		<th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+		<th class="">编号</th>
+		<th class="">次数分类</th>
+		<th class="">分数</th>
+		<th class="">开始时间</th>
+		<th class="">所花时间</th>
+		<th class="">状态</th>
+		<th class="">操作</th>
+		</tr>
+    </thead>
+    <tbody>
+		<notempty name="list">
+		<volist name="list" id="vo">
+		<tr>
+            <td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}" /></td>
+			<td>{$vo.id} </td>
+			<td>{$vo.title}</td>
+			<td><font style="color:red">{:num_score($vo[id],$vo[uid],$vo[ids])}分</font></td>
+			<td>{$vo.start_time|date="Y-m-d H:i",###}</td>
+			<td><font style="color:red">{:time_jiange($vo[end_time],$vo[start_time])}</font></td>
+			<td>{$vo[result]}</td>
+			<td>
+			   <a href="{:U('details',array('numid'=>$vo[id],'uid'=>$vo[uid]))}">查看</a>
+			</td>
+		</tr>
+		</volist>
+		<else/>
+		<td colspan="10" class="text-center"> aOh! 暂时还没有内容! </td>
+		</notempty>
+	</tbody>
+    </table>
+	</div>
+    <div class="page">
+        {$_page}
+    </div>
+</block>
+
+<block name="script">
+	<script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
+
+	<script type="text/javascript">
+	//搜索功能
+	$("#search").click(function(){
+		
+
+		var typeid = $("select[name=typeid]").val();
+        var title  = $('input[name=title]').val();
+        $("#form1").submit();
+
+		
+	});
+	//回车搜索
+	$(".search-input").keyup(function(e){
+		if(e.keyCode === 13){
+			
+			$("#search").click();
+			return false;
+			
+		}
+	});
+	
+    //导航高亮
+    highlight_subnav('{:U('MatchResult/index')}');
+	</script>
+</block>

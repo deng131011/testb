@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>{:C('WEB_SITE_TITLE')}</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+<link rel="stylesheet" type="text/css" href="__CSS__/person.css">
+
+<!--js-->
+<script type="text/javascript" src="__STATIC__/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+</head>
+<body>
+    <div class="main person">
+
+	   <div class="top">
+	   	    
+	   	    <p>CUSTOMER SERVICE</p>
+
+	   </div>
+
+	   <!--内容-->
+	   <div class="survey_jy">
+	        <div class="middle per_index" style="margin-top:2.1333333333rem;">
+                
+                <P class="pp1">在线填写您想了解的信息!</P>
+                <div class="anniu">
+                    <div class="kuai rgsy_bj">
+                       <a href="{:U('onlinelist')}">
+                        <div class="imgs">
+                           <div style="width:0.5866666667rem; height:0.52rem; margin:0 auto; margin-top:0.2933333333rem;">
+                               <img src="__IMG__/rgfw1.png" style="width:100%;">
+                           </div>
+                        </div>
+                        <div class="rights">
+                            <p>在线服务</p>
+                        </div>
+                        </a>
+                    </div>
+
+                    <div class="kuai">
+                        <a href="{:U('ideaone')}">
+                         <div class="imgs">
+                           <div style="width:0.5866666667rem; height:0.52rem; margin:0 auto; margin-top:0.2133333333rem;">
+                               <img src="__IMG__/rgfw2.png" style="width:100%;">
+                           </div>
+                        </div>
+                        <div class="rights">
+                            <p>意见及建议</p>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+               
+	      
+	   	    </div>
+	   </div>
+
+	</div>
+    
+
+
+
+	
+    <!--底部导航-->
+      <include file="Public:bottomnav"/>
+<script type="text/javascript">
+    
+     $(".kuai").click(function(){
+
+            $(".kuai").removeClass("rgsy_bj");
+            $(this).addClass("rgsy_bj");
+
+     });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>{:C('WEB_SITE_TITLE')}</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+
+<!--js-->
+
+<script type="text/javascript" src="__JS__/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+
+<!--动画-->
+<link rel="stylesheet" type="text/css" href="__CSS__/animate.min.css"> 
+<script type="text/javascript" src="__JS__/wow.min.js"></script>
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script> 
+<script>
+
+	wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: '{$wxconfig[appId]}', // 必填，公众号的唯一标识
+        timestamp:{$wxconfig['timestamp']}, // 必填，生成签名的时间戳
+        nonceStr: '{$wxconfig["nonceStr"]}', // 必填，生成签名的随机串
+        signature: '{$wxconfig["signature"]}',// 必填，签名，见附录1
+        jsApiList: [
+            'onMenuShareTimeline',
+			'checkJsApi',
+			'onMenuShareAppMessage',
+			'onMenuShareQQ',
+			'onMenuShareWeibo'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+    wx.ready(function () {
+      
+       wx.onMenuShareTimeline({
+	        
+	        title:'{$news[title]}',
+	        link:'{$news[link]}',
+	        imgUrl:'{$news[picture]}',
+	        desc:'{$news[brief]}',
+			success: function(res) { 
+                $.post('{:U("survey/ajaxAddfxlog")}',{type:'fxurla'},function(d){
+				
+				})   
+            }, 
+	   });
+	   wx.checkJsApi({
+	        title:'{$news[title]}',
+	        link:'{$news[link]}',
+	        imgUrl:'{$news[picture]}',
+	        desc:'{$news[brief]}',
+			success: function() { 
+                 $.post('{:U("survey/ajaxAddfxlog")}',{type:'fxurla'},function(d){
+				
+				})   
+            },
+	   });
+	   wx.onMenuShareAppMessage({
+	        title:'{$news[title]}',
+	        link:'{$news[link]}',
+	        imgUrl:'{$news[picture]}',
+	        desc:'{$news[brief]}',
+			success: function() { 
+                    $.post('{:U("survey/ajaxAddfxlog")}',{type:'fxurla'},function(d){
+				
+				    })   
+                },
+	   });
+	   wx.onMenuShareWeibo({
+	        title:'{$news[title]}',
+	        link:'{$news[link]}',
+	        imgUrl:'{$news[picture]}',
+	        desc:'{$news[brief]}',
+			success: function() { 
+                $.post('{:U("survey/ajaxAddfxlog")}',{type:'fxurla'},function(d){
+				
+				})   
+            },
+	   });
+	   
+	   
+	   
+	   
+	});
+
+</script>
+
+
+</head>
+<body>
+    <div class="main survey">
+       <!--顶部图-->
+	   <div class="top_survey wow rollIn" data-wow-delay="0.3s"></div>
+
+       <!--顶部标题--> 
+       <div class="top_title">
+          <div style="width:6.0rem; margin:0 auto;" class="wow bounceInLeft" data-wow-delay="0.9s">
+       	   <p class="p1">客户满意度调查表</p>
+       	   <p class="p2">CUSTOMER SATISFACTION SURVEY</p>
+       	  </div>
+       </div>
+
+	   <!--内容-->
+	   <div class="survey_con">
+	        <div class="survey_mid survey_zici wow bounceInDown" data-wow-delay="1.5s">
+               {$data['content']}
+
+
+          </div>
+          <div style="width:8.9333333333rem; margin:0 auto; margin-top:0.6666666667rem;margin-bottom:0.6666666667rem; overflow:hidden;">
+            <div class="tj_btns" style="margin-top:0.8rem;  margin:0 auto;">
+                  <a href="{:U('forms')}"><p>填写客户满意度调查表</p></a>
+            </div>
+          </div> 
+	   </div>
+
+    
+
+
+	</div>
+
+
+	
+    <!--底部导航-->
+       <include file="Public:bottomnav"/>
+<script>
+    if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))){
+        new WOW().init();
+    };
+</script>
+</body>
+</html>

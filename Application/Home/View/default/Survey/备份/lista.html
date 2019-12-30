@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>{:C('WEB_SITE_TITLE')}</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+
+<script type="text/javascript" src="__JS__/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__JS__/layer.js"></script>
+<!--js-->
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+
+<style type="text/css">
+  
+   .yincang .list_con{display: none;}
+   .data_text{display: none;}
+.top p{margin-top:0;}
+   
+
+</style>
+
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script> 
+<script>
+
+	wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: '{$wxconfig[appId]}', // 必填，公众号的唯一标识
+        timestamp:{$wxconfig['timestamp']}, // 必填，生成签名的时间戳
+        nonceStr: '{$wxconfig["nonceStr"]}', // 必填，生成签名的随机串
+        signature: '{$wxconfig["signature"]}',// 必填，签名，见附录1
+        jsApiList: [
+            'onMenuShareTimeline',
+			'checkJsApi',
+			'onMenuShareAppMessage',
+			'onMenuShareQQ',
+			'onMenuShareWeibo'
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+    wx.ready(function () {
+      
+       wx.onMenuShareTimeline({
+	        title:'{$news[title]}',
+	        link:'{$news[link]}',
+	        imgUrl:'{$news[picture]}',
+	        desc:'{$news[brief]}',
+	   
+	   });
+	   wx.checkJsApi({
+	        title:'{$news[title]}',
+	        link:'{$news[link]}',
+	        imgUrl:'{$news[picture]}',
+	        desc:'{$news[brief]}',
+	   });
+	   wx.onMenuShareAppMessage({
+	        title:'{$news[title]}',
+	        link:'{$news[link]}',
+	        imgUrl:'{$news[picture]}',
+	        desc:'{$news[brief]}',
+	   });
+	   wx.onMenuShareWeibo({
+	        title:'{$news[title]}',
+	        link:'{$news[link]}',
+	        imgUrl:'{$news[picture]}',
+	        desc:'{$news[brief]}',
+	   });
+	   
+	   
+	});
+
+</script>
+
+
+
+
+</head>
+<body>
+    <div class="main survey">
+
+	   <div class="top">
+	   	    <p style="margin-top: 0.6666666667rem;">{$datatitle[title]}</p>
+	   	    <p>{$datatitle[egtitle]}</p>
+
+	   </div>
+ 
+	   <!--内容-->
+       <form id="form2" action="{:U('addlist')}" method="post">
+	   <div class="mid survey_list">
+          
+          
+           <!--列表开始-->
+           <volist name="list" id="vos" key="k">
+              <!--问题id-->
+            
+
+           <div class="input_list_b">
+
+             <input type="hidden" name="wtid[]" value="{$vos[id]}">
+
+	         <div class="datas <if condition='$k neq 1'>yincang</if>">
+	         	<div class="title <if condition='$k eq 1'>on</if>"><span>{$k}. {$vos[title]}</span></div>
+                <div class="list_con ">
+                     <div class="dianimg"></div>
+                     <input class="radios" type="radio" name="satisfaction{$vos[id]}" value="5">
+                     <label name="nba">A、非常满意</label>
+                </div>
+                <div class="list_con">
+                     <div class="dianimg"></div>
+                     <input class="radios" type="radio" name="satisfaction{$vos[id]}" value="4">
+                     <label name="nba">B、满意</label>
+                </div>
+                <div class="list_con">
+                     <div class="dianimg"></div>
+                     <input class="radios" type="radio"  name="satisfaction{$vos[id]}" value="3">
+                     <label name="nba">C、一般</label>
+                </div>
+                <div class="list_con">
+                     <div class="dianimg"></div>
+                     <input class="radios" type="radio"  name="satisfaction{$vos[id]}" value="2">
+                     <label name="nba">D、不满意</label>
+                </div>
+                <div class="list_con">
+                     <div class="dianimg"></div>
+                     <input class="radios" type="radio"  name="satisfaction{$vos[id]}" value="1">
+                     <label name="nba">E、很不满意</label>
+                </div>
+	           </div>
+             <div class="data_text">
+                 <div class="yiny"></div>
+                 <div class="data_zyx">
+                     <p class="p1">该问题对您的重要性</p>
+                     <div class="zyx_xz">
+                        <div class="chengdu" >
+                          <input  type="radio" name="important{$vos[id]}" value="3" />
+                          <label >重要</label>
+                        </div>
+
+                        <div class="chengdu" > 
+                          <input   type="radio" name="important{$vos[id]}" value="2" />
+                          <label>一般</label>
+                        </div>
+                        
+                        <div class="chengdu" > 
+                          <input   type="radio" name="important{$vos[id]}" value="1" />
+                          <label>不适用</label>
+                        </div>
+                     </div>
+                 </div>
+             </div>
+            </div>
+
+            </volist>
+          
+            
+            <!--顶级标题id-->
+            <input type="hidden" name="topid" value="{$topid}" />
+            <!--顶级标题排序-->
+            <input type="hidden" name="sort" value="{$topid|modelField='survey','sort'}" />
+
+
+	         <div class="tj_btns" id="btutns">
+               <!-- <input type="submit" value="提交">-->
+	         	<a href="javascript:;">下一步</a>
+	         </div>
+
+	        
+	   </div>
+       </form>
+
+       <input type="hidden" name="topsid" value="{$_GET[id]}">
+
+	</div>
+    
+
+
+
+	
+    <!--底部导航-->
+    <include file="Public:bottomnav"/>
+
+
+<script>
+   
+//点击伸缩效果
+$(".list_con").click(function(){
+
+     $(this).addClass('active').siblings('.list_con').removeClass('active').slideUp();
+
+     $(this).find('input[type=radio]').prop('checked',true);
+
+     var radioval = $(this).find('input[type=radio]:checked').val();
+
+     if(radioval>0){
+
+         $(this).parents('.input_list_b').find('.data_text').show();
+
+     }
+
+});
+//点击重要程度
+$(".chengdu").click(function(){
+    $(this).find('input[type=radio]').prop('checked',true); 
+    $(this).find("label").addClass('actv');
+    $(this).siblings('.chengdu').find('label').removeClass('actv');
+
+});
+//点击标题
+$(".title").click(function(){
+     
+      var rda = $(this).siblings('.list_con').find("input[type='radio']:checked").val();
+
+      if(rda>0){
+       
+          $(this).siblings('.list_con').slideDown();
+          
+      }
+
+      var nums = $(this).parents('.input_list_b').index();
+      var obj  = $(this).parents('.input_list_b').prev('.input_list_b');
+      var trs  = true;
+      if(nums>0){
+           
+            var rswe = obj.find('.list_con').find("input[type='radio']:checked").val();
+            var rewt = obj.find('.data_text').find("input[type='radio']:checked").val();
+
+            if(rswe==undefined || rewt==undefined){
+    
+              layer.alert('请先完成上一题！');
+
+              return false;
+
+            }else{
+
+                 $(this).addClass('on');
+                 $(this).parents('.input_list_b').find('.datas').removeClass('yincang');
+
+            }
+           
+      }
+ 
+   
+
+});
+
+
+
+
+//提交
+   $("#btutns").click(function(){
+
+
+          //判断是否还有题目没有完成
+          var bd  = true;
+           $(".input_list_b").each(function(){
+
+               var rad = $(this).find('.list_con').find('input[type="radio"]:checked').val();
+               
+               if(rad==undefined){
+                     
+                     layer.alert('您还有题目没有完成！');
+                     bd=false;
+                     return false;
+                     
+               }else{
+
+                  var rader = $(this).find('.data_text').find('input[type="radio"]:checked').val();
+
+                  if(rader==undefined){
+
+                     layer.alert('您还有题目没有完成！');
+                     bd=false;
+                     return false;
+                     
+                  }
+
+               }
+           });
+        
+             if(bd==true){
+                $("#form2").submit();
+             }
+        
+    });
+
+
+</script>
+
+</body>
+</html>

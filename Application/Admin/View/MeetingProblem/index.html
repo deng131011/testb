@@ -1,0 +1,147 @@
+<extend name="Public/base" />
+
+<block name="body">
+	<!-- 标题栏 -->
+	<div class="main-title">
+		<h2>研讨会活动问题列表</h2>
+	</div>
+	<div class="cf">
+		<div class="fl">
+			<a class="btn" href="{:U('MeetingProblem/add',array('pid'=>$pid))}">新 增</a>
+            <button class="btn ajax-post" url="{:U('MeetingProblem/changeStatus',array('method'=>'resumeUser'))}" target-form="ids">启 用</button>
+            <button class="btn ajax-post" url="{:U('MeetingProblem/changeStatus',array('method'=>'forbidUser'))}" target-form="ids">禁 用</button>
+            <button class="btn ajax-post confirm" url="{:U('MeetingProblem/changeStatus',array('method'=>'deleteUser'))}" target-form="ids">删 除</button>
+			
+			<button class="btn copybtn" url="{:U('MeetingProblem/problemcopy')}" target-form="ids">复 制</button>
+			
+			
+			
+        </div>
+
+        <!-- 高级搜索 -->
+		<div class="search-form fr cf">
+			<form action="/Admin/MeetingProblem/index" id="form1" method="get">
+			<div class="sleft">
+				<input type="hidden" name="pid" value="{$pid}">
+				
+				<input type="text" name="title" class="search-input" value="{$get[title]}" placeholder="标题">
+				<a class="sch-btn" href="javascript:;" id="search" url="{:U('index')}"><i class="btn-search"></i></a>
+			</div>
+			</form>
+		</div>
+    </div>
+    <!-- 数据列表 -->
+    <div class="data-table table-striped">
+	<table class="">
+    <thead>
+        <tr>
+		<th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+		<th class="">编号</th>
+		<th class="">标题</th>
+		<th class="">问题分类</th>
+		<th class="">所属活动</th>
+		<th class="">排序</th>
+		<th class="">添加时间</th>
+		<th class="">状态</th>
+		<th class="">操作</th>
+		</tr>
+    </thead>
+    <tbody>
+		<notempty name="list">
+		<volist name="list" id="vo">
+		<tr>
+            <td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}" /></td>
+			<td>{$vo.id} </td>
+			<td>
+			<if condition="$vo[pid] eq 0">  
+			<a href="{:U('MeetingProblem/index',array('pid'=>$vo[id]))}">{$vo.title}</a>
+			<else />
+			{$vo.title}
+			</if>
+			</td>
+			<td>{$vo[type]|getMeetProblemType}</td>
+			<td>{$vo.hd_id|modelField="meeting","title"}</td>
+			<td>{$vo.sort}</td>
+			<td>{$vo.create_time|date='Y-m-d H:i',###}</td>
+			<td>{$vo.status|get_status_title}</td>
+			<td><eq name="vo.status" value="1">
+				<a href="{:U('MeetingProblem/changeStatus?method=forbidUser&id='.$vo['id'])}" class="ajax-get">禁用</a>
+				<else/>
+				<a href="{:U('MeetingProblem/changeStatus?method=resumeUser&id='.$vo['id'])}" class="ajax-get">启用</a>
+				</eq>
+                <a href="{:U('MeetingProblem/edit',array('pid'=>$pid,'id'=>$vo['id']))}">编辑</a>
+				<a href="{:U('MeetingProblem/changeStatus?method=deleteUser&id='.$vo['id'])}" class="confirm ajax-get">删除</a>
+                </td>
+		</tr>
+		</volist>
+		<else/>
+		<td colspan="10" class="text-center"> aOh! 暂时还没有内容! </td>
+		</notempty>
+	</tbody>
+    </table>
+	</div>
+    <div class="page">
+        {$_page}
+    </div>
+</block>
+
+<block name="script">
+	<script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
+
+	<script type="text/javascript">
+	//搜索功能
+	$("#search").click(function(){
+		
+
+		var typeid = $("select[name=typeid]").val();
+        var title  = $('input[name=title]').val();
+        $("#form1").submit();
+
+		
+	});
+	//回车搜索
+	$(".search-input").keyup(function(e){
+		if(e.keyCode === 13){
+			
+			$("#search").click();
+			return false;
+			
+		}
+	});
+	
+    //导航高亮
+    highlight_subnav('{:U('MeetingProblem/index')}');
+	
+	//点击复制
+	
+	$(".copybtn").click(function(){
+	
+	    var $check_boxes = $("input[type='checkbox']:checked");
+        if($check_boxes.length<=0){
+            alert('您还未选择要复制的数据！');
+            return;
+        }
+	
+	   
+		$("input[type=checkbox]:checked").each(function(i){
+			if(0==i){
+				spCodesTemp = $(this).val();	
+			}else{				
+				spCodesTemp += (","+$(this).val());
+			}
+							
+		});
+		window.location.href="/index.php?s=/Admin/MeetingProblem/problemcopy&proid="+spCodesTemp;	
+			
+		//$.post("{:U('problemcopy')}",{proarr:spCodesTemp},function(d){
+		
+		///    alert(d);
+		
+		//});
+		
+	
+	});
+	
+	
+	</script>
+</block>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>{:C('WEB_SITE_TITLE')}</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+
+<!--js-->
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+
+<style type="text/css">
+	
+.input_list p{height: 1.1066666667rem; line-height:1.1066666667rem; padding-left: 0.0666666667rem;}
+.input_list p .left12{float: left;}
+.input_list p .right12{margin-left:0.1333333333rem; color: #6a6a6a;}
+</style>
+</head>
+<body>
+    <div class="main">
+
+	   <div class="top">
+	   	    
+	   	    <p>Contact person</p>
+
+	   </div>
+
+	   <!--内容-->
+	   <div class="mid">
+	     
+	         <div class="input_list">
+	         	<p><span class="left12">迎接客户的高层领导姓名：</span> <span class="right12">{$vo['wel_leader']}</span></p>
+	         </div>
+
+	         <div class="input_list">
+	         	<p><span class="left12">欢送客户的高层领导姓名：</span><span class="right12">{$vo['send_leader']}</span></p>
+	         </div>
+
+	         <div class="input_list">
+	         	<p><span class="left12">陪同参观的公司员工姓名：</span><span class="right12">{$vo['pt_person']}</span></p>
+	         </div>
+
+	         <div class="input_list">
+	         	<p><span class="left12">陪同参观的市场：</span><span class="right12">{$vo['market']}</span></p>
+	         </div>
+
+	         <div class="input_list">
+	         	<p><span class="left12">销售部员工姓名：</span><span class="right12">{$vo['sale_name']}</span></p>
+	         </div>
+
+	         <div class="tj_btns">
+	         	<a href="{:U('detailb',array('id'=>$vo['apply_id']))}">查看详细信息</a>
+	         </div>
+
+	      
+	   	
+
+	   </div>
+
+	</div>
+
+
+	
+    <!--底部导航-->
+       <include file="Public:bottomnav"/>
+
+
+</body>
+</html>

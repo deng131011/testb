@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>优耐板</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+<link rel="stylesheet" type="text/css" href="__CSS__/about.css"> 
+<!--js-->
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+<script type="text/javascript" src="__JS__/jquery-1.9.1.min.js"></script>
+
+<!--动画-->
+<link rel="stylesheet" type="text/css" href="__CSS__/animate.min.css"> 
+<script type="text/javascript" src="__JS__/wow.min.js"></script>
+<style>
+  .about_xq .right .p1{font-family:"Arial";}
+  .about_xq .right .p3{margin-top: 0.0333333333rem;}
+  .about_xq .right .p1{line-height:0.6rem}
+</style>
+</head>
+<body>
+    <div class="about_main">
+         <div class="width_all about_xq">
+              <div class="left wow bounceInDown" data-wow-delay="0.5s"><img src="__IMG__/about/ab4.jpg"/></div>
+              <div class="right">
+                  <div style="width:4.84rem; margin:0 auto;">
+                      <p class="p1 wow lightSpeedIn" data-wow-delay="1s">{$vo['name']}</p>
+                      <p class="p2 wow lightSpeedIn" data-wow-delay="1.2s">{$vo['title']}</p>
+                      <p class="p3 wow fadeInUpBig" data-wow-delay="1.7s">{$vo['content']}</p>
+                  </div>
+                     
+                
+              </div>
+         </div>
+
+         <div class="width_all about_xq2" style="margin-bottom: 0.6666666667rem;">
+             <div class="imgsize_xq1 wow rollIn" data-wow-delay="2.3s"><img src="__IMG__/about/ab5.jpg"></div>
+             <div style="width:9.3333333333rem; margin: 0 auto; margin-top: 0.2666666667rem; ">
+               <div style="width:50%; float: left; text-align: center; color: #4d4d4d" class="wow fadeInUpBig" data-wow-delay="1.5s">无耐指纹处理</div>
+               <div style="width:50%; float: left; text-align: center;  color: #4d4d4d" class="wow fadeInUpBig" data-wow-delay="1.5s">耐指纹处理</div>
+             </div>
+         </div>
+	  
+	</div>
+
+
+    <!--底部导航-->
+     <include file="Public:bottomnav"/>   
+<script>
+    if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))){
+        new WOW().init();
+    };
+</script>
+
+
+</body>
+</html>

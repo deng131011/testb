@@ -1,0 +1,109 @@
+<extend name="Public/base" />
+
+<block name="body">
+	<!-- 标题栏 -->
+	<div class="main-title">
+		<h2>答题记录列表</h2>
+	</div>
+	<div class="cf">
+		<div class="fl">
+			
+            
+            <button class="btn ajax-post confirm" url="{:U('MatchResult/del')}" target-form="ids">删 除</button>
+
+            
+
+        </div>
+
+        <!-- 高级搜索 -->
+		<div class="search-form fr cf">
+			<form action="/Admin/MatchResult/index" id="form1" method="get">
+			<div class="sleft">
+				<!--<input type="text" name="typeid" class="search-input" value="" placeholder="文件分类">-->
+				
+				<!--<input type="text" name="title" class="search-input" value="{$get[title]}" placeholder="标题">
+				<a class="sch-btn" href="javascript:;" id="search" url="{:U('index')}"><i class="btn-search"></i></a>-->
+			</div>
+			</form>
+		</div>
+    </div>
+    <!-- 数据列表 -->
+    <div class="data-table table-striped">
+	<table class="">
+    <thead>
+        <tr>
+		<th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+		<th class="">编号</th>
+		<th class="">姓名</th>
+		<th class="">电话号码</th>
+		<th class="">公司名称</th>
+		<th class="">题目顶级分类</th>
+		<th class="">添加时间</th>
+		<th class="">是否完成</th>
+		<th class="">总分数</th>
+		<th class="">总时间</th>
+		<th class="">操作</th>
+		</tr>
+    </thead>
+    <tbody>
+		<notempty name="list">
+		<volist name="list" id="vo">
+		<tr>
+            <td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}" /></td>
+			<td>{$vo.id} </td>
+			<td>
+			  <a href="{:U('edit',array('topid'=>$vo[id]))}">{$vo.username}</a> </td>
+			<td>{$vo.mobile}</td>
+			<td>{$vo.company}</td>
+			
+			<td>{$vo.typepid|modelField="match_type","title"}</td>
+			<td>{$vo.create_time|date='Y-m-d H:i',###}</td>
+			<td>{:is_complelet($vo[typepid],$vo[id])}</td>
+			<td style="color:red">{:total_score($vo[id])}分</td>
+			<td style="color:red">{:total_spendtime($vo[id])}</td>
+			<td><eq name="vo.status" value="1">
+				
+				<a href="{:U('MatchResult/del',array('id'=>$vo['id']))}" class="confirm ajax-get">删除</a>
+				
+                </td>
+		</tr>
+		</volist>
+		<else/>
+		<td colspan="10" class="text-center"> aOh! 暂时还没有内容! </td>
+		</notempty>
+	</tbody>
+    </table>
+	</div>
+    <div class="page">
+        {$_page}
+    </div>
+</block>
+
+<block name="script">
+	<script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
+
+	<script type="text/javascript">
+	//搜索功能
+	$("#search").click(function(){
+		
+
+		var typeid = $("select[name=typeid]").val();
+        var title  = $('input[name=title]').val();
+        $("#form1").submit();
+
+		
+	});
+	//回车搜索
+	$(".search-input").keyup(function(e){
+		if(e.keyCode === 13){
+			
+			$("#search").click();
+			return false;
+			
+		}
+	});
+	
+    //导航高亮
+    highlight_subnav('{:U('MatchResult/index')}');
+	</script>
+</block>

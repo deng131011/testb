@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>项目展示</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+<link rel="stylesheet" type="text/css" href="__CSS__/person.css"> 
+<!--js-->
+<script type="text/javascript" src="__STATIC__/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+</head>
+<body onload="init()">
+    <div class="main product">
+          <div class="xq_top">
+          	<img src="__IMG__/product/xq1.jpg"/>
+          </div>
+          <div class="xq_topbj">
+          	  <p class="p1">{$vo[egtitle]}</p>
+          	  <p class="p2">{$vo[title]}</p>
+          </div>
+
+          <div class="xq_mid">
+          	  <div class="xq_con">
+          	  	   <div class="xq_width">
+          	  	   	   <p><span class="span1">地点：</span><span class="span2">{$vo[addr_map]}</span></p>
+          	  	   </div>
+
+          	  	   <div class="xq_width">
+          	  	   	   <p><span class="span1">面积：</span><span class="span2">{$vo[size]}㎡</span></p>
+          	  	   </div>
+
+          	  	   <div class="xq_width">
+          	  	   	   <p><span class="span1">签约时间：</span><span class="span2">{$vo[years]}年</span></p>
+          	  	   </div>
+
+          	  	   <div class="xq_width">
+          	  	   	   <p><span class="span1">来实® 系统：</span><span class="span2"></span></p>
+          	  	   </div>
+
+          	  	   <div class="xq_width">
+          	  	   	   <p class="p_con">{$vo[description]}</p>
+          	  	   </div>
+
+          	  	   <div class="map" id="container">
+          	  	   	  <!-- <img src="__IMG__/product/map.jpg"/> -->
+          	  	   </div>
+
+
+          	  </div>
+          </div>
+
+
+
+      
+	</div>
+
+
+
+
+    <!--底部导航-->
+        <include file="Public:bottomnav"/>
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
+<script>
+
+var init = function() {
+    var center = new qq.maps.LatLng({$vo[longitude]},{$vo[latitude]});
+    var map = new qq.maps.Map(document.getElementById('container'),{
+        center: center,
+        zoom: 13,
+        mapTypeControlOptions: {
+                    //设置控件的地图类型ID，ROADMAP显示普通街道地图，SATELLITE显示卫星图像，HYBRID显示卫星图像上的主要街道透明层
+                    mapTypeIds: [
+                        qq.maps.MapTypeId.ROADMAP,
+                    ],
+                    
+                }
+    });
+
+    var label = new qq.maps.Label({
+        position: center,
+        map: map,
+        content: '{$vo[title]}'
+    });
+    //创建标记
+    var marker = new qq.maps.Marker({
+        position: center,
+        map: map
+    });
+    //添加到提示窗
+    var info = new qq.maps.InfoWindow({
+        map: map
+    });
+
+   
+  
+     //   info.open(); 
+     //   info.setContent('<div style="text-align:center;white-space:nowrap;'+
+      //  'margin:0.1333333333rem;">{$vo[title]}</div>');
+      //  info.setPosition(center); 
+
+    
+}
+
+
+
+
+</script>
+
+</body>
+</html>

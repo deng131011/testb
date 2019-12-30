@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>工厂参观申请</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+
+<!--js-->
+
+<script type="text/javascript" src="__JS__/jquery-1.9.1.min.js"></script>
+
+<script type="text/javascript" src="__JS__/layer.js"></script>
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+<style type="text/css">
+	
+
+  
+.top p{margin-top:0;}
+</style>
+</head>
+<body>
+    <div class="main">
+
+       <if condition="isCompanyLabour() eq 100">
+	   <div class="top">
+	   	    <p style="margin-top: 0.6666666667rem;">工厂联系人</p>
+	   	    <p>Contact</p>
+	   </div>
+
+      
+	   <!--内容-->
+	   <div class="mid coms">
+	      <div class="line_style">
+		  <!-- <img src='__IMG__/apply/sq2.png'/>-->
+		  </div>
+	      <!--右边内容-->
+	      <div class="cons">
+	      	   <div class="cons_a">
+	      	   	<p><span class="span1">请将申请表电邮至:</span>
+				<span class="span2">
+				  <volist name="list" id="vos" key="m">
+				   <if condition="$m eq 1"><else />/</if>{$vos[egname]}   
+				  </volist> 
+				</span></p>
+	      	   </div>
+
+			   <volist name="list" id="vo" key="k">
+	      	   <div class="contact <if condition="$k eq 1">cons_ones</if>">
+	      	   	   <p class="p1">{$vo['title']}</p>
+	      	   	   <div class="lines lines_one">
+	      	   	    	<div class="tbimg"><img src="__IMG__/apply/tb1.png"/></div>
+	      	   	    	<div class="cons_title">主要联系人</div>
+	      	   	    	<div class="con_con">{$vo['contact_person']}</div>
+	      	   	   </div>
+
+	      	   	   <div class="lines">
+	      	   	    	<div class="tbimg"><img src="__IMG__/apply/tb2.png"/></div>
+	      	   	    	<div class="cons_title">电子邮件</div>
+	      	   	    	<div class="con_con">{$vo['email']}</div>
+	      	   	   </div>
+
+	      	   	   <div class="lines">
+	      	   	    	<div class="tbimg"><img src="__IMG__/apply/tb3.png"/></div>
+	      	   	    	<div class="cons_title">办公室电话</div>
+	      	   	    	<div class="con_con">{$vo['offce_tel']}</div>
+	      	   	   </div>
+
+	      	   	    <div class="lines ">
+	      	   	    	<div class="tbimg"><img src="__IMG__/apply/tb4.png"/></div>
+	      	   	    	<div class="cons_title">手机</div>
+	      	   	    	<div class="con_con">{$vo['mobile']}</div>
+	      	   	   </div>
+
+	      	   </div>
+               </volist>
+			   
+			   
+			   
+			   <div class="tj_btns btn_sqds" style="margin-top:0.8rem; background:#28529c;">
+	         	<a href="javascript:;">填写工厂参观申请单</a>
+	           </div>
+			   
+			   <div class="tj_btns btn_sqjls" style="margin-bottom:0.8rem; ">
+	         	<a href="javascript:;">我的申请记录</a>
+	           </div>
+
+
+	      </div>
+	   	
+
+	   </div>
+
+	   <else/>
+
+	     <div class="top">
+	   	    <p style="margin-top: 0.6666666667rem; text-align: center;"></p>
+	   	    <p></p>
+	    </div>
+
+         <div class="mid coms">
+		      <div class="cons">
+		      	   <div class="cons_a">
+		      	   	<p style="line-height: 0.6666666667rem"><span class="span1" style="font-size: 0.5333333333rem">如您需要参观工厂请联系当地销售人员或拨打电话：0512-62831288</span></p>
+					
+		       </div>
+	      </div> 
+
+     
+
+	   </if>
+
+	</div>
+
+
+
+     <div class="zz_tk host_hide">
+        <div class="hostl">
+            <div class="title">
+                <p>信息<span class="fa fa-times quxiao"></span></p>
+            </div>
+            <div class="prices survey_success">
+                <p>对不起！只有公司业务员才能进入。</p>
+            </div>
+
+        </div>
+    </div>
+	
+    <!--底部导航-->
+       <include file="Public:bottomnav"/>
+	<input type="hidden" id="isyewu" value="{:isCompanyLabour()}"/>   
+<script>
+
+    $(".btn_sqds").click(function(){
+	
+	     var isyw = $("#isyewu").val();
+		 
+		 if(isyw==100){
+		 
+		    window.location.href="/Home/Apply/forms";
+		 
+		 }else{
+		    $(".host_hide").show();
+			return false;
+		 }
+	});
+	
+	$(".btn_sqjls").click(function(){
+	
+	     var isyw = $("#isyewu").val();
+		 
+		 if(isyw==100){
+		 
+		    window.location.href="/Home/Apply/record";
+		 
+		 }else{
+		    $(".host_hide").show();
+			return false;
+		 }
+	});
+	
+	 $(".quxiao").click(function(){
+
+	   // $(".host_hide").hide();
+	   window.location.href="/Home/Apply/index";
+
+      }); 
+
+</script>
+
+</body>
+</html>

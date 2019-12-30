@@ -1,0 +1,345 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="wap-font-scale" content="no">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="description" content="巴特勒绿色之行—桂林研讨会" />
+    <title>{:C('WEB_SITE_TITLE')}</title>
+
+
+    <link href="/Public/Home/guiLin/css/reset.css" rel="stylesheet" />
+    <link href="/Public/Home/guiLin/css/about.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/Public/Home/guiLin/libs/animate.css">
+    <link rel="stylesheet" href="/Public/Home/guiLin/site.css">
+
+    <script src="/Public/Home/guiLin/js/jquery-1.8.0.js"></script>
+    <script src="/Public/Home/guiLin/js/global.js"></script>
+    <script type="text/javascript" src="__JS__/layer.js"></script>
+    <script type="text/javascript" src="__JS__/mobile.js"></script>
+<!--验证js-->
+<script src="__STATIC__/validate/dist/jquery.validate.min.js"></script>
+
+
+    <style type="text/css">
+        .title {
+            text-align: center;
+            color: #057ecd;
+            margin-top: 37%;
+        }
+
+            .title img {
+                width: 100%;
+                float: left;
+            }
+
+        :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+            color: #837b79;
+            opacity: 1;
+        }
+
+        ::-moz-placeholder { /* Mozilla Firefox 19+ */
+            color: #837b79;
+            opacity: 1;
+        }
+
+        input:-ms-input-placeholder {
+            color: #837b79;
+            opacity: 1;
+        }
+
+        input::-webkit-input-placeholder {
+            color: #837b79;
+            opacity: 1;
+        }
+
+        .selectdiv {
+            clear: both;
+            margin-top: 16px;
+            display: block;
+            width: 100%;
+            border: 1px solid #1e9459;
+            background: rgba(229,227,213,0.01);
+            padding: 0 8px;
+            height: 36px;
+            line-height: 36px;
+            border-radius: 3px;
+            color: #837b79;
+            padding-left: 0px;
+        }
+
+        .sel_val {
+            width: 96%;
+            margin-left: 2%;
+            background: url(/Public/Home/guiLin/images/input_sj.png) no-repeat right center;
+            background-size: 5%;
+            padding-left: 0px;
+        }
+
+        .sel_val_yqr {
+            width: 96%;
+            margin-left: 2%;
+            background: url(/Public/Home/guiLin/images/input_sj.png) no-repeat right center;
+            background-size: 5%;
+            padding-left: 0px;
+        }
+
+        .sel_option {
+            position: fixed;
+            z-index: 11;
+            width: 94%;
+            border: 1px solid #1e9459;
+            background: #edf4f1;
+            height: 540px;
+            top: 2%;
+            overflow: scroll;
+            display: none;
+        }
+
+            .sel_option li {
+                width: 100%;
+                height: 36px;
+                float: left;
+                line-height: 36px;
+                padding-left: 8px;
+            }
+
+                .sel_option li:active {
+                    background: #1e9459;
+                    color: #fff;
+                }
+
+        .sel_option_list {
+            position: fixed;
+            z-index: 11;
+            width: 94%;
+            border: 1px solid #1e9459;
+            background: #edf4f1;
+            display: none;
+            left: 3%;
+            top: 15%;
+        }
+
+            .sel_option_list li {
+                width: 100%;
+                height: 36px;
+                float: left;
+                line-height: 36px;
+                padding-left: 8px;
+            }
+
+                .sel_option_list li:active {
+                    background: #1e9459;
+                    color: #fff;
+                }
+
+        .zz-bg-list {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            background: rgba(0,0,0,0.5);
+            display: none;
+        }
+        .inviter{
+            clear: both;
+            margin-top: 16px;
+            display: block;
+            width: 100%;
+            border: 1px solid #837b79;
+            background: rgba(229,227,213,0.01);
+            padding: 0 8px;
+            height: 36px;
+            line-height: 36px;
+            border-radius: 3px;
+			color:#837b79;
+        }
+
+        span.error{color:#f00;   font-size: 0.2666666667rem;}
+input:focus{ border-color:#837b79;}
+select:focus{ border-color:#837b79;}
+li{float: none;}
+.regtxt input{border:1px solid #837b79; color:#837b79;}
+
+.othercompany{display: none;}
+    </style>
+
+
+</head>
+
+
+<if condition="$vo[bjicon] neq ''"> 
+<body style="background-image: url({:picture($vo['bjicon'])});background-attachment:fixed; position:relative; z-index:1; min-height:14.76rem;">
+<else/>
+<body style="background-image: url('__IMG__/problem/wtbj.jpg');background-attachment:fixed; position:relative; z-index:1; min-height:14.76rem;">
+</if>
+
+
+    <form action="{:U('')}" method="POST" id="form2">
+    <div class="box">
+        <!--
+            <div class="logo">
+                <img src="GuiLin/images/logo2.png" class="logo2">
+            </div>-->
+        <div class="titleer" style="margin-top:1.24rem;width:8.5066666667rem; height:3.92rem; margin:0 auto;">
+		    <if condition="$vo[icon] neq ''"> 
+            <img src="{:picture($vo[icon])}" style="width:100%;" />
+			<else/>
+			<img src="__IMG__/problem/wtlogo1.png" style="width:100%;" />
+			</if>
+        </div>
+
+        <!--活动id-->
+        <input type="hidden" name="hd_id" value="{$hd_id[id]}">
+
+        <div class="regtxt" style="clear:none; margin-top:0;">
+            <input type="text" name="username" placeholder="您的姓名（先生/女士）Your Name (Mr./Ms.)" required data-msg-required="*您的姓名不能为空"/>
+            <input type="text" name="mobile" placeholder="手机Tel" required data-rule-checkMobile="true" data-msg-required="*手机号不能为空"/>
+            <input type="text" name="email" placeholder="邮箱E-mail" required data-rule-checkEmail="true" data-msg-required="*邮箱不能为空"/>
+            <select name="inviter" class="inviter" required data-msg-required="*邀请人不能为空">
+                <option value="">选择邀请人</option>
+                <volist name="peList" id="per">
+                    <option value="{$per[id]}">{$per[title]}</option>
+                </volist>
+            </select>
+			
+			<select name="company" id="companys" class="inviter" required data-msg-required="*工作单位不能为空">
+                <option value="" data-title="选择工作单位">选择工作单位</option>
+                <volist name="comList" id="com">
+                    <option value="{$com[id]}" data-title="{$com[title]}">{$com[title]}</option>
+                </volist>
+            </select>
+			
+			<input type="text" name="othercompany" class="othercompany" style="display: none;" placeholder="填写工作单位"/>
+
+            
+        </div>
+    </div>
+    <div class="reg-btn" style="margin-top: 0.6666666667rem;">
+        <input type="button" value="签到" id="btnSave" style="background:#ffcb00; color:#c17600; border:0px; border-radius:3px; width: 100%; height:40px;"/>
+        
+    </div>
+    </form>
+
+
+    <div class="zz-bg-list"></div>
+    <!--签到-->
+    <div class="reg-box">
+        <div class="reg-txt">
+            <h1>感谢您的参与,已签到成功！</h1>
+        </div>
+    </div>
+   
+    <script type="text/javascript">
+
+$('input').focus(function(){
+        
+        $(this).parent('.input_list').css('border-color','#f00');
+
+    });
+
+    $('input').blur(function(){
+         
+        $(this).parent('.input_list').css('border-color','#bfbfbf');
+
+    });
+
+//配置错误提示的节点，默认为label，这里配置成 span （errorElement:'span'）
+    $.validator.setDefaults({
+        errorElement:'span'
+    });
+
+
+
+//手机验证规则
+jQuery.validator.addMethod("checkMobile", function (value, element) {
+    
+        var mobile = /^1[3|4|5|7|8]\d{9}$/;
+
+        return this.optional(element) || (mobile.test(value));
+
+
+    }, "手机格式不对");    
+       
+//邮箱验证规则
+jQuery.validator.addMethod("checkEmail", function (value, element) {
+    
+        var email = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+
+        return this.optional(element) || (email.test(value));
+
+
+    }, "邮箱格式不对");
+
+ $("#btnSave").click(function(){
+
+        var onthers = $("select[name='company']").attr('data-title');
+        if($.trim(onthers)=='其他'){
+       
+            var othercompany = $(".othercompany").val();
+
+            if(othercompany==''){
+                  layer.alert('请填写工作单位！');
+                  return false;
+            }
+
+        }
+
+        $("#form2").submit();
+
+    });
+	
+//改变工作单位时获取是否为其他
+
+$("#companys").change(function(){
+
+
+    var titleser = $(this).find('option:checked').attr('data-title');
+	 
+	if($.trim(titleser)=='其他'){
+       
+        $(".othercompany").show();
+ 
+    }else{
+        $(".othercompany").val('');
+        $(".othercompany").hide();
+
+    } 
+	
+
+});	
+	
+
+ $("#form2").validate({
+           
+            submitHandler: function() {
+
+                $.post('{:U('index')}',$('#form2').serialize(),function(d){
+                     
+                     if(d.status==1){
+                        layer.alert('签到成功！',function(){
+
+                            window.location.reload();//刷新当前页面
+
+                        });
+                          
+                     }else if(d.status==2){
+                        layer.alert(d.msg);
+                     }
+                });
+               
+            }
+    })       
+
+
+    </script>
+</body>
+</html>

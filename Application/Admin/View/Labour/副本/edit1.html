@@ -1,0 +1,133 @@
+<extend name="Public/base"/>
+
+<block name="body">
+
+
+	<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+    <div class="main-title">
+        <h2>查看</h2>
+    </div>
+    <ul class="tab-nav nav">
+
+        <li class="current"><a href="javascript:void(0)">基本信息</a></li>
+
+		<if condition="$vo[status] neq 3">
+		<li><a href="javascript:void(0)">立即回复</a></li>
+        <else/>
+		<div style="width: 99px;float: left; height: 37px; line-height: 37px;text-align: center;color: #fff; background: #ada7a7;">已经回复</div>
+		</if>
+
+    </ul>
+    
+    <form action="{:U()}" method="post" id="form1" class="form-horizontal">
+    <input type="hidden" name="pid" value="{$vo[id]}">
+    <div class="tab-content">
+        <div class="form-item">
+            <label class="item-label">客户姓名<span class="check-tips"></span></label>
+            <div class="controls">
+                <input type="text" class="text input-large"  value="{$vo['name']}" disabled>
+            </div>
+        </div>
+
+
+        <div class="form-item">
+            <label class="item-label">客户电话</label>
+            <div class="controls">
+                <input type="text" class="text input-large"  value="{$vo.mobile}" disabled>
+            </div>
+        </div>
+
+
+        <div class="form-item">
+            <label class="item-label">公司信息</label>
+            <div class="controls">
+                <input type="text" class="text input-large" value="{$vo.company}" disabled>
+            </div>
+        </div>
+
+        <div class="form-item">
+            <label class="item-label">提交时间</label>
+            <div class="controls">
+                <input type="text" class="text input-large" value="{$vo['create_time']|date='Y-m-d H:i',###}" disabled>
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">提交内容</label>
+            <div class="controls">
+               <textarea style="width:400px; height:100px;" disabled>{$vo.content}</textarea>
+            </div>
+        </div>
+        
+        <div class="form-item">
+            <a href="{:U('index')}" class="btn btn-return">返 回</a>
+        </div>
+    </div>
+	<div class="tab-content" style="display:none;">
+	    <div class="form-item">
+            <label class="item-label">回复者</label>
+            <div class="controls">
+                <input type="text" name="name" class="text input-large" value="{:get_user_name()}"/>
+            </div>
+        </div>
+		<div class="form-item">
+            <label class="item-label">留言回复</label>
+            <div class="controls">
+                <textarea style="width:400px; height:100px;" name="content"></textarea>
+            </div>
+        </div>
+		<div class="form-item">
+            <input class="btn submit-btn ajax-post" id="submiter" type="button" value="回复" target-form="form-horizontal">
+            <a href="{:U('index')}" class="btn btn-return">返 回</a>
+        </div>
+	
+	
+	</div>
+	
+	
+
+    </form>
+</block>  
+<block name="script">
+	<script>
+	
+	   //选项卡切换
+	   $('.tab-nav li').click(function(){
+			
+			$(this).attr('class','current')
+				.siblings().attr('class','');
+			var n_index=$('.tab-nav li').index(this);
+				$('.tab-content').eq(n_index).show()
+				 .siblings().hide();
+		});
+		
+		//提交回复
+		$("#submiter").click(function(){
+		
+		   var content = $("textarea[name='content']").val();
+		   
+		   if(content==''){
+		   
+		    updateAlert('回复内容不能为空！');
+			return false;
+		   
+		   }
+		   
+		   
+		   $("#form1").submit();
+		   
+		   
+		
+		});
+		
+		
+		
+	
+	
+	 //导航高亮
+       highlight_subnav('{:U("Labour/index")}');
+
+	
+	</script>
+</block>
+
+

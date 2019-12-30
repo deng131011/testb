@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>{:C('WEB_SITE_TITLE')}</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+
+<!--js-->
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+<script type="text/javascript" src="__JS__/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__JS__/layer.js"></script>
+<style>
+   .data_text{display:none;}
+   .list_con,.textareas{display: none;}
+   .off{display: block;}
+   .remarks{display: none;}
+</style>
+</head>
+<body>
+    <div class="main">
+
+	   <div class="top">
+	   	    
+	   	    <p>VISITOR ARRANGEMENT</p>
+
+	   </div>
+
+	   <!--内容-->
+	   <form action="{:U('')}" id="form2" method="post">
+	   <div class="mid">
+	       
+           <!--列表开始-->
+            <div class="input_list_b">
+	         <div class="datas">
+	         	<div class="title on"><span>1. 客户是否需要安排宣传资料</span></div>
+                <div class="list_con off">
+                     <div class="dianimg"></div>
+                     <input class="radios" type="radio"  name="if_data" value="1">
+                     <label name="nba" >A、需要</label>
+                     <div class="yj_xz remarks"></div>
+                </div>
+                <div class="list_con off">
+                     <div class="dianimg"></div>
+                     <input class="radios" type="radio"  name="if_data" value="2">
+                     <label name="nba" >B、不需要</label>
+                </div>
+
+                
+
+
+	         </div>
+             <div class="data_text">
+                 <div class="yiny"></div>
+                 <div class="data_inputs">
+                     <input  type="text" name="data_remark" placeholder="需要安排的资料" />
+                 </div>
+             </div>
+            </div>
+
+            <!--/-->
+            <div class="input_list_b">
+              <div class=" datas">
+                <div class="title"><span>2. 客户是否需要安排礼品</span></div>
+				
+				<div class="list_con">
+                     <div class="dianimg"></div>
+                     <input class="radios" type="radio"  name="if_gift" value="1">
+                     <label name="nba" >A、需要</label>
+                     <div class="yj_xz remarks"></div>
+                </div>
+                <div class="list_con">
+                     <div class="dianimg"></div>
+                     <input class="radios" type="radio"  name="if_gift" value="2">
+                     <label name="nba">B、不需要</label>
+                </div>
+				
+				
+                
+              </div>
+			  <div class="data_text">
+                 <div class="yiny"></div>
+                 <div class="data_inputs">
+                     <input  type="text" name="gift_remark" placeholder="礼品份数" />
+                 </div>
+              </div>
+			  
+			  
+            </div> 
+
+
+            <div class="input_list_b">
+             <div class=" datas">
+                <div class="title"><span>3. 是否安排接送</span></div>
+				<div class="list_con">
+                     <div class="dianimg"></div>
+                     <input class="radios" type="radio"  name="if_send" value="1">
+                     <label name="nba" >A、需要</label>
+                     <div class="yj_xz remarks"></div>
+                </div>
+                <div class="list_con">
+                     <div class="dianimg"></div>
+                     <input class="radios" type="radio"  name="if_send" value="2">
+                     <label name="nba" >B、不需要</label>
+                </div>
+             </div>
+			 <div class="data_text">
+                 <div class="yiny"></div>
+                 <div class="data_inputs">
+                     <input  type="text" name="send_remark" placeholder="接送人数" />
+                 </div>
+              </div>
+            </div> 
+
+            <div class="input_list_b">
+             <div class=" datas">
+                <div class="title"><span>4. 是否安排访客午餐</span></div>
+				<div class="list_con">
+                     <div class="dianimg"></div>
+                     <input class="radios" type="radio"  name="if_lunch" value="1">
+                     <label name="nba" >A、需要</label>
+                     <div class="yj_xz remarks"></div>
+                </div>
+                <div class="list_con">
+                     <div class="dianimg"></div>
+                     <input class="radios" type="radio" name="if_lunch" value="2">
+                     <label name="nba">B、不需要</label>
+                </div>
+             </div>
+			 
+			 <div class="data_text">
+                 <div class="yiny"></div>
+                 <div class="data_inputs">
+                     <input  type="text" name="lunch_remark" placeholder="进行午餐的人数" />
+                 </div>
+              </div>
+            </div> 
+
+            <div class="input_list_b">
+             <div class="datas">
+                <div class="title"><span>5. 是否需要预定酒店？</span></div>
+				<div class="list_con">
+                     <div class="dianimg"></div>
+                     <input class="radios" type="radio" name="if_hotel" value="1">
+                     <label name="nba" >A、需要</label>
+                     <div class="yj_xz remarks"></div>
+                </div>
+                <div class="list_con">
+                     <div class="dianimg"></div>
+                     <input class="radios" type="radio"  name="if_hotel" value="2">
+                     <label name="nba">B、不需要</label>
+                </div>
+             </div>
+			 <div class="data_text">
+                 <div class="yiny"></div>
+                 <div class="data_inputs">
+                     <input type="text" name="hotel_remark" placeholder="酒店价格范围" />
+                 </div>
+              </div>
+			 
+            </div> 
+
+            <div class="input_list_b">
+             <div class="datas">
+                <div class="title" data-type="textarea"><span>6. 是否有其他特殊要求？</span></div>
+
+                <div class="textareas">
+                    <div class="texa_a"><textarea name="others_remark"></textarea></div>
+                </div>
+             </div>
+            </div> 
+	         
+
+	        <div class="tj_btns" id="btns">
+	         	<a href="javascript:;">提交工厂参观申请单</a>
+	        </div>
+
+	      
+	   	
+
+	   </div>
+       </form>
+	</div>
+    <!--酒店价格范围弹框-->
+
+    <div class="zz_tk host_hide">
+        <div class="hostl">
+            <div class="title">
+                <p>选择酒店价格范围 <span class="fa fa-times"></span></p>
+            </div>
+            <div class="prices">
+                <ul>
+                    <volist name="hostList" id="host" key="n">
+                      <li class="pric <if condition='$n eq 1'>on</if>">{$host['title']}</li>
+                    </volist>
+                    
+                </ul>
+            </div>
+            <div class="host_bottom">
+                <div class="diva sured">确认选择</div>
+                <div class="divb quxiao">取消选择</div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!--酒店价格-->
+	<input type="hidden" id="hotpri" value="" />
+	
+    <!--底部导航-->
+        <include file="Public:bottomnav"/>
+<script>
+
+//列表效果
+$(".list_con").click(function(){
+
+     
+
+      $(this).addClass('active').siblings('.list_con').removeClass('active').slideUp();
+
+	  $(this).find('input[type=radio]').prop('checked',true);
+
+      var radioval = $(this).find('input[type=radio]:checked').val();
+
+      if(radioval==1){
+       
+          $(this).parent('.datas').siblings('.data_text').show();
+
+      }else if(radioval==2){
+         
+           $(this).parent('.datas').siblings('.data_text').hide();
+
+           $(this).removeClass('active').addClass('active_trr');
+
+           $(this).parents('.input_list_b').next('.input_list_b').find('.list_con') .addClass('off');
+           $(this).parents('.input_list_b').next('.input_list_b').find('.title').addClass('on');
+
+      }
+
+});
+
+
+
+$(".title").click(function(){
+    var sta = true;
+    $(this).parents('.input_list_b').find('.list_con').each(function(){
+      
+            var ert = $(this).find('input[type="radio"]:checked').val();
+
+            if($.trim(ert).length==0 || ert<1){
+                sta = false;
+                return false;
+            }
+
+    });
+    //如果下边有值可以展开
+    if(sta==true){
+
+        // $(this).parents('.input_list_b').siblings('.list_con').removeClass('active'); 
+        $(this).parents('.input_list_b').siblings('.list_con').removeClass('active_trr').slideDown(); 
+        $(this).parents('.input_list_b').find('.list_con').removeClass('active_trr');
+        var ravaltwo = $(this).parents('.input_list_b').find('input[type="radio"]:checked').val();
+        if(ravaltwo==1){
+           $(this).parents('.input_list_b').find('.data_text').show();
+        }
+
+    }
+
+     //展开
+
+    
+      
+
+     var nums = $(this).parents('.input_list_b').index();
+     var trs  = true; 
+     if(nums>0){
+
+        var obj = $(this).parents('.input_list_b').prev('.input_list_b');
+       
+        var raval = obj.find("input[type='radio']:checked").val();
+
+      //  obj.find('.list_con').each(function(){
+     //      var xztype = $(this).find('input[type="text"]:checked').val();
+     //      alert(xztype);
+     //   });
+      
+        if(raval==undefined){
+            layer.alert('请先选择上一题！');
+            return false;
+        }else if(raval==1){
+              
+            var teval =  obj.find(".data_text").find("input[type='text']").val();
+
+            var telen =  $.trim(teval).length;
+
+            if(telen==0){
+    
+                 obj.find(".data_text").find(".data_inputs").css('border-color','red');
+                 trs  = false; 
+                 
+
+            }else{
+             
+                 obj.find(".data_text").find(".data_inputs").css('border-color','#e0e0e0');
+
+                 obj.find(".list_con").find('.remarks').show();
+                
+                 obj.find(".list_con").find('.remarks').html(teval);
+
+                 obj.find('.list_con').removeClass('active').addClass('active_trr');
+
+                 obj.find(".data_text").hide();
+
+                 trs  = true; 
+            }
+
+        }else if(raval==2){
+
+                 obj.find(".data_text").find("input[type='text']").val('');
+
+                 obj.find('.list_con').removeClass('active').addClass('active_trr');
+
+                
+
+        }
+        if(trs==true){
+
+            $(this).addClass('on');
+            $(this).parents('.input_list_b').find('.list_con') .addClass('off');
+
+        }
+
+        if(nums==5){
+
+            $(".textareas").show();
+
+        }
+
+     }
+    
+      
+
+    });
+
+
+
+
+	
+
+
+$(".title").click(function(){
+ 
+    var rda = $(this).siblings('.list_con').find("input[type='radio']:checked").val();
+
+    if(rda>0){
+     
+        $(this).siblings('.list_con').slideDown();
+        
+    }
+
+});
+
+
+	
+	
+	
+	//选择酒店价格范围
+	$("input[name='hotel_remark']").click(function(){
+	     
+	    $(".host_hide").show();
+	    $(".pric").click(function(){
+		   $(".pric").removeClass('on');
+		   $(this).addClass("on");
+		   var price = $(this).text();
+		   $("#hotpri").val(price);
+		});
+		
+		$(".sured").click(function(){
+		   var pri = $("#hotpri").val();
+		   $("input[name='hotel_remark']").val(pri);
+		   $(".host_hide").hide();
+		});
+		
+		$(".quxiao").click(function(){
+		   $("#hotpri").val('');
+		   $(".host_hide").hide();
+		});
+		
+	});
+	
+	//提交表单
+	$("#btns").click(function(){
+
+        var bd  = true;
+
+       $(".input_list_b").each(function(){
+  
+            var radd = $(this).find("input[type='radio']:checked").val();
+            
+            if($.trim(radd).length==0){
+                  
+                  layer.alert('您还有题目没有完成！');
+                  bd=false;
+                  return false;
+
+            } 
+
+       });
+
+//    
+	    if(bd==true){
+
+            $.post('{:U('applylist')}',$('#form2').serialize(),function(d){
+                 if(d.status==100){
+                    layer.alert(d.msg,function(){
+                         
+                         window.location.href='/home/apply/index';
+                    
+                    });
+                       
+                 }else if(d.status==200){
+                    layer.alert(d.msg);
+                 }
+            });
+
+        }
+	    
+	
+	});
+	
+	
+
+</script>
+
+</body>
+</html>

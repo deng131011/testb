@@ -1,0 +1,45 @@
+<div class="navyc"></div>
+        <div class="nav">
+		
+		   <volist name="navList" id="navtop">
+        	<div class="nav_title">
+        	    <div class="nav_img"><img src="__IMG__/nav.jpg"/></div>
+        		<p>{$navtop[title]}</p>
+                 <!--二级菜单--> 
+                <div class="two_nav">
+                    <div class="mids">
+					  <volist name="navtop['twoNavlist']" id="twonav">
+					     
+						
+						     
+						    <p><a href="<if condition='$twonav[id] eq 16'>http://donghua.59156.cn<else/>{:U($twonav['url'],array('id'=>$twonav['id']))}</if>">{$twonav[title]}</a></p>
+						
+					   
+					  </volist>
+                	</div>
+                </div> 
+        	</div>
+            </volist>
+        	
+        	
+        </div> 
+<script>
+   
+   $(".nav_title").click(function(){
+      
+   
+      $(".nav_title").children('.two_nav').hide();
+	  $(this).children('.two_nav').show();
+
+   });
+   
+   $(".main,.about_main,.bsg_main").click(function(){
+      
+	  
+      $(".nav_title").find(".two_nav").hide();
+   
+   });
+   
+    
+
+</script>

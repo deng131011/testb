@@ -1,0 +1,113 @@
+<extend name="Public/base" />
+
+<block name="body">
+	<!-- 标题栏 -->
+	<div class="main-title">
+		<h2>访问日志记录</h2>
+		
+	</div>
+	<div class="cf">
+		<div class="fl">
+            
+         <!--   <button class="btn ajax-post confirm" url="{:U('Survey/viewlogdel',array('method'=>'deleteUser','type'=>'all'))}" target-form="ids">删 除</button>-->
+			 
+        </div>
+
+        <!-- 高级搜索 -->
+		<div class="search-form fr cf">
+			<form action="/Admin/Survey/viewlog" id="form1" method="get">
+			<div class="sleft">
+				<input type="text" name="start_time" class="search-input" value="{$get[start_time]}" placeholder="开始日期">
+				<input type="text" name="end_time" class="search-input" value="{$get[end_time]}" placeholder="结束日期">
+				<a class="sch-btn" href="javascript:;" id="search" url="{:U('index')}"><i class="btn-search"></i></a>
+			</div>
+			</form>
+		</div>
+    </div>
+    <!-- 数据列表 -->
+    <div class="data-table table-striped">
+	<table class="">
+    <thead>
+        <tr>
+		<!--<th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>-->
+		<th class="">编号</th>
+		<th class="">Open_id</th>
+		<th class="">微信昵称</th>
+		<th class="">问卷首页次数</th>
+		<th class="">用户信息次数</th>
+		<th class="">分享问卷首页次数</th>
+		<th class="">分享用户信息页次数</th>
+		<th class="">操作日期</th>
+		<th class="">操作</th>
+		</tr>
+    </thead>
+    <tbody>
+		<notempty name="list">
+		<volist name="list" id="vo">
+		<tr>
+           <!-- <td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}" /></td>-->
+			<td>{$vo.id} </td>
+			<td>{$vo.open_id}</td>
+			<td>{$vo.nickname}</td>
+			<td>{$vo.urla}</td>
+			<td>{$vo.urlb}</td>
+			<td>{$vo.fxurla}</td>
+			<td>{$vo.fxurlb}</td>
+			<td>{$vo.create_time|date='Y-m-d',###}</td>
+			<td>
+				<a href="{:U('Survey/viewlogdel?type=ones&id='.$vo['id'])}" class="confirm ajax-get">删除</a>
+            </td>
+		</tr>
+		</volist>
+		<else/>
+		<td colspan="10" class="text-center"> aOh! 暂时还没有内容! </td>
+		</notempty>
+	</tbody>
+    </table>
+	</div>
+    <div class="page">
+        {$_page}
+    </div>
+</block>
+
+<block name="script">
+	<script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
+<include file="Public:datetime" />
+	<script type="text/javascript">
+	//搜索功能
+	$("#search").click(function(){
+		
+
+		var typeid = $("select[name=typeid]").val();
+        var title  = $('input[name=title]').val();
+        $("#form1").submit();
+
+		
+	});
+	//回车搜索
+	$(".search-input").keyup(function(e){
+		if(e.keyCode === 13){
+			
+			$("#search").click();
+			return false;
+			
+		}
+	});
+	
+	$('input[name=start_time]').datetimepicker({
+			format: 'yyyy-mm-dd',
+			language:"zh-CN",
+			minView:2,
+			autoclose:true
+	});
+	$('input[name=end_time]').datetimepicker({
+		format: 'yyyy-mm-dd',
+		language:"zh-CN",
+		minView:2,
+		autoclose:true
+	});
+	
+    //导航高亮
+    highlight_subnav('{:U('Survey/result')}');
+	</script>
+</block>

@@ -1,0 +1,135 @@
+<extend name="Public/base"/>
+
+<block name="body">
+	<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+    <div class="main-title">
+        <h2>查看</h2>
+    </div>
+    <ul class="tab-nav nav">
+
+        <li class="current"><a href="javascript:void(0)">基本信息</a></li>
+
+    </ul>
+    
+    <form action="{:U()}" method="post" id="form1" class="form-horizontal">
+    <input type="hidden" name="pid" value="{$vo[id]}">
+    <div class="tab-content">
+	
+	
+	<notempty name='list'> 
+
+    <volist name="list" id="vos" key="k">    
+        <div class="form-item">
+            <label class="item-label">{$k}.{$vos[title]}</label>
+            <div class="controls">
+                <if condition="$vos[type] eq 1">
+                   
+                       <volist name="Think.config.WEB_MEETPROBLEM_TYPE" id="danxuan">
+                         <in name="key" value="$vos[danxuan]">
+						 <if condition="$key eq 1">
+							<label class="checkbox">
+							<input type="checkbox" name="flag[{$key}]" value="{$key}" <in name="key" value="$vos[proresult][result]">checked</in>>A.{$danxuan}&nbsp;&nbsp;
+						 <elseif condition="$key eq 2"/>	
+						   <label class="checkbox">
+							<input type="checkbox" name="flag[{$key}]" value="{$key}" <in name="key" value="$vos[proresult][result]">checked</in>>B.{$danxuan}&nbsp;&nbsp;
+						<elseif condition="$key eq 3"/>	
+						   <label class="checkbox">
+							<input type="checkbox" name="flag[{$key}]" value="{$key}" <in name="key" value="$vos[proresult][result]">checked</in>>C.{$danxuan}&nbsp;&nbsp;
+						<elseif condition="$key eq 4"/>	
+						   <label class="checkbox">
+							<input type="checkbox" name="flag[{$key}]" value="{$key}" <in name="key" value="$vos[proresult][result]">checked</in>>D.{$danxuan}&nbsp;&nbsp;
+						<elseif condition="$key eq 5"/>	
+						   <label class="checkbox">
+							<input type="checkbox" name="flag[{$key}]" value="{$key}" <in name="key" value="$vos[proresult][result]">checked</in>>E.{$danxuan}&nbsp;&nbsp;
+						 
+						</if>
+						
+                         </in>
+                        </volist>
+						
+                <elseif condition="$vos[type] eq 4"/>  
+				    
+					<label class="textarea input-large">
+						<textarea style="text-indent:2em;" disabled>{$vos[proresult][content]}</textarea>
+					</label>
+						
+                </if>
+            </div>
+        </div>
+	</volist>	
+    <else/>
+
+        <div class="form-item">
+            <label class="item-label">暂无数据！<span class="check-tips"></span></label>
+            
+        </div>
+		
+	</notempty>
+
+
+       
+        
+        <div class="form-item">
+            <a href="{:U('index')}" class="btn btn-return">返 回</a>
+        </div>
+    </div>
+	<div class="tab-content" style="display:none;">
+	    <div class="form-item">
+            <label class="item-label">回复者</label>
+            <div class="controls">
+                <input type="text" name="name" class="text input-large" value="{:get_user_name()}"/>
+            </div>
+        </div>
+		<div class="form-item">
+            <label class="item-label">留言回复</label>
+            <div class="controls">
+                <textarea style="width:400px; height:100px;" name="content"></textarea>
+            </div>
+        </div>
+		<div class="form-item">
+            
+            <a href="{:U('index')}" class="btn btn-return">返 回</a>
+        </div>
+	
+	
+	</div>
+	
+	
+
+    </form>
+</block>
+<block name="script">	
+	<script>
+	
+	  
+		
+		//提交回复
+		$("#submiter").click(function(){
+		
+		   var content = $("textarea[name='content']").val();
+		   
+		   if(content==''){
+		   
+		    updateAlert('回复内容不能为空！');
+			return false;
+		   
+		   }
+		   
+		   
+		   $("#form1").submit();
+		   
+		   
+		
+		});
+		
+		
+		
+	
+	
+	 //导航高亮
+       highlight_subnav('{:U('Signin/index')}');
+	
+	</script>
+</block>
+
+

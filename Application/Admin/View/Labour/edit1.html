@@ -1,0 +1,163 @@
+<extend name="Public/base"/>
+
+<block name="body">
+
+
+	<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+    <div class="main-title">
+        <h2>查看</h2>
+    </div>
+    <ul class="tab-nav nav">
+
+        <li class="current"><a href="javascript:void(0)">基本信息</a></li>
+
+		
+
+    </ul>
+    <style type="text/css">
+        
+     .onlinelist{width:480px; margin:0 auto; margin-top:15px; float: left;}
+     .imgleft{width:40px; height:40px;  float: left; margin-left:5px;}
+     .imgleft img{width:100%;height:40px;} 
+     .textleft{float: left; max-width: 400px; margin-left:10px; border:1px solid #e0e0e0; border-radius:5px; min-height:40px;}
+     .textleft p{padding:3px 5px;}
+
+     .textright{float: right; max-width: 400px; margin-right:10px; border:1px solid #e0e0e0; border-radius:5px; min-height:40px;}
+
+     .imgright{width:40px; height:40px;  float: right; margin-right:5px;}
+     .imgright img{width:100%;height:40px;} 
+     .textright p{padding:3px 5px;}
+     .timetop{text-align: center;}
+     textarea{resize:both; width:100%;}
+     .sendmsgs{width:400px; height:40px; margin-top:20px;}
+	 .sendbtnmsg{color:#fff; background:#bd69d2; padding: 12px 34px;}
+    </style>
+    
+    <form action="{:U()}" method="post" id="form1" class="form-horizontal">
+    <input type="hidden" name="pid" value="{$vo[id]}">
+    <div class="tab-content" id="infocontent" style="width:500px; border:1px solid #e0e0e0; padding-bottom: 10px; overflow-y: scroll;">
+   
+        
+        <volist name="list" id="vot" key="k">
+
+        <if condition="$vot[txtimes] neq 0">  
+        <div class="onlinelist">
+             <p class="timetop">{$vot[txtimes]|date="Y-m-d H:i",###}</p>
+        </div>
+        </if>
+		<if condition="count($list) eq $k">
+        <input type="hidden" id="dataids" value="{$vot[id]}">
+		</if>
+        <div class="onlinelist">
+             <div class="imgleft"><img src="{$vot[cid]|modelField='usermember','headimgurl'}"/></div>
+             <div class="textleft"><p>{$vot[content]}</p></div>
+        </div>
+        <volist name="vot[soncon]" id="voty">
+        <div class="onlinelist">
+             <div class="imgright"><img src="/Public/Home/images/logo.jpg"/></div>
+             <div class="textright">
+            
+                 <p><?php echo htmlspecialchars($voty[content]); ?></p>
+
+             </div>
+        </div>
+        </volist>
+
+        </volist>
+
+    </div>
+	   <div>
+	       <input type="text" class="sendmsgs" name="content" value=""/>
+		   <span class="sendbtnmsg" style="cursor:pointer;">发送</span>
+	   </div>
+	  
+     <div class="form-item" style="margin-top:30px">
+           
+            <a href="{:U('index')}" class="btn btn-return">返 回</a>
+     </div>
+
+	
+    </form>
+	<input type="hidden" id="cider" value="{$cid}">
+	
+</block>  
+<block name="script">
+	<script>
+	
+	  
+		 
+		//点击提交
+	   $(".sendbtnmsg").click(function(){
+	       clicks();
+		
+	   });
+	   
+	   //回车键提交表单
+        $(window).keydown(function(event){
+		     if(event.keyCode ==13){
+			   clicks();
+			 }
+        })	 
+		 
+        function clicks(){
+		   
+		   var cont = $("input[name='content']").val();
+			 var dataid = $("#dataids").val();
+			 var cider = $("#cider").val();
+			  if($.trim(cont).length==0){
+                 
+                    updateAlert('回复内容不能为空！');
+                    return false;
+
+                }
+				$.post("{:U('edit')}",{content:cont,pid:dataid,cid:cider},function(d){
+                      
+                      if(d.status==1){
+                           
+                           window.location.reload();//刷新当前页面
+
+                      }else if(d.status==2){
+                           updateAlert('回复失败！');
+
+                      }
+
+
+                }) 
+		
+		}
+		
+		
+	
+	
+	 //导航高亮
+       highlight_subnav('{:U("Labour/index")}');
+
+	
+	</script>
+	
+	<script>
+	//定时请求
+	$(function(){
+	   setInterval("Reload()",3000);
+	});
+	
+	function Reload(){
+	
+	    var ciders = $("#cider").val();
+	    $.post("{:U('ajaxinfo')}",{cid:ciders},function(d){
+		
+		    $("#infocontent").html(d);
+		
+		});
+		
+	
+	}
+	
+	
+	</script>
+	
+	
+	
+</block>
+
+

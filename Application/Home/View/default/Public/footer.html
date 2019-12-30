@@ -1,0 +1,43 @@
+ <div class="footer">
+	   <div class="width_mid">
+	    <!-- <div class="title">
+		     <ul>
+			     <li><a href="" target="_blank">联系我们</a><span>|</span></li>
+			     <li><a href="" target="_blank">网站地图</a><span>|</span></li>
+			     <li><a href="" target="_blank">关于我们</a><span>|</span></li>
+			     <li><a href="" target="_blank">使用帮助</a><span>|</span></li>
+			     <li><a href="" target="_blank">政务邮箱</a><span>|</span></li>
+			     <li><a href="" target="_blank">网站建议</a></li>
+			 </ul>	 
+		 </div>-->
+		 <div class="footer_two">
+		    <div class="left">
+			   <p class="p1">版权所有：{:C('WEB_SITE_ICP')} </p>
+			   <p class="p2">单位地址：{:C('WEB_COM_ADDRESS')} 法定代表人：{:C('CONTACT_PERSON')} 联系电话：{:C('WEB_SITE_MOBILE')}</p>
+			   <p class="p5">单位地址：{:C('WEB_COM_ADDRESS')} </p>
+			   <p class="p4">法定代表人：{:C('CONTACT_PERSON')} 联系电话：{:C('WEB_SITE_MOBILE')}</p>
+			   <p class="p3">建议使用IE8.0以上浏览器 1024*768浏览器浏览本站 技术支持：网图科技</p>
+			</div>
+			<div class="right">
+			   <img src="__IMG__/zt1.png" style="margin-right:10px;"/>
+			   <img src="__IMG__/zt2.png" style="margin-right:10px;"/>
+			   <img src="__IMG__/zt3.png"/>
+			</div>
+		 </div>
+	   </div>
+	</div>	
+	
+	
+	
+	<script>
+      var left_height = $(".main_left").height();
+      var right_height = $(".imglist_mid .right").height();
+      if(left_height<right_height){
+	     $(".main_left").height(right_height);
+	  }else if(left_height>right_height){
+	    $(".imglist_mid .right").height(left_height);
+	  }
+   </script>	
+   
+ <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bsync.js#uuid=#uuid=&amp;style=1"></script>
+

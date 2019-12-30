@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>苏州安全健康环境精益知识竞赛</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/problem.css"> 
+<!--js-->
+
+<script type="text/javascript" src="__JS__/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+
+<link rel="stylesheet" type="text/css" href="__CSS__/animate.min.css"> 
+<script type="text/javascript" src="__JS__/wow.min.js"></script>
+<script type="text/javascript" src="__JS__/layer.js"></script>
+</head>
+<body>
+   
+   <div class="widthall mainer_top">
+       <div class="width662">
+           <div class="maintitle">
+              <p class="p1 wow rollIn" data-wow-delay="0.5s">2017年博思格钢铁</p>
+              <p class="p2 wow lightSpeedIn" data-wow-delay="0.7s">苏州安全环境健康精益知识竞赛</p>
+           </div>
+       </div>
+   </div>
+
+   <div class="widthall mainer_cont">
+       <div class="width662">
+          <div class="aqhj_list">
+              <ul>
+                <!-- <li>
+                    <p>
+                      <span class="span1">第一次</span>
+                      <span class="span2">参加知识竞赛答题得分:</span>
+                      <span class="span3 point">8分</span>
+                      <span class="span4"> 5分15秒</span>
+                    </p>
+                 </li>-->
+				 
+				 <volist name="list" id="vo">
+
+                 <li>
+				    <if condition="$vo[numlist][is_end] eq 1">
+					  <a href="javascript:;">
+					  
+					<else/>
+                       <if condition="$vo[status] eq 1">
+						<a href="{:U('problem',array('typeid'=>$vo[id]))}">
+						<else/>
+						<a href="javascript:;" class="no_open" data-status="{$vo[status]}">
+						</if>
+					
+					</if>
+				    
+						<p>
+						  <span class="span1">{$vo[title]}</span>
+						  <span class="span2">参加知识竞赛答题得分:</span>
+						  <if condition="$vo[numlist][is_end] neq 1">
+						  <span class="span3">{$vo[isjoin]}</span>
+						  <else/>
+						  <span class="span3 point">{:num_score($vo[numlist][id],$vo[numlist][uid],$vo[numlist][typeid])}分</span>
+						  <span class="span4">{:time_jiange($vo[numlist][end_time],$vo[numlist][start_time])}</span>
+						  </if>
+						</p>
+					</a>
+                 </li>
+				 
+				 </volist>
+
+                
+
+                 <!--<li class="start_dt">
+                    <p>开始答题</p>
+                 </li>-->
+              </ul>
+          </div>
+       </div>
+   </div>
+
+
+   
+
+
+
+<script>
+    if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))){
+        new WOW().init();
+    };
+</script>       
+<script>
+
+$(".no_open").click(function(){
+
+   var status = $(this).attr("data-status");
+   
+   if(status!=1){
+      layer.alert('此项暂未开始');
+   }
+
+
+});
+
+
+</script>       
+
+
+</body>
+</html>

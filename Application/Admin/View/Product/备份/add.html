@@ -1,0 +1,307 @@
+<extend name="Public/base"/>
+
+<block name="body">
+	<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+	<script type="text/javascript" src="__STATIC__/getcity.js"></script>
+	
+
+    <div class="main-title">
+        <h2>添加项目</h2>
+    </div>
+    <ul class="tab-nav nav">
+
+
+        <li class="current"><a href="javascript:void(0)">基本信息</a></li>
+        <li><a href="javascript:void(0)">项目地址</a></li>
+        <li><a href="javascript:void(0)">项目内容</a></li>
+        <!--<li><a href="javascript:void(0)">项目规格</a></li>-->
+
+    </ul>
+    
+    <form action="{:U()}" method="post" class="form-horizontal">
+    <div class="tab-content">
+        <div class="form-item">
+            <label class="item-label">项目名称<span class="check-tips">（项目名称必须填写）</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="title" value="{$vo.title}">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">项目英文标题<span class="check-tips"></span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="egtitle" value="{$vo.egtitle}">
+            </div>
+        </div>
+        <!--
+		<div class="form-item">
+            <label class="item-label">项目分类<span class="check-tips"></span></label>
+            <div class="controls">
+                <select name="type_id" style="width:200px;">
+					<volist name="brands" id="brand">
+						<option value="{$brand.id}" {$vo['brand']==$brand['id']?'selected':''}>{$brand.title}</option>
+					</volist>
+				</select>
+            </div>
+        </div>
+        -->
+        <div class="form-item">
+            <label class="item-label">所属颜色<span class="check-tips"></span></label>
+            <div class="controls">
+                <select name="color_id" style="width:200px;">
+					<volist name="colorList" id="clist">
+						<option value="{$clist.id}" {$vo['color_id']==$clist['id']?'selected':''}>{$clist.title}</option>
+					</volist>
+				</select>
+            </div>
+        </div>
+		
+		<div class="form-item">
+            <label class="item-label">所属年份<span class="check-tips"></span></label>
+            <div class="controls">
+                <select name="years" class="my_sel" id="my_sel" style="width:200px;">
+					
+				</select>
+            </div>
+        </div>
+		
+		
+		
+		<div class="form-item">
+            <label class="item-label">所属行业<span class="check-tips"></span></label>
+            <div class="controls">
+                <select name="hy_id" style="width:200px;">
+					<volist name="hangyeList" id="hylist">
+						<option value="{$hylist.id}">{$hylist.title}</option>
+                      
+                        <volist name="hylist[erji]" id="hyt">
+                            <option value="{$hyt.id}">|--{$hyt.title}</option>
+                        </volist>
+
+					</volist>
+				</select>
+            </div>
+        </div>
+
+        <div class="form-item">
+            <label class="item-label">所属产品<span class="check-tips"></span></label>
+            <div class="controls">
+                <select name="cp_id" style="width:200px;">
+                    <volist name="cpList" id="cp">
+                        <option value="{$cp.id}">{$cp.title}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-item">
+            <label class="item-label">所属规模<span class="check-tips"></span></label>
+            <div class="controls">
+                <input type="text" name="size" class="text input-small" value="{$vo.size}">（㎡）
+            </div>
+        </div>
+		
+		
+        
+        <div class="form-item">
+            <label class="item-label">
+                项目排序<span class="check-tips">（项目排序）</span>
+            </label>
+            <div class="controls">
+                <input type="text" name="sort" class="text input-small" value="{$vo.sort|default=0}">
+            </div>
+            </div>
+			
+			
+			<div class="form-item">
+            <label class="item-label">
+                项目状态<span class="check-tips">（项目是否启用）</span>
+            </label>
+            <div class="controls">
+                <label class="inline radio"><input type="radio" name="status" value="1" checked>启用</label>
+                <label class="inline radio"><input type="radio" name="status" value="0">禁用</label>
+            </div>
+            </div>
+			
+			
+			<div class="form-item">
+            <div class="controls">
+                <label class="item-label">项目缩略图</label>
+                <input type="file" id="upload_picture">
+                <input type="hidden" name="icon" id="icon" value="{$vo['icon']|default=''}"/>
+                <div class="upload-img-box">
+                <notempty name="vo['icon']">
+                    <div class="upload-pre-item"><img src="__ROOT__{$vo.icon|get_cover='path'}"/></div>
+                </notempty>
+                </div>
+            </div>
+            <script type="text/javascript">
+            //上传图片
+            /* 初始化上传插件 */
+            $("#upload_picture").uploadify({
+                "height"          : 30,
+                "swf"             : "__STATIC__/uploadify/uploadify.swf",
+                "fileObjName"     : "download",
+                "buttonText"      : "上传图片",
+                "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+                "width"           : 120,
+                'removeTimeout'	  : 1,
+                'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+                "onUploadSuccess" : uploadPicture,
+                'onFallback' : function() {
+                    alert('未检测到兼容版本的Flash.');
+                }
+            });
+            function uploadPicture(file, data){
+                var data = $.parseJSON(data);
+                var src = '';
+                if(data.status){
+                    $("#icon").val(data.id);
+                    src = data.url || '__ROOT__' + data.path;
+                    $("#icon").parent().find('.upload-img-box').html(
+                        '<div class="upload-pre-item"><img src="' + src + '"/></div>'
+                    );
+                } else {
+                    updateAlert(data.info);
+                    setTimeout(function(){
+                        $('#top-alert').find('button').click();
+                        $(that).removeClass('disabled').prop('disabled',false);
+                    },1500);
+                }
+            }
+            </script>
+        </div>
+		
+
+       
+        <!--
+        <div class="form-item">
+            <label class="item-label">下架时间<span class="check-tips"></span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="shelftime" value="{$vo.shelftime|time_format}">
+            </div>
+        </div>
+		-->
+		
+       
+        
+        <div class="form-item" style="margin-top: 20px; overflow:hidden;">
+            <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </div>
+        <div class="tab-content" style="display:none;">
+		<style>
+		  #city_id select{width:200px;}
+		  #province_id select{width:200px;}
+		</style>
+		<div class="form-item" style="overflow: hidden;">
+            <label class="item-label" style="float: left; width:65px;">地区：<span class="check-tips"></span></label>
+            <div class="controls" style="margin-top:-3px;">
+			    <div id="province_id" style="width:200px; float:left;">
+					<select name="province_id" style="width:200px;">
+					    <option value="0">请选择省份</option>
+						<volist name="province" id="provc">
+							<option value="{$provc.id}">{$provc.addr}</option>
+						</volist>
+					</select>
+				</div>
+				<div id="city_id" style="width:200px;float:left;">
+				
+				</div>
+				<div id="county_id" style="width:200px; float:left;">
+				
+				</div>
+				
+            </div>
+        </div>
+		
+		
+		
+
+        <include file="Product:map"/>	
+		
+		
+		
+            
+			
+			
+		
+			
+		<div class="form-item" style="margin-top: 20px;">
+			<button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+			<button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+		</div>
+
+        </div>
+    
+	<div class="tab-content" style="display:none;">
+    
+    	<div class="form-item">
+            <label class="item-label">来实® 系统</label>
+            <div class="controls">
+                <label class="textarea input-large">
+                    <textarea name="description">{$vo.description}</textarea>
+                </label>
+            </div>
+        </div>
+    
+    	<div class="form-item">
+            <label class="item-label">项目内容</label>
+            <div class="controls">
+                <label class="textarea">
+                    <textarea name="content">{$vo.content}</textarea>
+                    {:hook('adminArticleEdit', array('name'=>content,'value'=>$vo['content']))}
+                </label>
+            </div>
+        </div>
+        <div class="form-item">
+            <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    
+    </div>
+   
+    
+    </form>
+</block>
+
+<block name="script">
+<include file="Public:datetime" />
+<script type="text/javascript" src="__STATIC__/birthday.js"></script>
+    <script type="text/javascript">
+
+        
+
+		$('.tab-nav li').click(function(){
+			
+			$(this).attr('class','current')
+						.siblings().attr('class','');
+			var n_index=$('.tab-nav li').index(this);
+				$('.tab-content').eq(n_index).show()
+							 .siblings().hide();
+		});
+	
+        //导航高亮
+        highlight_subnav('{:U('Product/index')}');
+		
+        $('input[name=shelftime]').datetimepicker({
+			format: 'yyyy-mm-dd hh:ii:ss',
+			language:"zh-CN",
+			minView:2,
+			autoclose:true
+		});
+		
+		//年份
+		$(function() {
+			$.ms_DatePicker({
+					YearSelector: "#my_sel",
+			});
+			$.ms_DatePicker();
+		});
+
+		
+		
+		
+		
+    </script>
+</block>

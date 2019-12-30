@@ -1,0 +1,168 @@
+<extend name="Public/base" />
+
+<block name="body">
+<script type="text/javascript" src="/Public/layer/layer/layer.min.js"></script>
+	<!-- 标题栏 -->
+	<div class="main-title">
+		<h2>项目列表</h2>
+	</div>
+	
+	
+	<div class="formBox">
+	  <form id="addform" action="{:U('Admin/product/upload')}" method="post" enctype="multipart/form-data">
+	  <input name="id" type="hidden" value="{$goods_info.id}" />
+	        
+	
+	    </form>
+  	</div>
+	
+	
+	<div class="cf">
+		<div class="fl">
+            <a class="btn" href="{:U('Product/add')}">新 增</a>
+            <button class="btn ajax-post" url="{:U('Product/changeStatus',array('method'=>'resumeUser'))}" target-form="ids">启 用</button>
+            <button class="btn ajax-post" url="{:U('Product/changeStatus',array('method'=>'forbidUser'))}" target-form="ids">禁 用</button>
+            <button class="btn ajax-post confirm" onClick="foreverdel(0,'/Admin/Product');" target-form="ids">删 除</button>
+        </div>
+        <!--
+         <form id="addform" action="{:U('Admin/Product/upload')}" method="post" enctype="multipart/form-data">
+  <input name="id" type="hidden" value="{$goods_info.id}" />
+        <div class="control-group" style="margin-bottom: 20px;">
+          		<label>Excel表格：</label>
+                <input type="file" name="excelData" value=""  datatype="*4-50"  nullmsg="请填写产品！" errormsg="不能少于4个字符大于50个汉字"/>
+                <span class="Validform_checktip"></span>
+                <img style="display:none;" src="images/loading.gif" />
+          		<input type="submit" class="btn btn-primary Sub "  value="导入" />
+          		 <a class="btn" href="/public/admin/stock.xls">模板下载</a>
+        </div>
+
+    </form>-->
+		<!-- 高级搜索 -->
+		<div class="search-form fr cf">
+			<form action="{:U('index')}" id="form1" method="get">
+				<div class="sleft">
+					<input type="text" name="title" class="search-input" value="{$get[title]}" placeholder="项目名称">
+					<a class="sch-btn" href="javascript:;" id="search" url="{:U('index')}"><i class="btn-search"></i></a>
+				</div>
+			</form>
+		</div>
+    </div>
+    <!-- 数据列表 -->
+    <div class="data-table table-striped">
+	<table class="">
+    <thead>
+        <tr>
+		<th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+		<th class="">编号</th>
+		<th class="">项目名称</th>
+		<th class="">项目类型</th>
+		<th class="">项目区域</th>
+		<th class="">项目地址</th>
+        <th class="">添加时间</th>
+		<th class="">状态</th>
+		<th class="">操作</th>
+		</tr>
+    </thead>
+    <tbody>
+		<notempty name="list">
+		<volist name="list" id="vo">
+		<tr>
+            <td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}" /></td>
+			<td>{$vo.id} </td>
+			<td>{$vo.title}</td>
+			<td>{$vo.typeid}</td>
+			<td>{$vo.province_id|modelField="province","addr"}-{$vo.city_id|modelField="city","addr"}</td>
+            <td>{$vo.addr_map|cutstr=0,30}</td>
+			<td>{$vo.create_time|time_format}</td>
+			<td>
+			  <if condition="$vo[status] eq 0">
+			    禁用
+			  <elseif condition="$vo[status] eq 1"/>
+			    启用
+			  </if>
+			
+			</td>
+			<td><eq name="vo.status" value="1">
+				<a href="{:U('Product/changeStatus?method=forbidUser&id='.$vo['id'])}" class="ajax-get">禁用</a>
+				<else/>
+				<a href="{:U('Product/changeStatus?method=resumeUser&id='.$vo['id'])}" class="ajax-get">启用</a>
+				</eq>
+                <a href="{:U('Product/edit?id='.$vo['id'])}">编辑</a>
+                <!-- <a href="javascript:void(0)"  onclick="alatsList({$vo.id})">上传图集</a>
+                 <a href="{:U('Product/registration?id='.$vo['id'])}">项目备案</a>-->
+				<a href="{:U('Product/changeStatus?method=deleteUser&id='.$vo['id'])}" class="confirm ajax-get">删除</a>
+                </td>
+		</tr>
+		</volist>
+		<else/>
+		<td colspan="9" class="text-center"> aOh! 暂时还没有内容! </td>
+		</notempty>
+	</tbody>
+    </table>
+	</div>
+    <div class="page">
+        {$_page}
+    </div>
+</block>
+
+<block name="script">
+	<script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
+
+	<script type="text/javascript">
+	//搜索功能
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+		window.location.href = url;
+	});
+	//回车搜索
+	$(".search-input").keyup(function(e){
+		if(e.keyCode === 13){
+			$("#search").click();
+			return false;
+		}
+	});
+	
+	
+	//搜索条件
+	$("#searchs").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('#searchFrm').find('input,select').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+		window.location.href = url;
+	});
+    //导航高亮
+    highlight_subnav('{:U('Product/index')}');
+	
+	function alatsList(id){
+
+		var index = $.layer({
+			type : 2,
+			fix : true,
+			shade : [0.5 , '#000' , true],
+			shadeClose : true,
+			closeBtn: false,
+			border : [!0],
+			title : false,
+			//offset : ['25px',''],
+			area : ['900px', '700px'],
+			iframe : {src : '/Admin/Product/alatsList?id='+id}
+		});
+		
+		
+	}
+	</script>
+</block>

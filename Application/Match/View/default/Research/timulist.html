@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>博思格中国线上平台调查问卷收集</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/problem.css"> 
+<!--js-->
+<script type="text/javascript" src="__JS__/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+<!--
+<script type="text/javascript" src="__JS__/layer.js"></script>
+-->
+<link rel="stylesheet" type="text/css" href="__CSS__/animate.min.css"> 
+<script type="text/javascript" src="__JS__/wow.min.js"></script>
+
+<script type="text/javascript" src="__JS__/starScore.js"></script>
+<script type="text/javascript" src="__STATIC__/layermobile/layer.js"></script>
+<link rel="stylesheet" type="text/css" href="__CSS__/wjdiaocha.css">
+<style>
+.datas .title p{padding-left:0.3333333333rem;line-height: 0.5rem;padding-top: 0.2rem;}
+.dian_left{height:100%; float:left;}
+.list_con{height:auto;min-height:1.13rem !important;line-height: 0.5rem;}
+.list_con label{float:left; width: 7.3rem; line-height: 0.6rem;margin-top: 0.3rem;}
+.datas{margin-bottom:0.5rem;}
+.datas .title p img{width: 1rem; float: left; margin-top: -0.15rem; margin-right:0.15rem;}
+.btn_nexts,.btn_nextb{display:none;}
+.wdall{width:100%; float:left; }
+.adalla{min-height: 1.13rem !important;}
+.remarks{margin-left: 1.3rem;}
+.reka{margin:0.3rem 0;}
+.comtk{height:0.6rem; border-radius: 0; border:none; width: 6rem; outline:none; border-bottom: 1px solid #cccccc; }
+.jy_text{ width:96%; display:inherit; margin:0 auto; margin-top:0.3rem; margin-bottom:0.2rem; border:none;resize:none; border-radius: 0; outline:none;height: 2rem; text-indent:0.2rem; }
+.lay_jsy{text-align: left !important;}
+.datas .title p{padding-right:0.3rem;}
+</style>
+
+</head>
+<body>
+   
+   <div class="widthall mainer_top">
+       <div class="width662">
+           <div class="maintitle">
+              <p class="p1">博思格中国</p>
+              <p class="p2">线上平台调查问卷收集</p>
+           </div>
+       </div>
+   </div>
+
+   <div class="widthall mainer_cont" style="margin-top: 0.3rem;">
+       <div class="width662">
+         <!--列表开始-->
+		 
+		    <form id="form2">
+			
+			   
+			<input type="hidden" name="pid" value="{$pid}">
+			
+            <div class="input_list_b">
+			   <volist name="list" id="vo" key="k">
+			   <div class="datas">
+			   
+			        <!--题目id-->
+					<input type="hidden" name="timu_id[]" value="{$vo[id]}" />
+					<!--题目类型-->
+					<input type="hidden" name="timutype{$vo[id]}" value="{$vo[timutype]}" />
+			   
+                    <div class="title on"><p>{$k}.{$vo[title]}</p></div>
+					<!--单选题-->
+					<if condition="$vo[timutype] eq 4">
+				    <div class="li_a">
+					    <volist name="listson[$vo[id]]" id="vob">
+                        <div class="list_con">
+					       <div class="wdall adalla">
+							   <div class="dian_left"><div class="dianimg"></div></div>
+							   <input class="radios" type="radio" name="answer{$vo[id]}[]" value="{$vob[id]}">
+							    <!--区分类型-->
+							   <input type="hidden" name="answer{$vo[id]}_type" value="1" />
+							   
+							   <label>{$vob[title]}</label>
+						   </div>
+						   
+						   <!--填空题是否要填-->
+						   <input type="hidden" name="tktype{$vo[id]}-{$vob[id]}" value="{$vob[tktype]}">
+						   
+						   <if condition="$vob[tktype] eq 1"> 
+						   <div class="wdall reka">
+						       <span class="remarks">原因：</span><input class="comtk" data-tktype='{$vob[tktype]}' type="text" name="content{$vo[id]}-{$vob[id]}" value="" />
+						   </div>
+						   <elseif condition="$vob[tktype] eq 2" /> 
+						      <div class="wdall reka">
+						       <span class="remarks">举例：</span><input class="comtk" data-tktype='{$vob[tktype]}' type="text" name="content{$vo[id]}-{$vob[id]}" value="" />
+						     </div>
+						   </if>
+                        </div>
+					    </volist>
+                    </div>
+					
+					<!--多选题-->
+					<elseif condition="$vo[timutype] eq 5" />
+					    <div class="li_a">
+						  <volist name="listson[$vo[id]]" id="vob">
+						    <div class="list_con">
+							   <div class="wdall adalla">
+								   <div class="dian_left"><div class="dianimg"></div></div>
+								   <input class="radios" type="checkbox" name="answer{$vo[id]}[]" value="{$vob[id]}">
+								   <!--区分类型-->
+								   <input type="hidden" name="answer{$vo[id]}_type" value="1" />
+								   
+								   <label>{$vob[title]}</label>
+							   </div>
+							   
+							    <!--填空题是否要填-->
+						        <input type="hidden" name="tktype{$vo[id]}-{$vob[id]}" value="{$vob[tktype]}">
+							   
+							   
+							   <if condition="$vob[tktype] eq 1"> 
+							   <div class="wdall reka">
+								   <span class="remarks">原因：</span><input class="comtk" data-tktype='{$vob[tktype]}' type="text" name="content{$vo[id]}-{$vob[id]}" value="" />
+							   </div>
+							   <elseif condition="$vob[tktype] eq 2" /> 
+								  <div class="wdall reka">
+								   <span class="remarks">举例：</span><input class="comtk" data-tktype='{$vob[tktype]}' type="text" name="content{$vo[id]}-{$vob[id]}" value="" />
+								 </div>
+							   </if>
+						    </div>
+						  </volist>
+                        </div>
+						
+					<!--星星题-->	
+					<elseif condition="$vo[timutype] eq 6" />
+					<div class="li_a">
+                        <volist name="listson[$vo[id]]" id="vob" key="g">
+						<input type="hidden" name="answer{$vo[id]}[]" value="{$vob[id]}">
+						
+						<!--区分类型-->
+						<input type="hidden" name="answer{$vo[id]}_type" value="2" />
+						
+						<div class="list_con">
+					       <div class="wdall">
+							   <div class="star_title">{$vob[title]}：</div>
+							   <div id="starttwo{$g}">
+							       <div class="star_score">  
+							           <input type="hidden" class="xing_type" name="star_score{$vo[id]}-{$vob[id]}" value="">
+								   </div>
+							   </div>
+						   </div>
+                        </div>
+						</volist>
+					</div>	
+					<!--建议题-->	
+					<elseif condition="$vo[timutype] eq 7" />
+
+                        <!--区分类型-->
+						<input type="hidden" name="answer{$vo[id]}_type" value="3" />
+						
+					    <div class="li_a">
+							<div class="list_con">
+							   <div class="wdall">
+								  <textarea class="jy_text jy_text1" name="content{$vo[id]}" style="border-bottom:1px solid #cccccc;"></textarea>
+							   </div>
+							</div>
+                        </div>
+					</if>
+                </div>
+				</volist>
+				
+			  
+			  <div class="start_dt btn_answer" style="margin-top: 0.3333333333rem">
+                 <p class="btn_tjiao">提交答案</p>
+              </div>
+			  
+			  <div class="start_dt btn_nexts" style="margin-top: 0.3333333333rem">
+                 
+              </div>
+			  
+			  
+			 
+			  
+			  
+            </div>
+			</form>
+
+
+
+
+
+       </div>
+   </div>
+
+<!--弹框-->
+<div class="tctc" style="display: none;">
+    <div class="tc"></div>   
+    <div class="tc_cont">
+       <div class="one">
+           <p><span class="span1">完成答题</span><span class="span2" id="quxiao">×</span></p>
+       </div>
+       <div class="two">
+	       <div style="width:7.5rem; margin:0 auto;">
+            <p class="p1">感谢您百忙之中完成此调查表,您所提出的每一项意见，都将成为我们改进和努力的方向!</p>
+		   </div>
+       </div>
+    </div>
+	<input type="hidden" id="tc_val" value="">
+</div>
+
+
+<script>
+    if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))){
+        new WOW().init();
+    };
+	
+	//星星
+	 scoreFun($("#starttwo1"),{
+        fen_d:35,//每一个a的宽度
+        ScoreGrade:5//a的个数5
+    });
+	scoreFun($("#starttwo2"),{
+        fen_d:35,//每一个a的宽度
+        ScoreGrade:5//a的个数5
+    });
+	scoreFun($("#starttwo3"),{
+        fen_d:35,//每一个a的宽度
+        ScoreGrade:5//a的个数5
+    });
+	
+</script>      
+
+
+<script>
+
+
+
+
+
+//点击填空题
+$(".reka").click(function(event){
+
+    var types = $(this).siblings(".adalla").find('input').attr('type');
+    if(types=='checkbox'){
+    	var ische = $(this).siblings(".adalla").find('input[type="checkbox"]').is(':checked');
+    	if(ische==true){
+
+    		event.stopPropagation(); 
+    	}
+    }
+});
+
+
+$('.list_con').click(function(){
+  var iem = true;
+  var tm = $(this).parents('.datas');	
+  var nums = tm.index()+1;
+  
+    //判断当前题的上一题是否已经做完
+    if(nums>1){
+        var dx = tm.prev('.datas').find('input[type=radio]').length;
+   	    var duox = tm.prev('.datas').find('input[type=checkbox]').length;
+   	    var objs;
+    	if(dx > 0){
+    		objs = tm.prev('.datas').find('input[type=radio]:checked');
+    	}
+    	if(duox > 0){
+    		objs = tm.prev('.datas').find('input[type=checkbox]:checked');
+    	}
+    	if(dx > 0 || duox > 0){
+    		var djval = objs.val();
+    		if(djval == '' || typeof(djval) == "undefined"){
+                msg('请选择'+(nums-1)+'题答案'); 
+                iem = false;
+                return false;
+    		}else{
+
+    			objs.each(function(){
+                   var stae = true;
+	               var sgh = $(this).parents('.adalla').siblings('.reka').find('.comtk').length;
+
+	               if(sgh>0){
+	               	  var tks = $(this).parents('.adalla').siblings('.reka').find('.comtk').val();
+	               	  var tkstype = $(this).parents('.adalla').siblings('.reka').find('.comtk').attr("data-tktype");
+                      
+	               	  if(tks==''){
+	               	  	  if(tkstype==1){
+	               	  	  	 msg('请填写'+(nums-1)+'题的原因');
+	               	  	  }else if(tkstype==2){
+                             msg('请填写'+(nums-1)+'题的举例');
+	               	  	  }
+	               	  	 
+	               	  	     stae = false;
+			              	 iem = false;
+			                 return false;
+	               	  } 
+	               }
+
+	               if(stae == false){
+                        return false;
+	               }
+
+	    		});
+    		}
+    	}
+
+
+    }
+    if(iem==false){
+    		return false;
+    }
+     
+    //结束
+
+
+	
+     var typeer = $(this).find("input").attr('type');
+     var checkeds = $(this).find('input[type=checkbox]').is(':checked');
+	 if(typeer=='radio'){
+	    $(this).find('.adalla').addClass('active');
+		$(this).siblings('.list_con').find('.adalla').removeClass('active');
+	 }else if(typeer=='checkbox'){
+	    $(this).find('.adalla').addClass('active');
+	 }
+
+    
+
+	
+	 if(checkeds==true){
+	    $(this).find('.adalla').removeClass('active');
+	    $(this).find('input[type=checkbox]').prop('checked',false);
+	 }else{
+	    $(this).find('input[type=checkbox]').prop('checked',true);
+	 }
+	 
+	
+     $(this).find('input[type=radio]').prop('checked',true);
+	
+     
+     var radioval = $(this).find('input[type=radio]:checked').val();
+     
+});
+
+
+
+
+
+
+
+//提交
+
+
+var spCodesTemp = '';
+$(".btn_tjiao").click(function(){
+var iem=true;
+    $(".datas").each(function(index){
+        //判断单选或多选
+    	var radios = $(this).find('input[type=radio]').length;
+    	var checks = $(this).find('input[type=checkbox]').length;
+    	var obj;
+    	var stae = true;
+    	if(radios > 0){
+    		obj = $(this).find('input[type=radio]:checked');
+    	}
+    	if(checks > 0){
+    		obj = $(this).find('input[type=checkbox]:checked');
+    	}
+    	if(radios > 0 || checks > 0){
+           
+    		var names = obj.val();
+    		if(names == '' || typeof(names) == "undefined"){
+                msg('请选择'+(index+1)+'题答案'); 
+                iem = false;
+                return false;
+    		}else{
+    			obj.each(function(){
+
+	               var sgh = $(this).parents('.adalla').siblings('.reka').find('.comtk').length;
+
+
+
+	               if(sgh>0){
+	               	  var tks = $(this).parents('.adalla').siblings('.reka').find('.comtk').val();
+	               	  var tkstype = $(this).parents('.adalla').siblings('.reka').find('.comtk').attr("data-tktype");
+                      
+	               	  if(tks==''){
+	               	  	  if(tkstype==1){
+	               	  	  	 msg('请填写'+(index+1)+'题的原因');
+	               	  	  }else if(tkstype==2){
+                             msg('请填写'+(index+1)+'题的举例');
+	               	  	  }
+	               	  	 
+	               	  	     stae = false;
+			              	 iem = false;
+			                 return false;
+	               	  } 
+	               }
+
+	    		});
+    		}
+    	}
+    	if(stae==false){
+	    	return false;
+	    }
+        //判断建议题
+        var tst = $(this).find('.jy_text1').length;
+        if(tst>0){
+             var vas = $(this).find('.jy_text1').val();
+             if(vas==''){
+             	msg('请填写'+(index+1)+'题答案'); 
+                iem = false;
+                return false;
+             }
+        }
+
+
+        //判断星号题
+    	
+    	var star = $(this).find('.xing_type').length;
+    	var ss = $(this).find('.xing_type');
+    	var sta = true;
+    	if(star>0){
+
+            ss.each(function(){
+              var ddd = $(this).val();
+              if(ddd==""){
+              	 msg('请完善'+(index+1)+'题答案');
+              	 //alert(11);
+              	 sta = false;
+              	 iem = false;
+                 return false;
+              }
+            }); 
+           
+    	}
+      
+    	if(sta==false){
+	    	return false;
+	    }
+    	 
+
+
+    });
+   //alert(sta);return false;
+   // alert(6);
+
+    if(iem==false){
+    	return false;
+    }
+	
+    
+	
+	var indexs = layer.open({
+					type: 2
+					,content: '提交中'
+					,shadeClose: false
+				});
+
+	
+	$.post("{:U('addproblem')}",$("#form2").serialize(),function(d){
+	  // alert(d.status);
+	   layer.close(indexs);
+	   
+	   if(d.status==200){
+	   
+			layer.open({
+				content: d.msg
+				,btn: '确定'
+				,yes: function(index){
+					window.location.href="/Match/Research/index"; 
+					layer.close(index);
+				}
+			});  
+	   
+	   }else if(d.status==202){
+	   
+	       layer.open({
+				content: d.msg
+				,btn: '确定'
+				,yes: function(index){
+					window.location.href="/Match/Research/index"; 
+					layer.close(index);
+				}
+			}); 
+	   
+	   }else{
+			 layer.open({
+				content: d.msg
+				,btn: '确定'
+			  });  
+	   }
+	   
+	   
+	});
+	  
+});
+
+
+function msg(msg){
+	layer.open({
+		content: msg
+		,btn: '确定'
+	  });  
+}
+
+//关闭弹窗
+$("#quxiao,.tc").click(function (){
+
+  var tcval = $("#tc_val").val();
+  
+  if(tcval==1){
+    $(".tctc").hide();
+    $(".btn_answer").hide();
+	$(".btn_nextb").show();
+	$(".btn_nextb").html('<a href="/Match/Index/numlist"><p class="btn_tjiao">退出</p></a>');
+	
+	$(".list_con").click(function(){
+		layer.alert('此题已经提交，请点击退出');
+	});
+   
+  }else{
+  $(".tctc").hide();
+  window.location.href="/Match/Index/numlist";
+  }
+
+  
+
+});
+
+
+
+
+
+</script>
+
+
+
+<script>
+
+$(".problem_imger").click(function(){
+
+      var srcer = $(this).attr('src');
+   
+      layer.open({
+		  type: 1,
+		  title: false,
+		  closeBtn: 0,
+		  area: '200px',
+		  skin: 'layui-layer-nobg', //没有背景色
+		  shadeClose: true,
+		  content: '<img src="'+srcer+'"/>'
+		});
+
+});
+
+
+
+</script>
+
+ 
+       
+
+
+</body>
+</html>

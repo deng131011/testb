@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>{:C('WEB_SITE_TITLE')}</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+<link rel="stylesheet" type="text/css" href="__CSS__/person.css"> 
+<!--js-->
+<script type="text/javascript" src="__JS__/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__JS__/layer.js"></script>
+
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+
+<!--验证js-->
+<script src="__STATIC__/validate/dist/jquery.validate.min.js"></script>
+
+<style>
+
+span.error{color:#f00; padding-left: 15px; margin-left: 10px; background: url("__IMG__/cha.jpg") no-repeat left center;}
+input:focus{ border-color:#ff6c00;}
+</style>
+</head>
+<body>
+    <div class="main person">
+
+	   <div class="top">
+	   	    
+	   	    <p>INFORMATION</p>
+
+	   </div>
+
+	   <!--内容-->
+	   <div class="mid">
+
+           <form action="{:U('')}" method="post" id="form2">  
+             <div class="person_info">
+                 <p>您的信息已填写完成，为了更好的对您的信息进行回复，请您确认以下信息！</p>
+             </div>
+	     
+	         <div class="input_list">
+	         	<input type="text" name="name" value="{$userdata['username']}" required data-msg-required="您的姓名不能为空" placeholder="姓名" />
+	         </div>
+
+	         <div class="input_list">
+	         	<input type="text" name="mobile" value="{$userdata['mobile']}" required data-rule-checkMobile="true" data-msg-required="请输入您的手机号码" placeholder="手机" />
+	         </div>
+
+	         <div class="input_list">
+	         	<input type="text" name="company" value="{$userdata['company']}" required data-msg-required="公司名称不能为空" placeholder="公司名称" />
+	         </div>
+
+	         
+
+	         <div class="tj_btns" id="tijiaos">
+	         	<a href="javascript:;">提交信息</a>
+	         </div>
+
+            </form>
+	      
+	   	
+
+	   </div>
+
+	</div>
+
+
+    <!--遮罩-->
+
+    <div class="zz_tk host_hide">
+        <div class="hostl" style="height:4.0rem">
+            <div class="title">
+                <p>提交成功 <span class="fa fa-times quxiaos"></span></p>
+            </div>
+            <div class="prices survey_success">
+                <p>您的意见与建议信息已成功提交，</p>
+                <p>感谢您的意见与支持，我们将尽快完善您的问题！</p>
+            </div>
+
+        </div>
+    </div>
+
+
+	
+    <!--底部导航-->
+      <include file="Public:bottomnav"/>
+<script type="text/javascript">
+
+$('input').focus(function(){
+	    
+		$(this).parent('.input_list').css('border-color','#f00');
+
+	});
+
+	$('input').blur(function(){
+	     
+		$(this).parent('.input_list').css('border-color','#bfbfbf');
+
+	});
+	
+//配置错误提示的节点，默认为label，这里配置成 span （errorElement:'span'）
+	$.validator.setDefaults({
+		errorElement:'span'
+	});
+
+
+
+//手机验证规则
+jQuery.validator.addMethod("checkMobile", function (value, element) {
+	
+		var mobile = /^1[3|4|5|7|8]\d{9}$/;
+
+		return this.optional(element) || (mobile.test(value));
+
+
+	}, "手机格式不对");
+
+
+$("#tijiaos").click(function(){
+
+	    $("#form2").submit();
+
+	});
+
+
+	$("#form2").validate({
+	        submitHandler: function() {
+
+			    $.post('{:U('personinfo')}',$('#form2').serialize(),function(d){
+				    if(d.status==1){
+					    
+						$(".host_hide").show();
+
+						$(".quxiaos").click(function(){
+                
+					        $(".host_hide").hide();
+					        window.location.href='/Home/Consult/index';
+
+					     });  
+						
+					 }else if(d.status==2){
+					    layer.alert('提交失败！');
+					 }else if(d.status==3){
+					    layer.alert('请先填写意见！',function(){
+					    	
+                           window.location.href='/Home/Consult/personidea';
+
+					    });
+					 }
+				});
+	           
+	        }
+	})
+
+
+
+   
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>{:C('WEB_SITE_TITLE')}</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+<link rel="stylesheet" type="text/css" href="__CSS__/person.css"> 
+<!--js-->
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+<script type="text/javascript" src="__JS__/jquery-1.8.0.js"></script>
+
+<!--筛选弹框js-->
+<script type="text/javascript" src="__JS__/style.js"></script>
+
+
+
+<style type="text/css">
+	.num_pro{color: #fff; background: #cccccc; border-radius: 50%; padding:0.0666666667rem 0.18rem; font-size:0.2666666667rem; margin-left: 0.2666666667rem; 
+
+	}
+	.xh_liebiao p .span1{font-size: 0.3466666667rem;}	
+	.xh_liebiao p .span2{font-size: 0.3466666667rem;}
+	.height100 p .span1{font-size: 0.3466666667rem;}
+	.height100 p .span2{font-size: 0.3466666667rem;}
+	.top p{margin-top:0;}
+	
+</style>
+</head>
+<body>
+    <div class="main product">
+       <!--顶部图-->
+	   <div class="top">
+	   	    <p style="margin-top: 0.6666666667rem;">更多筛选</p>
+	   	    <p>More Screening</p>
+
+	   </div>
+
+	   <!--内容-->
+	   <div class="pro_mid">
+	     
+           <div class="pro_mid_664 pro_ser">
+           	   <ul>
+           	   	  <li class="pro_types" data-name="times">
+	           	   	  <a href="javascript:;" >
+	           	   	  	   <div class="circle">
+	           	   	  	   	   <div class="tb"><img src="__IMG__/cpp2.png"/></div>
+	           	   	  	   </div>
+	           	   	  	   <div class="fonter">时间</div>
+	           	   	  </a>
+           	   	  </li>
+
+           	   	  <li class="pro_types" data-name="hangye">
+	           	   	  <a href="javascript:;">
+	           	   	  	   <div class="circle">
+	           	   	  	   	   <div class="tb" style="width:0.48rem; height:0.48rem; margin-top:0.2rem"><img src="__IMG__/cpp1.png"/></div>
+	           	   	  	   </div>
+	           	   	  	   <div class="fonter">行业</div>
+	           	   	  </a>
+           	   	  </li>
+
+           	   	  <li class="pro_types" data-name="addr">
+	           	   	  <a href="javascript:;">
+	           	   	  	   <div class="circle">
+	           	   	  	   	   <div class="tb" style="width:0.36rem;height:0.36rem; margin-left:0.2rem;"><img src="__IMG__/cpp3.png"/></div>
+	           	   	  	   </div>
+	           	   	  	   <div class="fonter">地址</div>
+	           	   	  </a>
+           	   	  </li>
+
+           	   	  <li class="pro_types" data-name="guimo">
+	           	   	  <a href="javascript:;">
+	           	   	  	   <div class="circle">
+	           	   	  	   	   <div class="tb" style="width:0.5333333333rem; height: 0.5333333333rem; margin-top:0.2rem"><img src="__IMG__/cpp6.png"/></div>
+	           	   	  	   </div>
+	           	   	  	   <div class="fonter">规模</div>
+	           	   	  </a>
+           	   	  </li>
+
+           	   	  <li class="pro_types" data-name="produ">
+	           	   	  <a href="javascript:;">
+	           	   	  	   <div class="circle">
+	           	   	  	   	   <div class="tb" style="margin-top:0.2rem"><img src="__IMG__/cpp4.png"/></div>
+	           	   	  	   </div>
+	           	   	  	   <div class="fonter">产品</div>
+	           	   	  </a>
+           	   	  </li>
+
+           	   <!--	  <li class="pro_types" data-name="color">
+	           	   	  <a href="javascript:;">
+	           	   	  	   <div class="circle">
+	           	   	  	   	   <div class="tb" style="margin-top:0.2rem;"><img src="__IMG__/cpp5.png"/></div>
+	           	   	  	   </div>
+	           	   	  	   <div class="fonter">颜色</div>
+	           	   	  </a>
+           	   	  </li>
+                -->
+           	   </ul>
+           </div>
+
+	   </div>
+	</div>
+
+
+    <!--搜索遮罩-->
+     <include file="Product:search"/>
+	
+
+
+
+    <!--底部导航-->
+       <include file="Public:bottomnav"/>
+<script type="text/javascript">
+
+	$(".pro_ser").find("ul").find("li").click(function(){
+         $(".pro_ser").find("ul").find("li").removeClass('on');
+         $(this).addClass("on");
+         var daname = $(this).attr("data-name");
+         
+         if(daname!=''){
+
+             $.post("{:U('mores')}",{dataname:daname},function(data){
+                  
+
+             });
+
+         }
+ 
+
+	});
+
+    $(".search_list").click(function(){
+         $(".search_list").removeClass('sx_active');
+         $(this).addClass("sx_active");
+	});
+    
+
+
+
+//返回省
+    
+$("#addrer_one").live("click",function(){
+       
+        
+
+        $.post("/Home/Ajax/getProvince",{type:'province'},function(dde){
+      
+             
+              $("#address").html(dde);
+
+        });
+
+
+ });
+
+
+
+//返回行业大类
+    
+$("#hangye_one").live("click",function(){
+
+        $.post("/Home/Ajax/getHangTop",{type:'hytop'},function(dder){
+      
+              $("#hangyeer").html(dder);
+
+        });
+
+
+ });
+
+
+
+
+    
+
+</script>
+
+</body>
+</html>

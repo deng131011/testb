@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>{:C('WEB_SITE_TITLE')}</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+<link rel="stylesheet" type="text/css" href="__CSS__/person.css"> 
+<!--js-->
+<script type="text/javascript" src="__STATIC__/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+</head>
+<body>
+    <div class="main person">
+       <!--顶部图-->
+	   <div class="top">
+	   	    
+	   	    <p>ONLINE SERVICE</p>
+
+	   </div>
+
+	   <!--内容-->
+	   <div class="list_mid">
+
+	       <!--列表开始-->
+	   	   
+           <volist name="list" id="vo" key="k">
+		   	   <div class="lists yj_lister">
+                    <a href="{:U('details',array('id'=>$vo[id]))}">
+		   	        <div class="width670">
+		   	           
+			   	   	    <div class="per_con">
+			   	   	    	<p class="p1">{$k}. {$vo[title]}</p>
+			   	   	    	<p class="p2">{$vo[create_time]|date='m-d',###}  {$vo[descriptions]}</p>
+			   	   	    </div>
+			   	   	   
+		   	   	    </div>
+                   </a>
+		   	   </div>
+           </volist>
+	   	 
+
+	   	   
+            <div class="tj_btns" id="tijiaos">
+	         	<a href="{:U('personidea')}">人工服务</a>
+	         </div>
+
+
+	   </div>
+	</div>
+
+
+
+
+    <!--底部导航-->
+       <include file="Public:bottomnav"/>
+
+
+<script type="text/javascript">
+    
+     $(".yj_lister").click(function(){
+
+            $(".yj_lister").removeClass("yellowbj");
+            $(this).addClass("yellowbj");
+
+     });
+
+</script>      
+
+</body>
+</html>

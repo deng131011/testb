@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>项目展示</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+<link rel="stylesheet" type="text/css" href="__CSS__/person.css"> 
+<!--js-->
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+<script type="text/javascript" src="__JS__/jquery-1.9.1.min.js"></script>
+<!--筛选弹框js-->
+<script type="text/javascript" src="__JS__/style.js"></script>
+
+<!--动画-->
+<link rel="stylesheet" type="text/css" href="__CSS__/animate.min.css">
+<script type="text/javascript" src="__JS__/wow.min.js"></script>
+
+
+<style type="text/css">
+
+.sp_imggg{display: none;}
+.top p{margin-top:0;}
+.pro_list .twos{margin-top: 0.14rem;}
+.xiala{float:left; margin-bottom: 0.2666666667rem;}	
+.lengthone{padding: 0.1rem 0.1rem; background: #fff; border-radius: 3px; font-size: 0.4rem; color: #333;}
+.lengthtwo{padding: 0.1rem 0.1rem; background: #fff; border-radius: 3px; font-size: 0.4rem; color:#333}
+.lengththree{padding: 0.1rem 0.1rem; background: #fff; border-radius: 3px; font-size: 0.4rem; color: #333;}
+
+</style>
+
+
+</head>
+<body>
+    <div class="main product">
+       <!--顶部图-->
+	   <div class="top wow rollIn" data-wow-delay="0.5s">
+
+	   	    <p style="margin-top: 0.6666666667rem;">项目展示</p>
+	   	    <p>Project Show</p>
+
+	   </div>
+
+	   <!--内容-->
+	   <div class="list_mid">
+
+	      <if condition="$serchinfo eq null">
+          <div style="margin-top: 0.1333333333rem;">
+		         <div style="width:0.2666666667rem; height:0.3733333333rem; float: left; margin-top:0.08rem">
+		      	    <img src="__IMG__/product/cp2.png" style="width:100%;" />
+		      	 </div> 
+		         <div style="float: left; margin-left:0.0666666667rem; font-size: 0.3733333333rem; color: #63665d;">当前城市：{$dqAddr['nation']}<if condition="$dqAddr['province'] eq $dqAddr['city']">{$dqAddr['city']}<else/>{$dqAddr['province']}{$dqAddr['city']}</if></div>
+            </div>
+
+	      <div class="addr" style="margin-top: 0.1866666667rem; margin-bottom:0;">
+	      	 <div style="width:0.2666666667rem; height:0.3733333333rem; float: left; margin-top:0.08rem">
+	      	    <img src="__IMG__/product/cp2.png" style="width:100%;" />
+	      	 </div>
+			 <?php $juli = C("EWB_DISTANCE"); ?>
+	      	 <div style="float: left; margin-left:0.0666666667rem; font-size: 0.3733333333rem; color: #63665d;">距您<a href="{:U('index',array('lth'=>C('EWB_DISTANCE')-50))}" class="lengthone" style="<if condition='$lth eq $juli-50'>background:#f90; color:#fff;</if>">{:C('EWB_DISTANCE')-50}KM</a>
+	      	 	<a href="{:U('index',array('lth'=>C('EWB_DISTANCE')))}" class="lengthtwo" style="<if condition='$lth eq $juli or $lth eq null'>background:#f90; color:#fff;</if>">{:C('EWB_DISTANCE')}KM</a>
+	      	 	<a href="{:U('index',array('lth'=>C('EWB_DISTANCE')+50))}" class="lengththree" style="<if condition='$lth eq $juli+50 '>background:#f90; color:#fff;</if>">{:C('EWB_DISTANCE')+50}KM</a>范围内项目！</div>
+	      	 <div style="float: right; width:1.4rem; height:0.6666666667rem; background: #f39801; border-radius: 0.0666666667rem; text-align: center; line-height: 0.6666666667rem;">
+	      	 <a class="mo_cd" href="{:U('mores')}" style="color: #fff; font-size: 0.3466666667rem;">更多</a></div>
+	      </div>
+
+		  <div style="width:100%; float: left; margin-bottom: 0.6666666667rem; margin-top:0.0666666667rem; color: #63665d; padding-left:0.0666666667rem;">(距离是由近到远排序)</div>
+         <else/>
+             <div class="addr">
+	      	 
+	      	 <div style="float: left; margin-left:0.0666666667rem; font-size: 0.3733333333rem; color: #63665d;">{$serchinfo}</div>
+	      	 <div style="float: right; width:1.4rem; height:0.6666666667rem; background: #f39801; border-radius: 0.0666666667rem; text-align: center; line-height: 0.6666666667rem;">
+	      	 <a class="mo_cd" href="{:U('mores')}" style="color: #fff; font-size: 0.3466666667rem;">更多</a></div>
+	         </div>
+
+         </if>
+
+
+           <div id="newslist">
+	       <!--列表开始-->
+		  
+		   <notempty name='list'>
+		   
+	       <volist name="list" id="vo">
+	      
+	   	   <div class="lists pro_list">
+	   	        <div class="width670">
+	   	           <a href="{:U('details',array('id'=>$vo[id]))}">
+		   	   	    <div class="titles">
+		   	   	    	<span class="span1">{$vo[title]}</span>
+		   	   	    	<span class="span2"></span>
+		   	   	    </div>
+		   	   	    <div class="twos">
+		   	   	        <div class="sp_img1 sp_imgg"><img src="__IMG__/tb1.jpg"/></div>
+                        <div class="sp_img1 sp_imggg"><img src="__IMG__/cppp1.png"/></div>
+		   	   	        <div class="font">{$vo[hy_id]|modelField='industry','title'}</div>
+
+		   	   	        <div class="sp_img2 sp_imgg"><img src="__IMG__/tb2.jpg"></div>
+		   	   	        <div class="sp_img2 sp_imggg"><img src="__IMG__/cppp2.png"></div>
+		   	   	        <div class="font" style="margin-top:0.0533333333rem;">{$vo[years]}</div>
+
+		   	   	        <div class="sp_img3 sp_imgg"><img src="__IMG__/tb3.jpg"></div>
+		   	   	        <div class="sp_img3 sp_imggg"><img src="__IMG__/cppp3.png"></div>
+		   	   	        <div class="font" style="margin-top:0.0533333333rem;">{:getNumberDou($vo[size])}</div>
+						
+						
+		   	   	        <div class="font">{$vo[province_id]|modelField="province","addr"}
+						</div>
+						
+						
+		   	   	        <div class="font">
+						<if condition="$vo[hsr] eq 'Y' or $vo[hsr] eq 'y'">高铁沿线</if>
+						</div>
+
+		   	   	        
+		   	   	    </div>
+				<!--	<div class="twos">
+					   <div class="sp_img4 sp_imgg" style="margin-left:0;"><img src="__IMG__/tb4.jpg"></div>
+		   	   	        <div class="sp_img4 sp_imggg"><img src="__IMG__/cppp4.png"></div>
+		   	   	        <div class="font">{$vo[color_id]|modelField="industry","title"}</div>	
+					</div>-->
+		   	   	    
+		   	   	    </a>
+	   	   	    </div>
+	   	    </div>
+            </volist> 
+			<else/>
+			
+			
+	   	        
+				<div style="float:left; width:100%; color:#63665d;"><p> 对不起！没有搜索到相关内容，请点击‘更多’搜索！</p>
+				</div>
+				
+			
+			
+			</notempty>
+			
+			
+			
+            </div>
+	   	   
+           
+	   	    
+	   	    <if condition="$listcounts gt 10">
+                  <div class="xiala pull_up">向下拉动展示更多内容...</div>
+			<else/>
+       			 <div class="xiala pull_up">没有更多内容了...</div>
+            </if>
+            
+
+	   </div>
+	</div>
+
+
+<input type="hidden" id="hangye" value="{$_GET[hy_id]}">
+<input type="hidden" id="years" value="{$_GET[years]}">
+<input type="hidden" id="chanpin" value="{$_GET[cp_id]}">
+<input type="hidden" id="size" value="{$_GET[size]}">
+<input type="hidden" id="city" value="{$_GET[city_id]}">
+
+
+    <!--底部导航-->
+        <include file="Public:bottomnav"/>
+
+
+
+
+
+<script type="text/javascript">
+	
+
+
+    //下拉加载
+
+	var range = 0; //距下边界长度/单位px  
+    var elemt = 280; //插入元素高度/单位px  
+    var maxnum = 20; //设置加载最多次数  
+    var num = 1;  
+    var totalheight = 0;  
+    
+    var main = $("#newslist"); //主体元素  
+    $(window).scroll(function(){  
+    var srollPos = $(window).scrollTop(); //滚动条距顶部距离(页面超出窗口的高度)  
+    //console.log("滚动条到顶部的垂直高度: "+$(document).scrollTop());  
+    //console.log("页面的文档高度 ："+$(document).height());  
+    //console.log('浏览器的高度：'+$(window).height());  
+
+    var hangye = $("#hangye").val();
+    var years = $("#years").val();
+    var chanpin = $("#chanpin").val();
+    var size = $("#size").val();
+    var city = $("#city").val();
+    
+   
+  
+
+
+    totalheight = parseFloat($(window).height()) + parseFloat(srollPos);  
+    if(($(document).height()-range) <= totalheight && num != maxnum) {
+          
+            if(hangye!=''){
+            	   $.post('{:U("product/index")}',{num:num,hy_id:hangye},function(data){
+
+            	   	var res = jQuery.parseJSON(data);
+			if(res['code'] == 500){
+                $(".pull_up").html('没有更多内容了');
+			//	layer.alert(res['content']);
+				return false;
+			}
+			if(res['code'] == 200){
+
+				setTimeout(function(){
+					console.log(num);
+					$(".pull_up").hide();
+
+					main.append(res['content']);
+					num++;
+
+					$(".com_olis .tra_iimgs img").each(function(){
+						var  imds=$(this).attr("src");
+						if(imds==''||imds=='undefind'){
+							$(this).parent(".tra_iimgs").hide();
+						}
+
+					})
+
+				},2000)
+
+			}
+
+		});
+			    	
+			    }else if(years!=''){
+			    	$.post('{:U("product/index")}',{num:num,years:years},function(data){
+
+			    		var res = jQuery.parseJSON(data);
+			if(res['code'] == 500){
+                $(".pull_up").html('没有更多内容了');
+			//	layer.alert(res['content']);
+				return false;
+			}
+			if(res['code'] == 200){
+
+				setTimeout(function(){
+					console.log(num);
+					$(".pull_up").hide();
+
+					main.append(res['content']);
+					num++;
+
+					$(".com_olis .tra_iimgs img").each(function(){
+						var  imds=$(this).attr("src");
+						if(imds==''||imds=='undefind'){
+							$(this).parent(".tra_iimgs").hide();
+						}
+
+					})
+
+				},2000)
+
+			}
+
+		});
+			       
+			    }else if(chanpin!=''){
+			    	$.post('{:U("product/index")}',{num:num,cp_id:chanpin},function(data){
+
+			    		var res = jQuery.parseJSON(data);
+			if(res['code'] == 500){
+                $(".pull_up").html('没有更多内容了');
+			//	layer.alert(res['content']);
+				return false;
+			}
+			if(res['code'] == 200){
+
+				setTimeout(function(){
+					console.log(num);
+					$(".pull_up").hide();
+
+					main.append(res['content']);
+					num++;
+
+					$(".com_olis .tra_iimgs img").each(function(){
+						var  imds=$(this).attr("src");
+						if(imds==''||imds=='undefind'){
+							$(this).parent(".tra_iimgs").hide();
+						}
+
+					})
+
+				},2000)
+
+			}
+
+		});
+			        
+			    }else if(size!=''){
+			    	$.post('{:U("product/index")}',{num:num,size:size},function(data){
+
+			    		var res = jQuery.parseJSON(data);
+			if(res['code'] == 500){
+                $(".pull_up").html('没有更多内容了');
+			//	layer.alert(res['content']);
+				return false;
+			}
+			if(res['code'] == 200){
+
+				setTimeout(function(){
+					console.log(num);
+					$(".pull_up").hide();
+
+					main.append(res['content']);
+					num++;
+
+					$(".com_olis .tra_iimgs img").each(function(){
+						var  imds=$(this).attr("src");
+						if(imds==''||imds=='undefind'){
+							$(this).parent(".tra_iimgs").hide();
+						}
+
+					})
+
+				},2000)
+
+			}
+
+		});
+			        
+			    }else if(city!=''){
+			    	$.post('{:U("product/index")}',{num:num,city_id:city},function(data){
+
+			    		var res = jQuery.parseJSON(data);
+			if(res['code'] == 500){
+                $(".pull_up").html('没有更多内容了');
+			//	layer.alert(res['content']);
+				return false;
+			}
+			if(res['code'] == 200){
+
+				setTimeout(function(){
+					console.log(num);
+					$(".pull_up").hide();
+
+					main.append(res['content']);
+					num++;
+
+					$(".com_olis .tra_iimgs img").each(function(){
+						var  imds=$(this).attr("src");
+						if(imds==''||imds=='undefind'){
+							$(this).parent(".tra_iimgs").hide();
+						}
+
+					})
+
+				},2000)
+
+			}
+
+		});
+			       
+			    }else{
+			    	 $.post('{:U("product/index")}',{num:num},function(data){
+
+			    	 	var res = jQuery.parseJSON(data);
+			if(res['code'] == 500){
+                $(".pull_up").html('没有更多内容了');
+			//	layer.alert(res['content']);
+				return false;
+			}
+			if(res['code'] == 200){
+
+				setTimeout(function(){
+					console.log(num);
+					$(".pull_up").hide();
+
+					main.append(res['content']);
+					num++;
+
+					$(".com_olis .tra_iimgs img").each(function(){
+						var  imds=$(this).attr("src");
+						if(imds==''||imds=='undefind'){
+							$(this).parent(".tra_iimgs").hide();
+						}
+
+					})
+
+				},2000)
+
+			}
+
+		});
+			    }
+           
+			
+
+	
+  	$(".pull_up").show();
+    }  
+    });
+
+
+ //点击切换颜色
+ $(".pro_list").click(function(){
+
+
+     $(".pro_list").removeClass('pro_active');
+     $(".pro_list").find(".sp_imggg").hide();
+     $(".pro_list").find(".sp_imgg").show();
+     $(this).addClass('pro_active');
+     $(this).find(".sp_imggg").show();
+     $(this).find(".sp_imgg").hide();
+
+ });
+
+
+
+</script>   
+
+<script>
+    if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))){
+        new WOW().init();
+    };
+</script>
+
+
+
+
+</body>
+</html>

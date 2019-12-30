@@ -1,0 +1,152 @@
+<extend name="Public/base" />
+
+<block name="body">
+	<!-- 标题栏 -->
+	<div class="main-title">
+		<h2>客户咨询列表</h2> 
+		<!--<h2 style="margin-left:20px;">未查看：<span style="color: red;">
+		   <if condition="$LabourCounts eq null">0<else/>{$LabourCounts}</if>
+		</span></h2>
+		<h2 style="margin-left:20px;">未回复：<span style="color: red;">
+		<if condition="$ansCounts eq null">0<else/>{$ansCounts}</if>
+		</span></h2>-->
+	</div>
+	<div class="cf">
+		<div class="fl">
+           <!-- <button class="btn ajax-post" url="{:U('Labour/changeStatus',array('method'=>'resumeUser'))}" target-form="ids">启 用</button>-->
+            <button class="btn ajax-post confirm" url="{:U('Labour/del',array('method'=>'deleteUser'))}" target-form="ids">删 除</button>
+        </div>
+
+        <!-- 高级搜索 -->
+		<div class="search-form fr cf">
+           <form action="/Admin/Labour/index" id="form1" method="get">
+				<div class="sleft">
+					<select class="search-input" name="status">
+						<option value="">请选择状态</option>
+						
+						<option value="1" <?php if($get[status]==1){echo 'selected';} ?>>未查看</option>
+						<option value="2" <?php if($get[status]==2){echo 'selected';} ?>>未回复</option>
+						<option value="3" <?php if($get[status]==3){echo 'selected';} ?>>已回复</option>
+						
+					</select>
+					
+					<a class="sch-btn" href="javascript:;" id="search" url="{:U('index')}"><i class="btn-search"></i></a>
+				</div>
+			</form>
+		</div>
+    </div>
+	
+	
+	
+    <!-- 数据列表 -->
+    <div class="data-table table-striped">
+	<table class="">
+    <thead>
+        <tr>
+		<th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+		<th class="">序号</th>
+		<th class="">客户OpenId</th>
+		<th class="">微信昵称</th>
+		<th class="">微信头像</th>
+		<th class="">提交时间</th>
+		<th class="">状态</th>
+		<th class="">操作</th>
+		</tr>
+    </thead>
+    <tbody id="infocontent">
+		<notempty name="list">
+		<volist name="list" id="vo" key="n">
+		<tr>
+            <td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}" /></td>
+			<td>{$n} </td>
+			<td>{$vo.cid|modelField="usermember","open_id"}</td>
+			<td>{$vo.cid|modelField="usermember","nickname"}</td>
+			<td>
+               <if condition="modelField($vo[cid],'usermember','headimgurl') neq ''">
+			      <a href='{$vo.cid|modelField="usermember","headimgurl"}' target="_blank"><img src="{$vo.cid|modelField="usermember","headimgurl"}" style="width:80px; height:50px;" /></a>
+			    <else/>
+			      暂无头像
+			    </if> 
+
+			</td>
+			<td>{$vo.create_time|date='Y-m-d H:i:s',###}</td>
+			<td>{:onlineStatus($vo[id])}</td>
+			<td>
+                <a href="{:U('Labour/edit?cid='.$vo['cid'])}">查看</a>
+				<a href="{:U('Labour/del?cid='.$vo['cid'])}" class="confirm ajax-get">删除</a>
+                </td>
+		</tr>
+		</volist>
+		<else/>
+		<td colspan="10" class="text-center"> aOh! 暂时还没有内容! </td>
+		</notempty>
+	</tbody>
+    </table>
+	</div>
+    <div class="page">
+        {$_page}
+    </div>
+	
+	
+	<input type="hidden" id="status" value="{$get['status']}"> 
+	
+</block>
+
+<block name="script">
+	<script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
+	<script src="__STATIC__/layer/layer.js"></script>
+	
+	
+
+	<script type="text/javascript">
+	//搜索功能
+	$("#search").click(function(){
+		
+
+		var typeid = $("select[name=typeid]").val();
+        var title  = $('input[name=title]').val();
+        $("#form1").submit();
+
+		
+	});
+	//回车搜索
+	$(".search-input").keyup(function(e){
+		if(e.keyCode === 13){
+			
+			$("#search").click();
+			return false;
+			
+		}
+	});
+	
+    //导航高亮
+    highlight_subnav('{:U('Labour/index')}');
+	
+	</script>
+	
+	<script>
+	//定时请求
+	$(function(){
+	   setInterval("Reload()",3000);
+	});
+	
+	function Reload(){
+	   
+	    var obj = $("#status").val();
+	
+	    $.post("{:U('ajaxindexlist')}",{type:'list',status:obj},function(d){
+		
+		    $("#infocontent").html(d);
+		
+		});
+		
+	
+	}
+	
+	
+	
+	</script>
+	
+	
+	
+</block>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>苏州安全健康环境精益知识竞赛</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/problem.css"> 
+<!--js-->
+<script type="text/javascript" src="__JS__/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+<script type="text/javascript" src="__JS__/layer.js"></script>
+<link rel="stylesheet" type="text/css" href="__CSS__/animate.min.css"> 
+<script type="text/javascript" src="__JS__/wow.min.js"></script>
+
+<style>
+.datas .title p{padding-left:0.3333333333rem;line-height: 0.5rem;padding-top: 0.2rem;}
+.dian_left{height:100%; float:left;}
+.list_con{height:auto;min-height:1.13rem !important;line-height: 0.5rem;}
+.list_con label{float:left; width: 7.3rem; line-height: 0.6rem;margin-top: 0.3rem;}
+</style>
+
+</head>
+<body>
+   
+   <div class="widthall mainer_top">
+       <div class="width662">
+           <div class="maintitle">
+              <p class="p1">2017年博思格钢铁</p>
+              <p class="p2">苏州安全健康环境精益知识竞赛</p>
+           </div>
+       </div>
+   </div>
+
+   <div class="widthall mainer_cont">
+       <div class="width662">
+         <!--列表开始-->
+		 
+		    <form id="form2">
+            <div class="input_list_b">
+              <div class="datas">
+                  <div class="title on"><p>{$list[title]}</p></div>
+				  
+				  <input type="hidden" name="wt_id" value="{$list[id]}">
+				  <input type="hidden" name="type"  value="{$list[type]}">
+				  <input type="hidden" name="typeid" value="{$typeid}">
+				  <input type="hidden" name="typepid" value="{$list[typepid]}">
+				  
+				  <if condition="$list[type] eq 2">
+                  <div class="li_a">
+                      <div class="wt_ms">
+                          <p>此题为多选题，请选择正确答案！</p>
+                      </div>
+					  <volist name="list[xuanxiang]" id="vo">
+                      <div class="list_con">
+                           <div class="dian_left"><div class="dianimg"></div></div>
+                           <input class="radios" type="checkbox" name="answer[]" value="{$vo[xuxiang]}">
+                           <label name="nba" for="nba">{$vo[xuxiang]}、{$vo[title]}</label>
+                      </div>
+                      </volist>
+                  </div>
+				  <!--单选题-->
+				  <elseif condition="$list[type] eq 1"/>
+				    <div class="li_a">
+                      <div class="wt_ms">
+                          <p>此题为单选题，请选择正确答案！</p>
+                      </div>
+					  <volist name="list[xuanxiang]" id="vo">
+                      <div class="list_con">
+                           <div class="dianimg"></div>
+                           <input class="radios" type="radio" name="answer" value="{$vo[xuxiang]}">
+                           <label name="nba" for="nba">{$vo[xuxiang]}、{$vo[title]}</label>
+                      </div>
+					  </volist>
+                      
+                  </div>
+				  
+				  </if>
+				  
+				  
+              </div>
+
+             <!-- <div class="result">
+                <p>回答错误！正确答案为： A、B、E、F</p>
+              </div>-->
+              <if condition="$matchCount eq 1">
+			    <input type="hidden" name="end_num" value="1">
+			  
+			  
+              <div class="start_dt" style="margin-top: 0.3333333333rem">
+                 <p class="btn_tjiao">全部完成</p>
+              </div>
+			  <else />
+			  <div class="start_dt" style="margin-top: 0.3333333333rem">
+                 <p class="btn_tjiao">提交答案</p>
+              </div>
+			  </if>
+			  
+			  
+            </div>
+			</form>
+
+
+
+
+
+       </div>
+   </div>
+
+<!--弹框-->
+<div class="tctc" style="display: none;">
+    <div class="tc"></div>   
+    <div class="tc_cont">
+       <div class="one">
+           <p><span class="span1">完成答题</span><span class="span2" id="quxiao">×</span></p>
+       </div>
+       <div class="two">
+            <p class="p1">恭喜您的得分为：<span style="color: #f8a937;" id="score"></span>用时：<span style="color: #f8a937;" id="times"></span></p>
+            <p class="p2"><span id="nums">第一次</span>知识竞赛全部答题完成,谢谢参与！</p>
+       </div>
+    </div>
+</div>
+
+
+<script>
+    if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))){
+        new WOW().init();
+    };
+</script>      
+
+
+<script>
+
+$(".list_con").click(function(){
+     var typeer = $(this).find("input").attr('type');
+     var checkeds = $(this).find('input[type=checkbox]').is(':checked');
+	 if(typeer=='radio'){
+	    $(this).addClass('active').siblings('.list_con').removeClass('active');
+	 }else if(typeer=='checkbox'){
+	    $(this).addClass('active');
+	 }
+	
+	 if(checkeds==true){
+	    
+	    $(this).removeClass('active');
+	    $(this).find('input[type=checkbox]').prop('checked',false);
+	 }else{
+	    
+	    $(this).find('input[type=checkbox]').prop('checked',true);
+	 }
+	 
+	
+     $(this).find('input[type=radio]').prop('checked',true);
+	
+     
+     var radioval = $(this).find('input[type=radio]:checked').val();
+     
+   
+
+});
+
+
+//提交
+
+var spCodesTemp='';
+
+$(".btn_tjiao").click(function(){
+
+    var types = $("input[name='type']").val();
+	
+	
+	
+	if(types==1){
+	  
+	    var answer = $("input[name='answer']:checked").val();//单选答案
+		
+		if(answer==undefined){
+		   layer.alert('请选择答案'); return false;
+		}
+	  
+	}else if(types==2){
+	    
+	    $("input[type=checkbox]:checked").each(function(i){
+			if(0==i){
+				spCodesTemp = $(this).val();
+			}else{			
+				spCodesTemp += (","+$(this).val());
+			}			
+		}); 
+		
+		if(spCodesTemp==''){
+		   layer.alert('请选择答案'); return false;
+		}
+	  
+	}
+	
+	
+	$.post("{:U('addproblem')}",$("#form2").serialize(),function(d){
+	  
+	    
+	  
+	   if(d.status==1){
+	      if(d.ender==1){
+		    $(".tctc").show();
+		    $('#score').text(d.score+'分');
+		    $('#times').text(d.times);
+		    $('#nums').text(d.num);
+		  }else{
+		    window.location.href="/Match/Index/problem?typeid="+d.typeid;
+		  }
+		  
+		  
+	   }else if(d.status==5){
+	      layer.alert(d.msg,function(){
+		    window.location.href="/Match/Index/problem?typeid="+d.typeid;   
+		  });
+	   }else if(d.status==3){
+	      layer.alert(d.msg,function(){
+		    window.location.href="/Match/Index/forms";   
+		  });
+	   }else if(d.status==4){
+	        if(d.ender==1){
+			    
+				var indexs = layer.alert(d.msg,function(){
+				  layer.close(indexs);
+				  $(".tctc").show();
+				  $('#score').text(d.score+'分');
+				  $('#times').text(d.times);
+				  $('#nums').text(d.num);
+				  
+				  
+				});
+				
+				
+			}else{
+			    layer.alert(d.msg,function(){
+					window.location.href="/Match/Index/problem?typeid="+d.typeid;
+				   
+		        });
+			}
+	   }else if(d.status==2){
+	      layer.alert(d.msg);
+	   }
+	
+	});
+	  
+});
+
+//关闭弹窗
+$("#quxiao,.tc").click(function (){
+  $(".tctc").hide();
+  window.location.href="/Match/Index/numlist";
+
+});
+
+
+
+
+
+</script>
+
+
+
+ 
+       
+
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+<extend name="Public/base" />
+
+<block name="body">
+	<!-- 标题栏 -->
+	<div class="main-title">
+		<h2>  
+		<notempty name="meettile">
+			<font style="color:#4bbd00;">[{$meettile}]</font>
+		</notempty>	
+			签到列表
+		</h2> 
+		<h2 style="margin-left:20px;">签到人数：<span style="color: red;">{$listsCount}</span></h2>
+	</div>
+	<div class="cf">
+		<div class="fl">
+            <!--<button class="btn ajax-post" url="{:U('Signin/changeStatus',array('method'=>'resumeUser'))}" target-form="ids">启 用</button>-->
+            <button class="btn ajax-post confirm" url="{:U('Signin/del',array('method'=>'deleteUser'))}" target-form="ids">删 除</button>
+        </div>
+        
+		<!-- 高级搜索 -->
+		<div class="search-form fr cf">
+           <form action="/Admin/Signin/index" id="form1" method="get">
+				<div class="sleft">
+					<select class="search-input" name="hd_id">
+						<option value="">请选择活动</option>
+						<volist name="meetingarr" id="mets">
+						<option value="{$mets[id]}" <if condition="$mets[id] eq $get[hd_id]">selected</if>>{$mets[title]}</option>
+						</volist>
+						
+					</select>
+					
+					<a class="sch-btn" href="javascript:;" id="search" url="{:U('index')}"><i class="btn-search"></i></a>
+				</div>
+			</form>
+		</div>
+		
+       
+    </div>
+    <!-- 数据列表 -->
+    <div class="data-table table-striped">
+	<table class="">
+    <thead>
+        <tr>
+		<th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+		<th class="">序号</th>
+		<th class="">客户姓名</th>
+		<th class="">客户电话</th>
+		<th class="">邀请人</th>
+		<th class="">工作单位</th>
+		<th class="">签到时间</th>
+		<th class="">所属活动</th>
+		<th class="">中奖状态</th>
+		<th class="">状态</th>
+		<th class="">操作</th>
+		</tr>
+    </thead>
+    <tbody>
+		<notempty name="list">
+		<volist name="list" id="vo" key="n">
+		<tr>
+            <td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}" /></td>
+			<td>{$n} </td>
+			<td>{$vo.username}</td>
+			<td>{$vo.mobile}</td>
+			<td>{$vo.inviter|modelField="meeting_inviter","title"}</td>
+			<td>{:getOtherCompany($vo[company],$vo[id])}</td>
+			<td>{$vo.create_time|date='Y-m-d H:i',###}</td>
+			<td>{$vo.hd_id|modelField="meeting",'title'}</td>
+			<td>
+			     {:meetQdstatus($vo[id],$vo[hd_id],$vo[cid])}
+			</td>
+			<td>
+			<if condition="$vo[status] eq 1">
+			<font style="color:red;">未查看</font>
+			<elseif condition="$vo[status] eq 2"/>
+			<font style="color:#0b50f3;">已查看</font>
+			
+			</if>
+			</td>
+			<td>
+                <a href="{:U('Signin/edit?id='.$vo['id'].'&ksid='.$vo['ksid'])}">查看</a>
+				<a href="{:U('Signin/del?id='.$vo['id'])}" class="confirm ajax-get">删除</a>
+                </td>
+		</tr>
+		</volist>
+		<else/>
+		<td colspan="10" class="text-center"> aOh! 暂时还没有内容! </td>
+		</notempty>
+	</tbody>
+    </table>
+	</div>
+    <div class="page">
+        {$_page}
+    </div>
+</block>
+
+<block name="script">
+	<script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
+	
+	
+
+	<script type="text/javascript">
+	//搜索功能
+	$("#search").click(function(){
+		
+
+		var typeid = $("select[name=typeid]").val();
+        var title  = $('input[name=title]').val();
+        $("#form1").submit();
+
+		
+	});
+	//回车搜索
+	$(".search-input").keyup(function(e){
+		if(e.keyCode === 13){
+			
+			$("#search").click();
+			return false;
+			
+		}
+	});
+	
+    //导航高亮
+    highlight_subnav('{:U('Signin/index')}');
+	</script>
+</block>

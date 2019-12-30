@@ -1,0 +1,71 @@
+<extend name="Public/base"/>
+<block name="body">
+	<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+    <div class="main-title">
+        <h2>详情</h2>
+    </div>
+    <ul class="tab-nav nav">
+        <li class="current"><a href="javascript:void(0)">基本信息</a></li>
+    </ul>
+	<style>
+	  .controls p{padding-left:20px; margin-bottom:5px;}
+	</style>
+    
+    <form action="{:U()}" method="post" class="form-horizontal">
+    <div class="tab-content">
+       
+		<div class="form-item">
+		 <ul>
+		    <volist name="list" id="vo" key="m">
+		    <li>
+			    <label class="item-label">{$m}、{$vo[title]}。  (<span>答案：<font style="color:red;">{$vo[answer]}</font></span> <span style="margin-left:10px;">正确答案：{$vo[ans]}</span>)</label>
+				<div class="controls">
+                   <volist name="vo[xuanxiang]" id="vos">
+				   <p>{$vos[xuxiang]}、{$vos[title]}</p>
+				   </volist>
+                </div>
+			<li>
+		    </volist>
+		 
+		 </ul>
+		</div>
+		
+       
+		
+        <div class="form-item">
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </div>
+    
+	</form>
+</block>
+
+<block name="script">
+<include file="Public:datetime" />
+    <script type="text/javascript">
+	
+		$('.tab-nav li').click(function(){
+			$(this).attr('class','current')
+						.siblings().attr('class','');
+			var n_index=$('.tab-nav li').index(this);
+				$('.tab-content').eq(n_index).show()
+							 .siblings().hide();
+		});
+	
+        //导航高亮
+        highlight_subnav('{:U('Meeting/index')}');
+		
+		$('#deadline').datetimepicker({
+        format: 'yyyy-mm-dd hh:ii:ss',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });
+		$('#deadline2').datetimepicker({
+        format: 'yyyy-mm-dd hh:ii:ss',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });
+    </script>
+</block>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>{:C('WEB_SITE_TITLE')}</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+
+<script type="text/javascript" src="__JS__/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__JS__/layer.js"></script>
+<!--js-->
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+
+
+
+
+</head>
+<body>
+    <div class="main survey">
+
+	   <div class="top">
+	   	    
+	   	    <p>OFFER AND QUALITY</p>
+
+	   </div>
+ 
+	   <!--内容-->
+       <form id="form2" action="{:U('addlist')}" method="post">
+	   <div class="mid survey_list">
+	       
+           <!--列表开始-->
+           <volist name="list" id="vos" key="k">
+              <!--问题id-->
+             <input type="hidden" name="wtid[]" value="{$vos[id]}">
+
+            <div class="input_list_b">
+	         <div class="datas">
+	         	<div class="title on"><span>{$k}. {$vos[title]}</span></div>
+                <div class="list_con active">
+                     <div class="dianimg"></div>
+                     <input class="radios" type="radio" id="nba"" name="satisfaction{$vos[id]}" value="5">
+                     <label name="nba" for="nba">A、非常满意</label>
+                </div>
+                <div class="list_con">
+                     <div class="dianimg"></div>
+                     <input class="radios" type="radio" id="nba"" name="satisfaction{$vos[id]}" value="4">
+                     <label name="nba" for="nba">B、满意</label>
+                </div>
+                <div class="list_con">
+                     <div class="dianimg"></div>
+                     <input class="radios" type="radio" id="nba"" name="satisfaction{$vos[id]}" value="3">
+                     <label name="nba" for="nba">C、一般</label>
+                </div>
+                <div class="list_con">
+                     <div class="dianimg"></div>
+                     <input class="radios" type="radio" id="nba"" name="satisfaction{$vos[id]}" value="2">
+                     <label name="nba" for="nba">D、不满意</label>
+                </div>
+                <div class="list_con">
+                     <div class="dianimg"></div>
+                     <input class="radios" type="radio" id="nba"" name="satisfaction{$vos[id]}" value="1">
+                     <label name="nba" for="nba">E、很不满意</label>
+                </div>
+	         </div>
+             <div class="data_text">
+                 <div class="yiny"></div>
+                 <div class="data_zyx">
+                     <p class="p1">该问题对您的重要性</p>
+                     <div class="zyx_xz">
+                        <input  id="zyx1" type="radio" name="important{$vos[id]}" value="3" />
+                        <label class="actv" for="zyx1">重要</label>
+
+                        <input  id="zyx2" type="radio" name="important{$vos[id]}" value="2" />
+                        <label for="zyx2">一般</label>
+
+                        <input  id="zyx3" type="radio" name="important{$vos[id]}" value="1" />
+                        <label for="zyx3">不适用</label>
+                     </div>
+                 </div>
+             </div>
+            </div>
+
+            </volist>
+          
+            
+            <!--顶级标题id-->
+            <input type="hidden" name="topid" value="{$topid}" />
+            <!--顶级标题排序-->
+            <input type="hidden" name="sort" value="{$topid|modelField='survey','sort'}" />
+
+
+	         <div class="tj_btns" id="btutns">
+               <!-- <input type="submit" value="提交">-->
+	         	<a href="javascript:;">下一步</a>
+	         </div>
+
+	        
+	   </div>
+       </form>
+
+	</div>
+    
+
+
+
+	
+    <!--底部导航-->
+    <include file="Public:bottomnav"/>
+
+
+<script>
+   
+
+
+   $("#btutns").click(function(){
+
+          //判断是否还有题目没有完成
+          var bd  = true;
+           $(".input_list_b").each(function(){
+
+               var rad = $(this).find('.list_con').find('input[type="radio"]:checked').val();
+               
+               if(rad==undefined){
+                     
+                     layer.alert('1您还有题目没有完成！');
+                     bd=false;
+                     return false;
+                     
+               }else{
+
+                  var rader = $(this).find('.data_text').find('input[type="radio"]:checked').val();
+
+                  if(rader==undefined){
+
+                     layer.alert('2您还有题目没有完成！');
+                     bd=false;
+                     return false;
+                     
+                  }
+
+               }
+           });
+        
+             if(bd==true){
+                $("#form2").submit();
+             }
+             
+           
+          
+
+
+    });
+
+
+   
+
+
+
+
+
+</script>
+
+</body>
+</html>

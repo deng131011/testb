@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>{:C('WEB_SITE_TITLE')}</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+
+<!--js-->
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+<script type="text/javascript" src="__JS__/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__JS__/layer.js"></script>
+
+<style type="text/css">
+	
+  .width670{overflow: hidden;}
+  
+.top p{margin-top:0;}
+</style>
+
+</head>
+<body>
+    <div class="main">
+       <!--顶部图-->
+	   <div class="top">
+	   	    <p style="margin-top: 0.6666666667rem;">申请记录</p>
+	   	    <p>RECORDING</p>
+
+	   </div>
+
+	   <!--内容-->
+	   <div class="list_mid">
+
+	       <!--列表开始-->
+		   <notempty name="list">
+           <volist name="list" id="vo">
+		   	   <div class="lists">
+                  <if condition="$vo[status] eq 1">
+		   	         <a href="{:U('detaila',array('id'=>$vo['id']))}">
+                  <elseif condition="$vo[status] eq 2"/>
+                     <a href="javascript:;" class="failed" data-id="{$vo['id']}"> 
+                  <else/>
+                     <a href="javascript:;"> 
+                  </if>
+		   	        <div class="width670">
+		   	           
+			   	   	    <div class="left">
+			   	   	    	<p class="p1">{$vo['company']}</p>
+			   	   	    	<p class="p2">{$vo['create_time']|date='Y-m-d H:i',###}</p>
+			   	   	    </div>
+			   	   	    <div class="right"><span>|</span>{:get_check_status($vo['status'])}</div>
+			   	   	   
+		   	   	    </div>
+		   	   	     </a>
+		   	   </div>
+            </volist>
+            <else/>
+			     
+			   <p style="margin-top:1rem;">暂无申请记录！</p>
+			   	   	   
+			</notempty>
+	   	   
+
+	   	  
+
+	   	   
+
+
+
+	   </div>
+	</div>
+
+
+<!-- 弹框 -->
+<div class="zz_tk host_hide">
+        <div class="hostl" style="min-height: 5.56rem;">
+            <div class="title">
+                <p>失败原因 <span class="fa fa-times quxiao"></span></p>
+            </div>
+            <div class="prices survey_success" style="min-height: 2.84rem; ">
+                <p style="min-height: 0.8rem; padding:0 0.1333333333rem;" id="failed_rasio">感谢您百忙之中完成此调查表感谢您百忙之中完成此调查表感谢您百忙之中完
+                </p>
+                
+            </div>
+        </div>
+    </div>
+
+
+    <!--底部导航-->
+      <include file="Public:bottomnav"/>
+<script>
+	
+
+    $(".lists").click(function(){
+
+          $(".lists").removeClass("yellowbj");
+
+          $(this).addClass("yellowbj");
+
+    });
+
+    //查看失败原因
+    $(".failed").click(function() {
+    	var id = $(this).attr('data-id');
+        $.post("{:U('Ajax/getCheckRasio')}",{id:id},function(d) {
+        	 if(d.status==1){
+
+        	 	 $(".host_hide").show();
+                 $("#failed_rasio").text(d.msg);
+                 $(".quxiao").click(function(){
+
+                  $(".host_hide").hide();
+
+                 });
+
+        	 }else if(d.status==2){
+                   
+                   layer.alert(d.msg);
+
+        	 }
+             
+        });
+
+    });
+   
+
+
+  
+</script>
+
+</body>
+</html>

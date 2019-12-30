@@ -1,0 +1,84 @@
+<extend name="Public/base"/>
+
+<block name="body">
+	<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+    <div class="main-title">
+        <h2>编辑用户</h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal">
+        <div class="form-item">
+            <label class="item-label">用户姓名<span class="check-tips"></span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="username" value="{$vo.username}">
+                <input type="hidden" name="id" value="{$vo.id}" />
+            </div>
+        </div>
+		
+		<div class="form-item">
+            <label class="item-label">微信名字<span class="check-tips"></span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="nickname" value="{$vo.nickname}">
+            </div>
+        </div>
+		
+		<div class="form-item">
+            <label class="item-label">是否是业务员<span class="check-tips">（如果是公司业务员请勾选‘是’）</span></label>
+            <div class="controls">
+                <label class="inline radio"><input type="radio" name="is_yewu" value="1" <if condition="$vo.is_yewu eq 1">checked</if>>是</label>
+                <label class="inline radio"><input type="radio" name="is_yewu" value="0" <if condition="$vo.is_yewu eq 0">checked</if>>否</label>
+            </div>
+        </div>
+		
+        <div class="form-item">
+            <label class="item-label">用户类型<span class="check-tips"></span></label>
+            <div class="controls">
+               <select name="usertype" style="width:150px;">
+			        <option value="">选择用户类型</option>
+					<volist name="typeList" id="lis">
+						<option value="{$lis.id}"  <if condition="$vo['usertype'] eq $lis['id']">selected</if>>{$lis.title}</option>
+					</volist>
+				</select>
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">电话号码<span class="check-tips"></span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="mobile" value="{$vo.mobile}">
+            </div>
+        </div>
+		
+		<div class="form-item">
+            <label class="item-label">传真<span class="check-tips"></span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="fax" value="{$vo.fax}">
+            </div>
+        </div>
+		
+		<div class="form-item">
+            <label class="item-label">公司名称<span class="check-tips"></span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="company" value="{$vo.company}">
+            </div>
+        </div>
+		
+		<div class="form-item">
+            <label class="item-label">职位<span class="check-tips"></span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="position" value="{$vo.position}">
+            </div>
+        </div>
+		
+        
+        <div class="form-item">
+            <button class="btn submit-btn" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </form>
+</block>
+
+<block name="script">
+    <script type="text/javascript">
+        //导航高亮
+        highlight_subnav('{:U('Usermember/index')}');
+    </script>
+</block>

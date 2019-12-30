@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>{:C('WEB_SITE_TITLE')}</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+
+<!--js-->
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+<script type="text/javascript" src="__JS__/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__JS__/layer.js"></script>
+<style>
+   .data_text{display:none;}
+   .list_con{ border-bottom: 0.0266666667rem solid #cccccc;}
+   .input_list_b .list_con:last-child{border-bottom:none;};
+   .off{display: block !important;}
+   .remarks{display: none;}
+   .top p{margin-top:0;}
+   .input_list_b{background: #fff; border-radius: 0.2rem;}
+   .datas .title span{display: inline-block; line-height: 0.5rem; margin-top: 0.2rem;}
+   .datas .title{line-height: 0;}
+</style>
+</head>
+<body>
+    <div class="main" style="background: url('__IMG__/wtbj.jpg') no-repeat; background-size:100% 100%; background-position-y: bottom;">
+      <div style="width:100%;"> 
+         <div style="width:5.96rem; height:1.76rem; margin:0 auto; margin-top:0.6666666667rem">
+		 <img src="/Public/Home/images/wtlogo.png"/>
+		 </div>
+      </div>
+	   <!--内容-->
+	   <form action="{:U('addmeetProblem')}" id="form2" method="post">
+	   <div class="mid" style="margin-top:0.6666666667rem;">
+           <!--活动id-->
+
+           <input type="hidden" name="hd_id" value="{$hd_id}">
+  
+
+           <!--列表开始-->
+            <volist name="list" id="vor" key="k">
+                <input type="hidden" name="problem_id[]" value="{$vor[id]}">
+                <input type="hidden" name="problem_type{$vor[id]}" value="{$vor[type]}"/>
+
+                <div class="input_list_b">
+    	         <div class="datas">
+    	         	<div class="title on"><span>{$k}. {$vor[title]}</span></div>
+                    <!--类型一，单选-->
+                    <if condition="$vor[type] eq 1">
+                       
+                    <volist name="Think.config.WEB_MEETPROBLEM_TYPE" id="danxuan">
+                       
+                        <in name="key" value="$vor[danxuan]">
+                            <div class="list_con">
+                                 <div class="dianimg"></div>
+                                 <input class="radios" type="radio"  name="result{$vor[id]}" value="{$key}">
+								 <if condition="$key eq 1">
+                                 <label name="nba" >A、{$danxuan}</label>
+								 <elseif condition="$key eq 2"/>
+								 <label name="nba" >B、{$danxuan}</label>
+								 <elseif condition="$key eq 3"/>
+								 <label name="nba" >C、{$danxuan}</label>
+								 <elseif condition="$key eq 4"/>
+								 <label name="nba" >D、{$danxuan}</label>
+								 <elseif condition="$key eq 5"/>
+								 <label name="nba" >E、{$danxuan}</label>
+								 </if>
+                                 <div class="yj_xz remarks"></div>
+                            </div>
+                        </in>  
+                    </volist>
+
+                    <!--类型四 文本-->
+                    <elseif condition="$vor[type] eq 4"/>
+                           
+                        <div class="textareas">
+                            <div class="texa_a"><textarea name="content{$vor[id]}"></textarea></div>
+                        </div>  
+                     </if>
+    	         </div>
+                </div>
+            </volist>
+            <!--/-->
+           
+
+	        <div class="tj_btns" id="btns">
+	         	<a href="javascript:;">提交问卷</a>
+	        </div>
+
+	      
+	   	
+
+	   </div>
+       </form>
+	</div>
+   
+
+   
+
+
+  
+	
+    <!--底部导航-->
+        <include file="Public:bottomnav"/>
+<script>
+
+//列表效果
+$(".list_con").click(function(){
+
+     
+
+      $(this).addClass('active').siblings('.list_con').removeClass('active').slideUp();
+
+	  $(this).find('input[type=radio]').prop('checked',true);
+
+      var radioval = $(this).find('input[type=radio]:checked').val();
+
+      if(radioval==1){
+       
+          $(this).parent('.datas').siblings('.data_text').show();
+
+      }else if(radioval==2){
+         
+           $(this).parent('.datas').siblings('.data_text').hide();
+           $(this).parent('.datas').siblings('.data_text').find('input[type="text"]').val('');
+
+           //$(this).removeClass('active').addClass('active_trr');
+
+           $(this).parents('.input_list_b').next('.input_list_b').find('.list_con') .addClass('off');
+           $(this).parents('.input_list_b').next('.input_list_b').find('.title').addClass('on');
+           $(this).parents('.input_list_b').next('.input_list_b').find('.textareas').show();
+
+      }
+
+});
+
+
+
+$(".title").click(function(){
+    
+    //如果下边有值可以展开
+   
+
+        // $(this).parents('.input_list_b').siblings('.list_con').removeClass('active'); 
+        $(this).parents('.input_list_b').siblings('.list_con').removeClass('active_trr').slideDown(); 
+        //$(this).parents('.input_list_b').find('.list_con').removeClass('active_trr');
+        var ravaltwo = $(this).parents('.input_list_b').find('input[type="radio"]:checked').val();
+        if(ravaltwo==1){
+           $(this).parents('.input_list_b').find('.data_text').show();
+        }
+
+    
+
+     //展开
+
+    
+      
+
+     var nums = $(this).parents('.input_list_b').index();
+     var trs  = true; 
+     if(nums>0){
+
+        var obj = $(this).parents('.input_list_b').prev('.input_list_b');
+       
+        var raval = obj.find("input[type='radio']:checked").val();
+
+      //  obj.find('.list_con').each(function(){
+     //      var xztype = $(this).find('input[type="text"]:checked').val();
+     //      alert(xztype);
+     //   });
+      
+        if(raval==undefined){
+            layer.alert('请先选择上一题！');
+            return false;
+        }else if(raval==1){
+              
+            var teval =  obj.find(".data_text").find("input[type='text']").val();
+
+            var telen =  $.trim(teval).length;
+
+            if(telen==0){
+    
+                 obj.find(".data_text").find(".data_inputs").css('border-color','red');
+                 trs  = false; 
+                 
+
+            }else{
+             
+                 obj.find(".data_text").find(".data_inputs").css('border-color','#e0e0e0');
+
+                // obj.find(".list_con").find('.remarks').show();
+                
+                 //obj.find(".list_con").find('.remarks').html(teval);
+
+                // obj.find('.list_con').removeClass('active').addClass('active_trr');
+
+                 //obj.find(".data_text").hide();
+
+                 trs  = true; 
+            }
+
+        }else if(raval==2){
+
+                 obj.find(".data_text").find("input[type='text']").val('');
+
+                // obj.find('.list_con').removeClass('active').addClass('active_trr');
+
+                
+
+        }
+        if(trs==true){
+
+            $(this).addClass('on');
+            $(this).parents('.input_list_b').find('.list_con') .addClass('off');
+
+        }
+
+        if(nums==5){
+
+            $(".textareas").show();
+
+        }
+
+     }
+    
+      
+
+    });
+
+
+
+
+	
+
+
+$(".title").click(function(){
+ 
+    var rda = $(this).siblings('.list_con').find("input[type='radio']:checked").val();
+
+    if(rda>0){
+     
+        $(this).siblings('.list_con').slideDown();
+        
+    }
+
+});
+
+
+	
+	
+	
+	
+	
+	//提交表单
+	$("#btns").click(function(){
+
+        var bd  = true;
+
+       $(".input_list_b").each(function(){
+            var rttt = $(this).find("input").attr('type');
+            if(rttt!=undefined){
+                  var radd = $(this).find("input[type='radio']:checked").val();
+            
+                    if($.trim(radd).length==0 || radd<1 || radd==''){
+                          
+                          layer.alert('您还有题目没有完成！');
+                          bd=false;
+                          return false;
+
+                    } 
+            }
+            
+       });
+	   
+	   $("textarea").each(function(){
+	     
+		 
+		    var textearval = $(this).val();
+			if($.trim(textearval).length==0){
+			    layer.alert('您还有题目没有完成！');
+                bd=false;
+                return false;
+			}
+	   
+	   });
+
+//    
+	    if(bd==true){
+
+            $.post('{:U('addmeetProblem')}',$('#form2').serialize(),function(d){
+                 if(d.status==1){
+                 	$('.layui-layer-content').css('color','#f00');
+                 	$('.layui-layer-content').css('font-size','18px');
+                    layer.alert(d.msg,function(){
+                         
+                         window.location.href='/home/wood/index';
+                    
+                    });
+                       
+                 }else if(d.status==2){
+                 	$('.layui-layer-content').css('font-size','18px');
+                    layer.alert(d.msg,function(){
+                         
+                         window.location.href='/home/wood/index';
+                    
+                    });
+                 }
+            });
+
+        }
+	    
+	
+	});
+	
+	
+
+</script>
+
+</body>
+</html>

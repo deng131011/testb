@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>优耐板</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+<link rel="stylesheet" type="text/css" href="__CSS__/about.css"> 
+<!--js-->
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+<script type="text/javascript" src="__JS__/jquery-1.9.1.min.js"></script>
+
+<!--动画-->
+<link rel="stylesheet" type="text/css" href="__CSS__/animate.min.css"> 
+<script type="text/javascript" src="__JS__/wow.min.js"></script>
+
+</head>
+<body>
+    <div class="about_main">
+
+         <div class="aboutb_left">
+             <div class="image1 wow bounceInLeft" data-wow-delay="0.5s"><img src="__IMG__/about/b1.png"/></div>
+             <div class="ab_lefttwo">
+               <div class="image2 wow bounceInLeft" data-wow-delay="1s"><img src="__IMG__/about/b4.png"/></div>
+               <div class="image3 wow bounceInLeft" data-wow-delay="1.5s"><img src="__IMG__/about/b3.png"/></div>
+             </div>
+             <div class="ab_leftthr wow fadeInUpBig" data-wow-delay="2s">
+               <p class="p1">{$vo['name']}</p>
+               <p class="p2">{$vo['title']}</p>
+             </div>
+         </div>
+
+         <div class="aboutb_right">
+             <div class="ab_right1 wow bounceInDown" data-wow-delay="1.5s">
+                    <p>{$vo[content]}</p>
+             </div>
+             <div class="ab_right2 wow bounceInRight" data-wow-delay="2.8s">
+                 <div class="image4"><img src="__IMG__/about/b2.png"/></div>
+             </div>
+           
+         </div>
+	  
+	  </div>
+ 
+
+
+
+
+    <!--底部导航-->
+       <include file="Public:bottomnav"/>
+
+
+<script>
+    if (!(/msie [6|7|8|9]/i.test(navigator.userAgent))){
+        new WOW().init();
+    };
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,214 @@
+<extend name="Public/base"/>
+
+<block name="body">
+	<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+    <script type="text/javascript" src="__JS__/protype.js"></script>
+    <div class="main-title">
+        <h2>商品备案信息</h2>
+    </div>
+    <ul class="tab-nav nav">
+
+
+        <li class="current"><a href="javascript:void(0)">基本信息</a></li>
+        <li><a href="javascript:void(0)">备案信息</a></li>
+
+    </ul>
+    
+    <form action="{:U()}" method="post" class="form-horizontal">
+    <div class="tab-content">
+        <div class="form-item">
+            <label class="item-label">报文类型<span class="check-tips">（不可修改）</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="MessageType" value="SKU_INFO" readonly="readonly">
+            </div>
+        </div>
+        
+        
+        <div class="form-item">
+            <label class="item-label">消息ID<span class="check-tips">（每次发送必须唯一，不能重复,自动生成，不可修改）</span></label>
+            <div class="controls">
+
+                    <input type="text" class="text input-large" name="MessageId" value="{$messageId}" readonly="readonly">
+
+            </div>
+        </div>
+         <div class="form-item">
+            <label class="item-label">动作类型<span class="check-tips">（不可修改）</span></label>
+            <div class="controls">
+
+                    <input type="text" class="text input-large" name="ActionType" value="1" readonly="readonly">
+
+            </div>
+        </div>
+        
+        <div class="form-item">
+            <label class="item-label">发送者<span class="check-tips">（企业海关十位编码）</span></label>
+            <div class="controls">
+
+                    <input type="text" class="text input-large" name="SenderId" value="50056602CJ" readonly="readonly">
+
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">接收者<span class="check-tips">（固定不变）</span></label>
+            <div class="controls">
+
+                    <input type="text" class="text input-large" name="ReceiverId" value="CQITC" readonly="readonly">
+
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">用户名<span class="check-tips">（企业海关十位编码）</span></label>
+            <div class="controls">
+
+                    <input type="text" class="text input-large" name="UserNo" value="50056602CJ" readonly="readonly">
+
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">电商企业代码<span class="check-tips">（不可为空,海关十位编码）</span></label>
+            <div class="controls">
+
+                    <input type="text" class="text input-large" name="ESHOP_ENT_CODE" value="50056602CJ" readonly="readonly">
+
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">电商企业名称<span class="check-tips">（不可为空,商家名称）</span></label>
+            <div class="controls">
+
+                    <input type="text" class="text input-large" name="ESHOP_ENT_NAME" value="重庆莞璘进出口商贸有限公司" readonly="readonly">
+
+            </div>
+        </div>
+        
+        <div class="form-item">
+            <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </div>
+    <div class="tab-content" style="display:none;">
+    
+    	<div class="form-item">
+            <label class="item-label">商品货号<span class="check-tips">（不可为空）</span></label>
+            <div class="controls">
+
+                    <input type="text" class="text input-large" name="SKU" value="">
+
+            </div>
+        </div>
+        
+        <div class="form-item">
+            <label class="item-label">商品名称<span class="check-tips">（不可为空）</span></label>
+            <div class="controls">
+
+                    <input type="text" class="text input-large" name="GOODS_NAME" value="{$product.title}" readonly="readonly">
+
+            </div>
+        </div>
+        
+        <div class="form-item">
+            <label class="item-label">规格型号<span class="check-tips">（不可为空）</span></label>
+            <div class="controls">
+
+                    <input type="text" class="text input-large" name="GOODS_SPEC">
+
+            </div>
+        </div>
+        
+        <div class="form-item">
+            <label class="item-label">申报计量单位<span class="check-tips">（不可为空）</span></label>
+            <div class="controls">
+
+                    <input type="text" class="text input-large" name="DECLARE_UNIT">
+
+            </div>
+        </div>
+        
+        <div class="form-item">
+            <label class="item-label">行邮税号<span class="check-tips">（不可为空）</span></label>
+            <div class="controls">
+
+                    <input type="text" class="text input-large" name="POST_TAX_NO">
+
+            </div>
+        </div>
+        
+        <div class="form-item">
+            <label class="item-label">法定计量单位<span class="check-tips">（不可为空）</span></label>
+            <div class="controls">
+
+                    <input type="text" class="text input-large" name="LEGAL_UNIT">
+
+            </div>
+        </div>
+        
+        <div class="form-item">
+            <label class="item-label">法定计量单位折算数量<span class="check-tips">（不可为空）</span></label>
+            <div class="controls">
+
+                    <input type="text" class="text input-large" name="CONV_LEGAL_UNIT_NUM">
+
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">商品HS编码<span class="check-tips">（不可为空）</span></label>
+            <div class="controls">
+
+                    <input type="text" class="text input-large" name="HS_CODE">
+
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">入区计量单位<span class="check-tips">（不可为空）</span></label>
+            <div class="controls">
+
+                    <input type="text" class="text input-large" name="IN_AREA_UNIT">
+
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">是否试点商品<span class="check-tips">（0：否1：是）</span></label>
+            <div class="controls">
+
+                    <input type="text" class="text input-large" name="IS_EXPERIMENT_GOODS" value="0">
+
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">入区计量单位折算数量<span class="check-tips">（必须填写）</span></label>
+            <div class="controls">
+
+                    <input type="text" class="text input-large" name="CONV_IN_AREA_UNIT_NUM" value="1">
+
+            </div>
+        </div>
+        
+        <div class="form-item">
+            <button class="btn submit-btn" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </div>
+    
+    </form>
+</block>
+
+<block name="script">
+<include file="Public:datetime" />
+    <script type="text/javascript">
+
+		$('.tab-nav li').click(function(){
+			
+			$(this).attr('class','current')
+						.siblings().attr('class','');
+			var n_index=$('.tab-nav li').index(this);
+				$('.tab-content').eq(n_index).show()
+							 .siblings().hide();
+		});
+	
+        //导航高亮
+        highlight_subnav('{:U('Product/index')}');
+		
+		
+    </script>
+</block>

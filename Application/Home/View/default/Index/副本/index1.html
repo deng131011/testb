@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="author"  content="q927403622"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit"/>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+<meta name="wap-font-scale" content="no">
+<title>{:C('WEB_SITE_TITLE')}</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<!--首页css-->
+<link rel="stylesheet" type="text/css" href="__CSS__/index.css"> 
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+<link rel="stylesheet" type="text/css" href="__CSS__/indexsj.css"> 
+
+<!--js-->
+<script type="text/javascript" src="__JS__/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="__JS__/layer.js"></script>
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+<script type="text/javascript" src="__JS__/style.js"></script>
+
+<!---滚动图--->
+<script type="text/javascript" src="__JS__/SuperSlide/jquery.SuperSlide.2.1.1.js"></script>
+
+</head>
+<body>
+    
+	<div class="mo_tou" style="background:#fff;">
+	    	<div class="tou_left" style="width:85%; ">
+	    		<img class="logo" src="{:picture($logo[icon])}" style="width:81%;height:auto;margin-left: 0.190625rem;"/>
+				<img class="logo_tel" src="{:picture($logo_tel[icon])}" style="width:81%;height:auto;margin-left: 0.190625rem;"/>
+	    	</div>
+	    	<div class="tou_right">
+	    		<i class="fa fa-bars mo_cd" style="color:#0b7ed6;"></i>
+	    	</div>
+	</div>
+	<div class="zz1" id="zz1"></div>
+	<include file="Public:header"/>
+	
+	
+	<!-- 主体 --->
+    <div class="index_content">
+	    <div class="widths index_con">
+		   <div class="index_tz">
+		   <img src="__IMG__/sy1.png" class="index_tz_img1"/>
+		      <div class="left line_h">
+			    <span class="tz_title">通知公告：</span>
+				 <volist name="top_tz" id="toptz" key="k">
+			     <a href="{:U('Article/details',array('top'=>3,'erid'=>$toptz[typeid],'id'=>$toptz[id]))}"><span class=" <if condition='$k eq 1'>tz_list_a<elseif condition='$k eq 2'/>tz_list_b</if>"> · {$toptz[title]} {$toptz[create_time]|date='m-d',###}</span></a>
+				 </volist>
+			    
+				
+			  </div>
+			  <div class="right line_h">
+			    <form action="{:U('Search/index')}" method="post" id="form2">
+			    <input type="text" name="keywords" id="search" value=""/>
+				<img src="__IMG__/btn.jpg" id="serch_btn"/>
+				</form>
+			  </div>
+		   </div>
+		   
+		   <div class="kuai">
+		        <div class="lun aaa">
+				   <div class="bd">
+				    <ul id="show_pic" style="left:0px">
+					    <volist name="newsimg" id="newsimgs">
+						<li>
+						  <a href="{:U('Article/details',array('top'=>3,'erid'=>$newsimgs[typeid],'id'=>$newsimgs[id]))}"><img src="{:picture($newsimgs[icon])}" class="borders"/> </a>
+						</li>
+						</volist>
+					</ul>
+					</div>
+					<div class="hd">
+						<ul>
+						     <volist name="newsimg" id="newsimgs" key="m">
+							  <li>{$m}</li>
+							 </volist>
+						</ul>
+					</div>
+					<script>
+						//轮播插件
+						jQuery(".aaa").slide({mainCell:".bd ul",autoPlay:true,delayTime:50});
+
+					</script>
+				</div>
+				
+				<div class="index_jd borders">
+				     <div class="title">
+						<span class="span1">监督动态</span>
+						<span class="more"><a href="{:U('Article/index',array('top'=>3,'erid'=>26))}">更多>></a></span>
+					 </div>
+					 <div class="list_one">
+					    <a href="{:U('Article/details',array('top'=>3,'erid'=>$ttnews[typeid],'id'=>$ttnews[id]))}">
+					    <p class="p1" title="{$ttnews[title]}">{$ttnews[title]}</p>
+					    <p class="p2">{$ttnews[descriptions]|msubstr=0,63}</p></a>
+					 </div>
+					 <div class="list_two">
+					    <ul>
+						   <volist name="newslist" id="newslists">
+						   <li><a href="{:U('Article/details',array('top'=>3,'erid'=>$newslists[typeid],'id'=>$newslists[id]))}" title="{$newslists[title]}">·{$newslists[title]|cutstr=0,24}<span>{$newslists[create_time]|date='Y-m-d',###}</span></a></li>
+						    </volist>
+						</ul>
+					 </div>
+				</div>
+				
+		   
+		   </div>
+		     <!--政策法规--->
+		   <div class="kuai index_two">
+		      <div class="index_zc borders height_two">
+			    <div class="titles titlea">
+				  <span class="span1">{$arra|modelField="category",'title'}</span><span class="more"><a href="{:U('Article/index',array('top'=>4,'erid'=>$arra))}">更多>></a></span>
+				</div>
+				<ul class="lists">
+				   <volist name="fglist" id="fglists">
+				   <li><a href="{:U('Article/details',array('top'=>4,'erid'=>$fglists[typeid],'id'=>$fglists[id]))}" title="{$fglists[title]}">·{$fglists[title]|cutstr=0,18}<span>{$fglists[create_time]|date='m-d',###}</span></a></li>
+				   </volist>
+				</ul>
+			  </div>
+			  <!--党建工作--->
+		      <div class="index_dj borders height_two">
+			    <div class="titles titleb">
+				  <span class="span1">{$arrb|modelField="category",'title'}</span><span class="more"><a href="{:U('Article/index',array('top'=>5,'erid'=>$arrb))}">更多>></a></span>
+				</div>
+				<div class="index_dj_co">
+				     <volist name="imgflag" id="imgflags">
+				     <img src="{:picture($imgflags[icon])}"/>
+					 </volist>
+				     <ul class="lists">
+					   <volist name="djlist" id="djlists">
+                        <li><a href="{:U('Article/details',array('top'=>5,'erid'=>$djlists[typeid],'id'=>$djlists[id]))}" title="{$djlists[title]}">·{$djlists[title]|cutstr=0,18}<span>{$djlists[create_time]|date='m-d',###}</span></a></li>
+					   </volist>
+					 </ul>
+				</div>
+			  </div>
+			   <!--通知公告--->
+		      <div class="index_gg borders height_two">
+			    <div class="titles titlec">
+				  <img src="__IMG__/sj3.png" class="jczsimg"/>
+				  <span class="span1">{$tzgg|modelField="category",'title'}</span><span class="more"><a href="{:U('Article/index',array('top'=>3,'erid'=>$tzgg))}">更多>></a></span>
+				</div>
+				<ul class="lists">
+				<volist name="tzlist" id="tzlists">
+				   <li><a href="{:U('Article/details',array('top'=>3,'erid'=>$tzlists[typeid],'id'=>$tzlists[id]))}" title="{$tzlists[title]}">·{$tzlists[title]|cutstr=0,18} <span>{$tzlists[create_time]|date='m-d',###}</span></a></li>
+				   
+				</volist>   
+				</ul>
+			  </div>
+		   </div>
+		   
+		   <div class="kuai index_ad"><a href="{:U($admid[url])}"><img src="{:picture($admid[icon])}"/></a></div>
+		   
+		   <div class="kuai index_three">
+		       <div class="index_zc index_zt borders height249">
+			    <div class="titles titlea">
+				<img src="__IMG__/sj2.png" class="jczsimg"/>
+				  <span class="span1" style="color:#0a74c5;">专题栏目</span></span>
+				</div>
+				<ul>
+				    <li class="zt1"><a href="{:U('Article/index',array('top'=>7,'erid'=>$ztlma[id]))}">
+					   <img src="__IMG__/dz1.png" class="ztlmimg"/>
+					   <div class="zt_jj">
+				       <p class="p1">{$ztlma[title]}</p>
+				       <p class="p2" style="white-space:nowrap;">{$ztlma[name]}</p>
+					   </div>
+				    </a></li>
+				    <li class="zt2"><a href="{:U('Article/index',array('top'=>7,'erid'=>$ztlmb[id]))}">
+					   <img src="__IMG__/dz2.png" class="ztlmimg"/>
+					   <div class="zt_jj">
+				       <p class="p1">{$ztlmb[title]}</p>
+				       <p class="p2">{$ztlmb[name]}</p>
+					   </div>
+				   </a></li>
+				    <li class="zt3"><a href="{:U('Article/index',array('top'=>7,'erid'=>$ztlmc[id]))}">
+					   <img src="__IMG__/dz3.png" class="ztlmimg"/>
+					   <div class="zt_jj">
+				       <p class="p1">{$ztlmc[title]}</p>
+				       <p class="p2">{$ztlmc[name]}</p>
+					   </div>
+				   </a></li>
+				    <li class="zt4"><a href="{:U('Article/index',array('top'=>7,'erid'=>$ztlmd[id]))}">
+					   <img src="__IMG__/dz4.png" class="ztlmimg"/>
+					   <div class="zt_jj">
+				       <p class="p1">{$ztlmd[title]}</p>
+				       <p class="p2">{$ztlmd[name]}</p>
+					   </div>
+				   </a></li>
+				   
+				   <li class="zt5"><a href="{:U('Article/index',array('top'=>7,'erid'=>$ztlme[id]))}">
+				       <img src="__IMG__/dz5.png" class="ztlmimg"/>
+					   <div class="zt_jj">
+				       <p class="p1">{$ztlme[title]}</p>
+				       <p class="p2">{$ztlme[name]}</p>
+					   </div>
+				   </a></li>
+				   <li class="zt6"><a href="{:U('Article/index',array('top'=>7,'erid'=>$ztlmf[id]))}">
+				       <img src="__IMG__/dz6.png" class="ztlmimg"/>
+					   <div class="zt_jj">
+				       <p class="p1">{$ztlmf[title]}</p>
+				       <p class="p2">{$ztlmf[name]}</p>
+					   </div>
+				   </a></li>
+				   
+				</ul>
+			  </div>
+			  
+		      <div class="index_dj index_ggfw borders height249">
+			    <div class="titles titleb">
+				  <span class="span1">公共服务</span><span class="more"><a href="{:U('Article/index',array('top'=>8))}">更多>></a></span>
+				</div>
+				 <ul class="">
+					<li class="ggfw1"><a href="{:U('Article/index',array('top'=>8,'erid'=>33))}">
+					   <img src="__IMG__/gg1.jpg"/>
+					   <div>
+					     <p class="p1">办事指南</p>
+					     <p class="p2">Handling guideline </p>
+					   <div>
+					</a></li>
+					
+					<li><a href="{:U('Article/index',array('top'=>8,'erid'=>35))}">
+					   <img src="__IMG__/gg2.jpg"/>
+					   <div>
+					     <p class="p1">表格下载</p>   
+					     <p class="p2">Download the for</p>
+					   <div>
+					</a></li>
+					
+					<li><a href="{:U('Messages/index',array('top'=>8,'erid'=>36))}">
+					   <img src="__IMG__/gg3.jpg"/>
+					   <div>
+					     <p class="p1">在线留言</p> 
+					     <p class="p2">Online message</p>
+					   <div>
+					</a></li>
+					
+					
+					
+					<li><a href="{:U('Article/index',array('top'=>8,'erid'=>34))}">
+					   <img src="__IMG__/gg5.jpg"/>
+					   <div>
+					     <p class="p1">许可公告</p>   
+					     <p class="p2">Permission Notice</p>
+					   <div>
+					</a></li>
+					
+					
+				 </ul>
+			  </div>
+			  
+		      <div class="index_gg borders height249">
+			    <div class="titles titlec">
+				  <img src="__IMG__/jkzs.png" class="jczsimg"/>
+				  <span class="span1">健康知识</span><span class="more"><a href="{:U('Article/index',array('top'=>9))}">更多>></a></span>
+				</div>
+				<ul class="lists lister">
+				  <volist name="healthlist" id="hea">
+				   <li><a href="{:U('Article/details',array('top'=>9,'erid'=>$hea[typeid],'id'=>$hea[id]))}">·{$hea[title]} <span>{$hea[create_time]|date='m-d',###}</span></a></li>
+				  </volist> 
+				</ul>
+			  </div>
+		   
+		   </div>
+		   
+		   <div class="kuai index_jdfc borders picMarquee-left index_jdfc_pc">
+		     <div class="titles">
+			   <img src="__IMG__/sy11.png"/><span class="span1">监督风采</span><span class="more"><a href="{:U('Imagelist/index',array('top'=>10))}">更多>></a></span>
+			 </div>
+			 <div class="imglist bd ">
+			    <ul id="imgslist">
+				    <volist name="jdfclist" id="jdfc">
+					<li><a href="{:U('imagelist/details',array('top'=>10,'erid'=>$jdfc[typeid],'id'=>$jdfc[id]))}">
+						<img src="{:picture($jdfc[icon])}"/>
+						<p>{$jdfc[title]}</p>
+					</a></li>
+					</volist>
+				</ul>
+			 </div>
+		 </div>
+		 
+		 <!--手机-->
+		  <div class="kuai index_jdfc borders index_jdfc_tel">
+		     <div class="titles">
+			   <img src="__IMG__/sy11.png"/><span class="span1">监督风采</span><span class="more"><a href="{:U('Imagelist/index',array('top'=>10))}">更多>></a></span>
+			 </div>
+			 <div class="imglist ">
+			    <ul id="imgslist">
+				    <volist name="jdfclist" id="jdfc" offset="0" length="4">
+					<li><a href="{:U('imagelist/details',array('top'=>10,'erid'=>$jdfc[typeid],'id'=>$jdfc[id]))}">
+						<img src="{:picture($jdfc[icon])}"/>
+						<p>{$jdfc[title]|cutstr=0,10}</p>
+					</a></li>
+					</volist>
+				</ul>
+			 </div>
+		 </div>
+		 
+		   
+		   <script>
+		     jQuery(".picMarquee-left").slide({mainCell:".bd ul",autoPlay:true,effect:"leftMarquee",vis:4,interTime:50,trigger:"click"});
+			
+		   </script>
+		   
+		   <div class="kuai index_links borders">
+			    <!--<span class="on">{$linkt[title]}</span> -->
+		      <div class="link_title">
+			    <volist name="linktitle" id="linkt" key="nn">
+			    <span class="linkstitle <if condition='$nn eq 1'>ons</if>">{$linkt[title]}</span> 
+				</volist>
+			    
+			  </div>
+			  
+			  <volist name="linktitle" id="linkts" key="n">
+			  <ul class="imglinks" style="<if condition='$n eq 1'>display:block;<else />display:none;</if>">
+			     <volist name="linklist[$linkts[id]]" id="linkli">
+			     <li><a href="{$linkli[url]}" target="_blank"><img src="{:picture($linkli[icon])}"/></a></li>
+				 </volist>
+			  </ul>
+			  </volist>
+			  
+		   </div>
+		</div>
+	</div>
+	<script>
+	
+	   //友情链接切换
+	   $(".linkstitle").click(function(){
+	       $(".linkstitle").removeClass("ons");
+	       $(this).addClass("ons");
+		   var index = $(this).index();
+		   $(".imglinks").css('display','none');
+		   $(".imglinks").eq(index).css('display','block');
+		   
+		   
+	   });
+	   
+	   //搜索
+	   $("#serch_btn").click(function(){
+	   
+	      var keywords = $("input[name='keywords']").val();
+		  if(keywords==''){
+		     layer.alert('请输入关键字');
+			 return false;
+		  }
+		  $("#form2").submit();
+	   
+	   });
+	   
+	   
+	
+	</script>
+	
+	
+    <!--footer--->
+   <include file="Public:footer"/>
+	</body>
+</html>

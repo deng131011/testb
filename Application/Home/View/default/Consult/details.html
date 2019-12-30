@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>{:C('WEB_SITE_TITLE')}</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+<link rel="stylesheet" type="text/css" href="__CSS__/person.css"> 
+<!--js-->
+<script type="text/javascript" src="__STATIC__/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+
+<style type="text/css">
+.xq_width {color: #7a7a7a; text-indent: 2em;}
+
+</style>
+</head>
+<body onload="init()">
+    <div class="main product">
+          <div class="xq_top">
+          	<img src="__IMG__/product/xq1.jpg"/>
+          </div>
+          <div class="xq_topbj">
+          	  <p class="p2" style="margin-top:0.5333333333rem">{$vo[title]}</p>
+          </div>
+
+          <div class="xq_mid">
+          	  <div class="xq_con">
+          	  	   <div class="xq_width">
+          	  	   	   <p>{$vo[content]}</p>
+          	  	   </div>
+
+          	  	   
+
+          	  	   
+
+
+          	  </div>
+          </div>
+
+
+
+      
+	</div>
+
+
+
+
+    <!--底部导航-->
+        <include file="Public:bottomnav"/>
+
+
+</body>
+</html>

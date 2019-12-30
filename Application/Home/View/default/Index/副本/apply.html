@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="author"  content="q927403622"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit"/>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+<meta name="wap-font-scale" content="no">
+<title>{:C('WEB_SITE_TITLE')}</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+
+
+</head>
+<body>
+
+    <!--<form action="{:U('index/add')}" method="post">
+	<p>姓名<input type="text" name="name" value=""></p>
+	<p>电话<input type="text" name="mobile" value=""></p>
+	<p>公司<input type="text" name="company" value=""></p>
+	<p>内容<input type="text" name="content" value=""></p>
+	<p><input type="submit" value="提交"></p>
+	</form>-->
+<p>签到</p>		
+<form action="{:U('index/addsign')}" method="post">
+    <input type="text" name="hd_id" value="{$hd_id}">
+	<p>姓名<input type="text" name="username" value=""></p>
+	<p>电话<input type="text" name="mobile" value=""></p>
+	<p>公司<input type="text" name="company" value=""></p>
+	<p><input type="submit" value="提交"></p>
+</form>
+
+
+<br/>
+<br/>
+<br/>
+	
+
+<p>问卷调查</p>	
+<div style="margin-top:100px;"></div>	
+
+    <form action="{:U('index/add')}" method="post">
+	<p>姓名<input type="text" name="cid" value=""></p>
+	
+	<volist name="list" id="vo">
+	  <p style="font-weight:bold;">{$vo[title]}</p>
+	  <volist name="vo[problem]" id="vos" key="m">
+	  <p style="text-indent:2em;">{$m}、{$vos[title]}?</p>
+	  <input type="hidden" name="wtid[]" value="{$vos[id]}">
+	  <p style="text-indent:4em;">
+	    <input type="radio" name="like{$vos[id]}" value="5" />非常喜欢
+	    <input type="radio" name="like{$vos[id]}" value="4" />喜欢
+	    <input type="radio" name="like{$vos[id]}" value="3"/>一般
+	    <input type="radio" name="like{$vos[id]}" value="2"/>不太好
+	    <input type="radio" name="like{$vos[id]}" value="1" />非常差
+	   </p>	
+	   <p style="text-indent:4em;">	
+	    <input type="radio" name="important{$vos[id]}" value="3" />重要
+	    <input type="radio" name="important{$vos[id]}"  value="2"/>一般
+	    <input type="radio" name="important{$vos[id]}" value="1" />不适用
+	   </p>
+	  </volist>  
+	</volist>  
+	  <p>
+	   意见及建议： <textarea name="content"></textarea>
+	  </p>
+	  
+	  
+	<p><input type="submit" value="提交"></p>
+	</form>
+	
+	
+	
+	
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="wap-font-scale" content="no">
+
+<title>{:C('WEB_SITE_TITLE')}</title>
+<meta name="keywords" content="{:C('WEB_SITE_KEYWORD')}" />
+<meta name="description" content="{:C('WEB_SITE_DESCRIPTION')}" />
+<!--fonts-->
+<link rel="stylesheet" type="text/css" href="__FONTS__/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/comm.css"> 
+<link rel="stylesheet" type="text/css" href="__CSS__/person.css"> 
+<!--js-->
+<script type="text/javascript" src="__JS__/mobile.js"></script>
+<script type="text/javascript" src="__JS__/jquery-1.8.0.js"></script>
+
+<!--筛选弹框js-->
+<script type="text/javascript" src="__JS__/style.js"></script>
+
+
+
+<style type="text/css">
+	.num_pro{color: #fff; background: #cccccc; border-radius: 50%; padding:0.0666666667rem 0.18rem; font-size:0.2666666667rem; margin-left: 0.2666666667rem; 
+
+	}
+	.xh_liebiao p .span1{font-size: 0.3466666667rem;}	
+	..xh_liebiao p .span2{font-size: 0.3466666667rem;}
+	.height100 p .span1{font-size: 0.3466666667rem;}
+	.height100 p .span2{font-size: 0.3466666667rem;}
+	.top p{margin-top:0;}
+	.contactwidth{width:100%; margin-bottom: 0.4rem}
+	.contactwidth .p1{font-size:0.4266666667rem; color: #2d2b2b; font-weight: bold; }
+	 .contactwidth .p2 {color: #63665d; font-size: 0.3466666667rem;}
+</style>
+</head>
+<body onload="init()">
+    <div class="main">
+       <!--顶部图-->
+	   <div class="top" style="background: url('__IMG__/contact.png') no-repeat; background-size:100% 100%; ">
+	   	    <p style="margin-top: 0.6666666667rem;">联系我们</p>
+	   	    <p>Contact Us</p>
+
+	   </div>
+
+	   <!--内容-->
+	   <div class="pro_mid">
+             <div style="width:8.8533333333rem; margin:0 auto;">
+                  <div class="contactwidth" style="margin-top:0.9333333333rem;"><p class="p1">{:C('WEB_SITE_TITLE')}</p></div>
+                  <div class="contactwidth"><p class="p2">地址：{:C('WEB_COM_ADDRESS')} </p></div>
+                  <div class="contactwidth"><p class="p2">电话：{:C('WEB_SITE_MOBILE')}</p></div>
+                  <div class="contactwidth"><p class="p2">邮箱：{:C('WEB_BOSIGE_EMAIL')}</p></div>
+
+                  <div id="container" style="height:6.6266666667rem; width:100%;margin-top:0.6666666667rem;">
+                  	
+
+                  </div>
+ 
+
+             </div>
+	   </div>
+	     
+          
+	</div>
+
+
+    <!--搜索遮罩-->
+     <include file="Product:search"/>
+	
+
+
+
+    <!--底部导航-->
+       <include file="Public:bottomnav"/>
+
+
+
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
+<script>
+
+var init = function() {
+    var center = new qq.maps.LatLng(31.349420,120.796270);
+    var map = new qq.maps.Map(document.getElementById('container'),{
+        center: center,
+        zoom: 13,
+        mapTypeControlOptions: {
+                    //设置控件的地图类型ID，ROADMAP显示普通街道地图，SATELLITE显示卫星图像，HYBRID显示卫星图像上的主要街道透明层
+                    mapTypeIds: [
+                        qq.maps.MapTypeId.ROADMAP,
+                    ],
+                    
+                }
+
+    });
+
+    var label = new qq.maps.Label({
+        position: center,
+        map: map,
+        content: '博思格钢铁有限公司'
+    });
+	
+
+	
+    //创建标记
+    var marker = new qq.maps.Marker({
+        position: center,
+        map: map
+    });
+    //添加到提示窗
+    var info = new qq.maps.InfoWindow({
+        map: map
+    });
+
+   
+  
+    
+}
+
+
+</script>
+
+
+    
+
+
+
+</body>
+</html>
